@@ -81,7 +81,7 @@ impl PrimitiveDateTime {
                 year: 1970,
                 ordinal: 1,
             },
-            time: time!(0:00),
+            time: Time::midnight(),
         }
     }
 
@@ -466,7 +466,7 @@ impl PrimitiveDateTime {
     pub const fn assume_utc(self) -> OffsetDateTime {
         OffsetDateTime {
             utc_datetime: self,
-            offset: offset!(UTC),
+            offset: UtcOffset { seconds: 0 },
         }
     }
 }

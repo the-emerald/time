@@ -9,7 +9,7 @@ use core::{
     ops::{Add, AddAssign, Sub, SubAssign},
     time::Duration as StdDuration,
 };
-use time_macros::time;
+// use time_macros::time;
 
 /// The number of nanoseconds in one day.
 pub(crate) const NANOS_PER_DAY: u64 = 24 * 60 * 60 * 1_000_000_000;
@@ -44,7 +44,12 @@ impl Time {
     /// ```
     #[inline(always)]
     pub const fn midnight() -> Self {
-        time!(0:00)
+        Time {
+            hour: 0,
+            minute: 0,
+            second: 0,
+            nanosecond: 0,
+        }
     }
 
     /// Create a `Time` from the hour, minute, and second.
