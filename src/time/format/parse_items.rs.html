@@ -182,7 +182,7 @@
 <span class="doccomment">//! Parse formats used in the `format` and `parse` methods.</span>
 
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">format</span>::{<span class="ident">FormatItem</span>, <span class="ident">Padding</span>, <span class="ident">Specifier</span>};
-<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">no_std</span>)]</span>
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">std</span>))]</span>
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">internal_prelude</span>::<span class="kw-2">*</span>;
 
 <span class="doccomment">/// Parse the formatting string. Panics if not valid.</span>
