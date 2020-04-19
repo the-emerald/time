@@ -1022,13 +1022,13 @@
             <span class="kw">let</span> <span class="ident">tm</span> <span class="op">=</span> <span class="ident">timestamp_to_tm</span>(<span class="ident">datetime</span>.<span class="ident">timestamp</span>())<span class="question-mark">?</span>;
 
             <span class="comment">// `tm_gmtoff` extension</span>
-            <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;solaris&quot;</span>))]</span>
+            <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">any</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;solaris&quot;</span>, <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;illumos&quot;</span>)))]</span>
             {
                 <span class="ident">tm</span>.<span class="ident">tm_gmtoff</span>.<span class="ident">try_into</span>().<span class="ident">ok</span>().<span class="ident">map</span>(<span class="ident">UtcOffset</span>::<span class="ident">seconds</span>)
             }
 
             <span class="comment">// No `tm_gmtoff` extension</span>
-            <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;solaris&quot;</span>)]</span>
+            <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;solaris&quot;</span>, <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;illumos&quot;</span>))]</span>
             {
                 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">Date</span>;
                 <span class="kw">use</span> <span class="ident">core</span>::<span class="ident">convert</span>::<span class="ident">TryFrom</span>;
