@@ -640,7 +640,6 @@
 <span id="640">640</span>
 <span id="641">641</span>
 <span id="642">642</span>
-<span id="643">643</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">crate</span>::{
     <span class="ident">format</span>::{<span class="ident">parse</span>, <span class="ident">ParsedItems</span>},
@@ -1097,7 +1096,7 @@
 
             <span class="doccomment">/// Convert an `OffsetDateTime` to a `SYSTEMTIME`.</span>
             <span class="kw">fn</span> <span class="ident">offset_to_systemtime</span>(<span class="ident">datetime</span>: <span class="ident">OffsetDateTime</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SYSTEMTIME</span> {
-                <span class="kw">let</span> (<span class="ident">month</span>, <span class="ident">day_of_month</span>) <span class="op">=</span> <span class="ident">datetime</span>.<span class="ident">to_offset</span>(<span class="macro">offset</span><span class="macro">!</span>(<span class="ident">UTC</span>)).<span class="ident">month_day</span>();
+                <span class="kw">let</span> (<span class="ident">month</span>, <span class="ident">day_of_month</span>) <span class="op">=</span> <span class="ident">datetime</span>.<span class="ident">to_offset</span>(<span class="ident">UtcOffset</span>::<span class="ident">UTC</span>).<span class="ident">month_day</span>();
                 <span class="ident">SYSTEMTIME</span> {
                     <span class="ident">wYear</span>: <span class="ident">datetime</span>.<span class="ident">year</span>() <span class="kw">as</span> <span class="ident">u16</span>,
                     <span class="ident">wMonth</span>: <span class="ident">month</span> <span class="kw">as</span> <span class="ident">u16</span>,
@@ -1111,7 +1110,7 @@
             }
 
             <span class="comment">// This function falls back to UTC if any system call fails.</span>
-            <span class="kw">let</span> <span class="ident">systime_utc</span> <span class="op">=</span> <span class="ident">offset_to_systemtime</span>(<span class="ident">datetime</span>.<span class="ident">to_offset</span>(<span class="macro">offset</span><span class="macro">!</span>(<span class="ident">UTC</span>)));
+            <span class="kw">let</span> <span class="ident">systime_utc</span> <span class="op">=</span> <span class="ident">offset_to_systemtime</span>(<span class="ident">datetime</span>.<span class="ident">to_offset</span>(<span class="ident">UtcOffset</span>::<span class="ident">UTC</span>));
 
             <span class="comment">// Safety: `local_time` is only read if it is properly initialized, and</span>
             <span class="comment">// `SystemTimeToTzSpecificLocalTime` is thread-safe.</span>
@@ -1162,7 +1161,6 @@
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">test</span> {
     <span class="kw">use</span> <span class="kw">super</span>::<span class="kw-2">*</span>;
-    <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">offset</span>;
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">hours</span>() {

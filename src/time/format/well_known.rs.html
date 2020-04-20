@@ -201,7 +201,7 @@
         }
 
         <span class="kw">if</span> <span class="ident">try_consume_char_case_insensitive</span>(<span class="ident">s</span>, <span class="string">&#39;Z&#39;</span>).<span class="ident">is_ok</span>() {
-            <span class="ident">items</span>.<span class="ident">offset</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="macro">offset</span><span class="macro">!</span>(<span class="ident">UTC</span>));
+            <span class="ident">items</span>.<span class="ident">offset</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">UtcOffset</span>::<span class="ident">UTC</span>);
         } <span class="kw">else</span> {
             <span class="kw">let</span> <span class="ident">offset_sign</span> <span class="op">=</span>
                 <span class="kw">match</span> <span class="ident">try_consume_first_match</span>(<span class="ident">s</span>, [(<span class="string">&quot;+&quot;</span>, <span class="number">1</span>), (<span class="string">&quot;-&quot;</span>, <span class="op">-</span><span class="number">1</span>)].<span class="ident">iter</span>().<span class="ident">cloned</span>()) {

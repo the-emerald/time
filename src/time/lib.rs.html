@@ -565,6 +565,49 @@
 <span id="565">565</span>
 <span id="566">566</span>
 <span id="567">567</span>
+<span id="568">568</span>
+<span id="569">569</span>
+<span id="570">570</span>
+<span id="571">571</span>
+<span id="572">572</span>
+<span id="573">573</span>
+<span id="574">574</span>
+<span id="575">575</span>
+<span id="576">576</span>
+<span id="577">577</span>
+<span id="578">578</span>
+<span id="579">579</span>
+<span id="580">580</span>
+<span id="581">581</span>
+<span id="582">582</span>
+<span id="583">583</span>
+<span id="584">584</span>
+<span id="585">585</span>
+<span id="586">586</span>
+<span id="587">587</span>
+<span id="588">588</span>
+<span id="589">589</span>
+<span id="590">590</span>
+<span id="591">591</span>
+<span id="592">592</span>
+<span id="593">593</span>
+<span id="594">594</span>
+<span id="595">595</span>
+<span id="596">596</span>
+<span id="597">597</span>
+<span id="598">598</span>
+<span id="599">599</span>
+<span id="600">600</span>
+<span id="601">601</span>
+<span id="602">602</span>
+<span id="603">603</span>
+<span id="604">604</span>
+<span id="605">605</span>
+<span id="606">606</span>
+<span id="607">607</span>
+<span id="608">608</span>
+<span id="609">609</span>
+<span id="610">610</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="doccomment">//! Simple time handling.</span>
 <span class="doccomment">//!</span>
@@ -759,11 +802,6 @@
 <span class="comment">// guarantees that edition 2018 is available.</span>
 <span class="attribute">#![<span class="ident">doc</span>(<span class="ident">test</span>(<span class="ident">no_crate_inject</span>))]</span>
 
-<span class="comment">// This is necessary to allow our proc macros to work.</span>
-<span class="comment">// See rust-lang/rust#54647 for details.</span>
-<span class="comment">// Unfortunately, this also means we can&#39;t have a `time` mod.</span>
-<span class="kw">extern</span> <span class="kw">crate</span> <span class="self">self</span> <span class="kw">as</span> <span class="ident">time</span>;
-
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">panicking_api</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">docs</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;panicking-api&quot;</span>)))]</span>
 <span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">format_conditional</span> {
@@ -864,6 +902,55 @@
                 ));
             }
         }
+    };
+}
+
+<span class="doccomment">/// A macro to generate `Time`s at runtime, usable for tests.</span>
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
+<span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">time</span> {
+    (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">hour</span>:<span class="ident">literal</span> : <span class="macro-nonterminal">$</span><span class="macro-nonterminal">minute</span>:<span class="ident">literal</span>) <span class="op">=</span><span class="op">&gt;</span> {
+        <span class="kw">crate</span>::<span class="ident">Time</span>::<span class="ident">try_from_hms</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">hour</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">minute</span>, <span class="number">0</span>)<span class="question-mark">?</span>
+    };
+    (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">hour</span>:<span class="ident">literal</span> : <span class="macro-nonterminal">$</span><span class="macro-nonterminal">minute</span>:<span class="ident">literal</span> : <span class="macro-nonterminal">$</span><span class="macro-nonterminal">second</span>:<span class="ident">literal</span>) <span class="op">=</span><span class="op">&gt;</span> {
+        <span class="kw">crate</span>::<span class="ident">Time</span>::<span class="ident">try_from_hms</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">hour</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">minute</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">second</span>)<span class="question-mark">?</span>
+    };
+    (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">hour</span>:<span class="ident">literal</span> : <span class="macro-nonterminal">$</span><span class="macro-nonterminal">minute</span>:<span class="ident">literal</span> : <span class="macro-nonterminal">$</span><span class="macro-nonterminal">second</span>:<span class="ident">literal</span> : <span class="macro-nonterminal">$</span><span class="macro-nonterminal">nanosecond</span>:<span class="ident">literal</span>) <span class="op">=</span><span class="op">&gt;</span> {
+        <span class="kw">crate</span>::<span class="ident">Time</span>::<span class="ident">try_from_hms_nano</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">hour</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">minute</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">second</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">nanosecond</span>)<span class="question-mark">?</span>
+    };
+}
+
+<span class="doccomment">/// A macro to generate `UtcOffset`s with *no data verification*, usable for</span>
+<span class="doccomment">/// tests.</span>
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
+<span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">offset</span> {
+    (<span class="ident">UTC</span>) <span class="op">=</span><span class="op">&gt;</span> {
+        <span class="kw">crate</span>::<span class="ident">UtcOffset</span>::<span class="ident">UTC</span>
+    };
+    ($(<span class="op">+</span>)<span class="question-mark">?</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">hour</span>:<span class="ident">literal</span>) <span class="op">=</span><span class="op">&gt;</span> {
+        <span class="kw">crate</span>::<span class="ident">UtcOffset</span>::<span class="ident">hours</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">hour</span>)
+    };
+    (<span class="op">+</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">hour</span>:<span class="ident">literal</span> : <span class="macro-nonterminal">$</span><span class="macro-nonterminal">minute</span>:<span class="ident">literal</span>) <span class="op">=</span><span class="op">&gt;</span> {
+        <span class="kw">crate</span>::<span class="ident">UtcOffset</span>::<span class="ident">minutes</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">hour</span> <span class="op">*</span> <span class="number">60</span> <span class="op">+</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">minute</span>)
+    };
+    (<span class="op">+</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">hour</span>:<span class="ident">literal</span> : <span class="macro-nonterminal">$</span><span class="macro-nonterminal">minute</span>:<span class="ident">literal</span> : <span class="macro-nonterminal">$</span><span class="macro-nonterminal">second</span>:<span class="ident">literal</span>) <span class="op">=</span><span class="op">&gt;</span> {
+        <span class="kw">crate</span>::<span class="ident">UtcOffset</span>::<span class="ident">seconds</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">hour</span> <span class="op">*</span> <span class="number">3_600</span> <span class="op">+</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">minute</span> <span class="op">*</span> <span class="number">60</span> <span class="op">+</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">second</span>)
+    };
+    (<span class="op">-</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">hour</span>:<span class="ident">literal</span> : <span class="macro-nonterminal">$</span><span class="macro-nonterminal">minute</span>:<span class="ident">literal</span>) <span class="op">=</span><span class="op">&gt;</span> {
+        <span class="kw">crate</span>::<span class="ident">UtcOffset</span>::<span class="ident">minutes</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">hour</span> <span class="op">*</span> <span class="op">-</span><span class="number">60</span> <span class="op">-</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">minute</span>)
+    };
+    (<span class="op">-</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">hour</span>:<span class="ident">literal</span> : <span class="macro-nonterminal">$</span><span class="macro-nonterminal">minute</span>:<span class="ident">literal</span> : <span class="macro-nonterminal">$</span><span class="macro-nonterminal">second</span>:<span class="ident">literal</span>) <span class="op">=</span><span class="op">&gt;</span> {
+        <span class="kw">crate</span>::<span class="ident">UtcOffset</span>::<span class="ident">seconds</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">hour</span> <span class="op">*</span> <span class="op">-</span><span class="number">3_600</span> <span class="op">-</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">minute</span> <span class="op">*</span> <span class="number">60</span> <span class="op">-</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">second</span>)
+    };
+}
+
+<span class="doccomment">/// A macro to generate `Date`s at runtime, usable for tests.</span>
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
+<span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">date</span> {
+    ($(<span class="op">+</span>)<span class="question-mark">?</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">year</span>:<span class="ident">literal</span> <span class="op">-</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ordinal</span>:<span class="ident">literal</span>) <span class="op">=</span><span class="op">&gt;</span> {
+        <span class="kw">crate</span>::<span class="ident">Date</span>::<span class="ident">try_from_yo</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">year</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ordinal</span>)<span class="question-mark">?</span>
+    };
+    ($(<span class="op">+</span>)<span class="question-mark">?</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">year</span>:<span class="ident">literal</span> <span class="op">-</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">month</span>:<span class="ident">literal</span> <span class="op">-</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">day</span>:<span class="ident">literal</span>) <span class="op">=</span><span class="op">&gt;</span> {
+        <span class="kw">crate</span>::<span class="ident">Date</span>::<span class="ident">try_from_ymd</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">year</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">month</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">day</span>)<span class="question-mark">?</span>
     };
 }
 
@@ -1033,7 +1120,6 @@
         <span class="ident">vec</span>::<span class="ident">Vec</span>,
     };
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">use</span> <span class="ident">standback</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
-    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">use</span> <span class="ident">time_macros</span>::{<span class="ident">date</span>, <span class="ident">offset</span>, <span class="ident">time</span>};
 }
 
 <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">missing_docs_in_private_items</span>)]</span>

@@ -1900,6 +1900,56 @@
 <span id="1900">1900</span>
 <span id="1901">1901</span>
 <span id="1902">1902</span>
+<span id="1903">1903</span>
+<span id="1904">1904</span>
+<span id="1905">1905</span>
+<span id="1906">1906</span>
+<span id="1907">1907</span>
+<span id="1908">1908</span>
+<span id="1909">1909</span>
+<span id="1910">1910</span>
+<span id="1911">1911</span>
+<span id="1912">1912</span>
+<span id="1913">1913</span>
+<span id="1914">1914</span>
+<span id="1915">1915</span>
+<span id="1916">1916</span>
+<span id="1917">1917</span>
+<span id="1918">1918</span>
+<span id="1919">1919</span>
+<span id="1920">1920</span>
+<span id="1921">1921</span>
+<span id="1922">1922</span>
+<span id="1923">1923</span>
+<span id="1924">1924</span>
+<span id="1925">1925</span>
+<span id="1926">1926</span>
+<span id="1927">1927</span>
+<span id="1928">1928</span>
+<span id="1929">1929</span>
+<span id="1930">1930</span>
+<span id="1931">1931</span>
+<span id="1932">1932</span>
+<span id="1933">1933</span>
+<span id="1934">1934</span>
+<span id="1935">1935</span>
+<span id="1936">1936</span>
+<span id="1937">1937</span>
+<span id="1938">1938</span>
+<span id="1939">1939</span>
+<span id="1940">1940</span>
+<span id="1941">1941</span>
+<span id="1942">1942</span>
+<span id="1943">1943</span>
+<span id="1944">1944</span>
+<span id="1945">1945</span>
+<span id="1946">1946</span>
+<span id="1947">1947</span>
+<span id="1948">1948</span>
+<span id="1949">1949</span>
+<span id="1950">1950</span>
+<span id="1951">1951</span>
+<span id="1952">1952</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">crate</span>::{
     <span class="ident">format</span>::<span class="ident">parse</span>::{<span class="ident">parse</span>, <span class="ident">ParsedItems</span>},
@@ -2918,7 +2968,7 @@
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
-    <span class="kw">fn</span> <span class="ident">to_offset</span>() {
+    <span class="kw">fn</span> <span class="ident">to_offset</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="macro">assert_eq</span><span class="macro">!</span>(
             <span class="macro">date</span><span class="macro">!</span>(<span class="number">2000</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">01</span>)
                 .<span class="ident">midnight</span>()
@@ -2937,18 +2987,20 @@
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">new_york</span>.<span class="ident">day</span>(), <span class="number">31</span>);
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">los_angeles</span>.<span class="ident">hour</span>(), <span class="number">5</span>);
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">los_angeles</span>.<span class="ident">day</span>(), <span class="number">31</span>);
+        <span class="prelude-val">Ok</span>(())
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
-    <span class="kw">fn</span> <span class="ident">unix_epoch</span>() {
+    <span class="kw">fn</span> <span class="ident">unix_epoch</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="macro">assert_eq</span><span class="macro">!</span>(
             <span class="ident">OffsetDateTime</span>::<span class="ident">unix_epoch</span>(),
-            <span class="macro">date</span><span class="macro">!</span>(<span class="number">1970</span><span class="op">-</span><span class="number">1</span><span class="op">-</span><span class="number">1</span>).<span class="ident">midnight</span>().<span class="ident">assume_utc</span>(),
+            <span class="macro">date</span><span class="macro">!</span>(<span class="number">1970</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">01</span>).<span class="ident">midnight</span>().<span class="ident">assume_utc</span>(),
         );
+        <span class="prelude-val">Ok</span>(())
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
-    <span class="kw">fn</span> <span class="ident">from_unix_timestamp</span>() {
+    <span class="kw">fn</span> <span class="ident">from_unix_timestamp</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="macro">assert_eq</span><span class="macro">!</span>(
             <span class="ident">OffsetDateTime</span>::<span class="ident">from_unix_timestamp</span>(<span class="number">0</span>),
             <span class="ident">OffsetDateTime</span>::<span class="ident">unix_epoch</span>(),
@@ -2957,10 +3009,11 @@
             <span class="ident">OffsetDateTime</span>::<span class="ident">from_unix_timestamp</span>(<span class="number">1_546_300_800</span>),
             <span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">01</span>).<span class="ident">midnight</span>().<span class="ident">assume_utc</span>(),
         );
+        <span class="prelude-val">Ok</span>(())
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
-    <span class="kw">fn</span> <span class="ident">offset</span>() {
+    <span class="kw">fn</span> <span class="ident">offset</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="macro">assert_eq</span><span class="macro">!</span>(
             <span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">01</span>).<span class="ident">midnight</span>().<span class="ident">assume_utc</span>().<span class="ident">offset</span>(),
             <span class="macro">offset</span><span class="macro">!</span>(<span class="ident">UTC</span>),
@@ -2980,10 +3033,11 @@
                 .<span class="ident">offset</span>(),
             <span class="macro">offset</span><span class="macro">!</span>(<span class="op">+</span><span class="number">1</span>),
         );
+        <span class="prelude-val">Ok</span>(())
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
-    <span class="kw">fn</span> <span class="ident">timestamp</span>() {
+    <span class="kw">fn</span> <span class="ident">timestamp</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">OffsetDateTime</span>::<span class="ident">unix_epoch</span>().<span class="ident">timestamp</span>(), <span class="number">0</span>);
         <span class="macro">assert_eq</span><span class="macro">!</span>(
             <span class="ident">OffsetDateTime</span>::<span class="ident">unix_epoch</span>()
@@ -2998,10 +3052,11 @@
                 .<span class="ident">timestamp</span>(),
             <span class="number">3_600</span>,
         );
+        <span class="prelude-val">Ok</span>(())
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
-    <span class="kw">fn</span> <span class="ident">date</span>() {
+    <span class="kw">fn</span> <span class="ident">date</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="macro">assert_eq</span><span class="macro">!</span>(
             <span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">01</span>).<span class="ident">midnight</span>().<span class="ident">assume_utc</span>().<span class="ident">date</span>(),
             <span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">01</span>),
@@ -3014,10 +3069,11 @@
                 .<span class="ident">date</span>(),
             <span class="macro">date</span><span class="macro">!</span>(<span class="number">2018</span><span class="op">-</span><span class="number">12</span><span class="op">-</span><span class="number">31</span>),
         );
+        <span class="prelude-val">Ok</span>(())
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
-    <span class="kw">fn</span> <span class="ident">time</span>() {
+    <span class="kw">fn</span> <span class="ident">time</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="macro">assert_eq</span><span class="macro">!</span>(
             <span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">01</span>).<span class="ident">midnight</span>().<span class="ident">assume_utc</span>().<span class="ident">time</span>(),
             <span class="macro">time</span><span class="macro">!</span>(<span class="number">0</span>:<span class="number">00</span>),
@@ -3030,10 +3086,11 @@
                 .<span class="ident">time</span>(),
             <span class="macro">time</span><span class="macro">!</span>(<span class="number">23</span>:<span class="number">00</span>),
         );
+        <span class="prelude-val">Ok</span>(())
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
-    <span class="kw">fn</span> <span class="ident">year</span>() {
+    <span class="kw">fn</span> <span class="ident">year</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">01</span>).<span class="ident">midnight</span>().<span class="ident">assume_utc</span>().<span class="ident">year</span>(), <span class="number">2019</span>);
         <span class="macro">assert_eq</span><span class="macro">!</span>(
             <span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">12</span><span class="op">-</span><span class="number">31</span>)
@@ -3044,10 +3101,11 @@
             <span class="number">2020</span>,
         );
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="macro">date</span><span class="macro">!</span>(<span class="number">2020</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">01</span>).<span class="ident">midnight</span>().<span class="ident">assume_utc</span>().<span class="ident">year</span>(), <span class="number">2020</span>);
+        <span class="prelude-val">Ok</span>(())
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
-    <span class="kw">fn</span> <span class="ident">month</span>() {
+    <span class="kw">fn</span> <span class="ident">month</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">01</span>).<span class="ident">midnight</span>().<span class="ident">assume_utc</span>().<span class="ident">month</span>(), <span class="number">1</span>);
         <span class="macro">assert_eq</span><span class="macro">!</span>(
             <span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">12</span><span class="op">-</span><span class="number">31</span>)
@@ -3057,10 +3115,11 @@
                 .<span class="ident">month</span>(),
             <span class="number">1</span>,
         );
+        <span class="prelude-val">Ok</span>(())
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
-    <span class="kw">fn</span> <span class="ident">day</span>() {
+    <span class="kw">fn</span> <span class="ident">day</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">01</span>).<span class="ident">midnight</span>().<span class="ident">assume_utc</span>().<span class="ident">day</span>(), <span class="number">1</span>);
         <span class="macro">assert_eq</span><span class="macro">!</span>(
             <span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">12</span><span class="op">-</span><span class="number">31</span>)
@@ -3070,10 +3129,11 @@
                 .<span class="ident">day</span>(),
             <span class="number">1</span>,
         );
+        <span class="prelude-val">Ok</span>(())
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
-    <span class="kw">fn</span> <span class="ident">month_day</span>() {
+    <span class="kw">fn</span> <span class="ident">month_day</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="macro">assert_eq</span><span class="macro">!</span>(
             <span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">01</span>).<span class="ident">midnight</span>().<span class="ident">assume_utc</span>().<span class="ident">month_day</span>(),
             (<span class="number">1</span>, <span class="number">1</span>),
@@ -3086,10 +3146,11 @@
                 .<span class="ident">month_day</span>(),
             (<span class="number">1</span>, <span class="number">1</span>),
         );
+        <span class="prelude-val">Ok</span>(())
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
-    <span class="kw">fn</span> <span class="ident">ordinal</span>() {
+    <span class="kw">fn</span> <span class="ident">ordinal</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">01</span>).<span class="ident">midnight</span>().<span class="ident">assume_utc</span>().<span class="ident">ordinal</span>(), <span class="number">1</span>);
         <span class="macro">assert_eq</span><span class="macro">!</span>(
             <span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">12</span><span class="op">-</span><span class="number">31</span>)
@@ -3099,26 +3160,29 @@
                 .<span class="ident">ordinal</span>(),
             <span class="number">1</span>,
         );
+        <span class="prelude-val">Ok</span>(())
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
-    <span class="kw">fn</span> <span class="ident">week</span>() {
+    <span class="kw">fn</span> <span class="ident">week</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">01</span>).<span class="ident">midnight</span>().<span class="ident">assume_utc</span>().<span class="ident">week</span>(), <span class="number">1</span>);
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="macro">date</span><span class="macro">!</span>(<span class="number">2020</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">01</span>).<span class="ident">midnight</span>().<span class="ident">assume_utc</span>().<span class="ident">week</span>(), <span class="number">1</span>);
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="macro">date</span><span class="macro">!</span>(<span class="number">2020</span><span class="op">-</span><span class="number">12</span><span class="op">-</span><span class="number">31</span>).<span class="ident">midnight</span>().<span class="ident">assume_utc</span>().<span class="ident">week</span>(), <span class="number">53</span>);
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="macro">date</span><span class="macro">!</span>(<span class="number">2021</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">01</span>).<span class="ident">midnight</span>().<span class="ident">assume_utc</span>().<span class="ident">week</span>(), <span class="number">53</span>);
+        <span class="prelude-val">Ok</span>(())
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
-    <span class="kw">fn</span> <span class="ident">weekday</span>() {
+    <span class="kw">fn</span> <span class="ident">weekday</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="kw">use</span> <span class="ident">Weekday</span>::<span class="kw-2">*</span>;
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">01</span>).<span class="ident">midnight</span>().<span class="ident">assume_utc</span>().<span class="ident">weekday</span>(), <span class="ident">Tuesday</span>);
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">02</span><span class="op">-</span><span class="number">01</span>).<span class="ident">midnight</span>().<span class="ident">assume_utc</span>().<span class="ident">weekday</span>(), <span class="ident">Friday</span>);
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">03</span><span class="op">-</span><span class="number">01</span>).<span class="ident">midnight</span>().<span class="ident">assume_utc</span>().<span class="ident">weekday</span>(), <span class="ident">Friday</span>);
+        <span class="prelude-val">Ok</span>(())
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
-    <span class="kw">fn</span> <span class="ident">hour</span>() {
+    <span class="kw">fn</span> <span class="ident">hour</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">01</span>).<span class="ident">midnight</span>().<span class="ident">assume_utc</span>().<span class="ident">hour</span>(), <span class="number">0</span>);
         <span class="macro">assert_eq</span><span class="macro">!</span>(
             <span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">01</span>)
@@ -3128,10 +3192,11 @@
                 .<span class="ident">hour</span>(),
             <span class="number">21</span>,
         );
+        <span class="prelude-val">Ok</span>(())
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
-    <span class="kw">fn</span> <span class="ident">minute</span>() {
+    <span class="kw">fn</span> <span class="ident">minute</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">01</span>).<span class="ident">midnight</span>().<span class="ident">assume_utc</span>().<span class="ident">minute</span>(), <span class="number">0</span>);
         <span class="macro">assert_eq</span><span class="macro">!</span>(
             <span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">01</span>)
@@ -3141,10 +3206,11 @@
                 .<span class="ident">minute</span>(),
             <span class="number">29</span>,
         );
+        <span class="prelude-val">Ok</span>(())
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
-    <span class="kw">fn</span> <span class="ident">second</span>() {
+    <span class="kw">fn</span> <span class="ident">second</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">01</span>).<span class="ident">midnight</span>().<span class="ident">assume_utc</span>().<span class="ident">second</span>(), <span class="number">0</span>);
         <span class="macro">assert_eq</span><span class="macro">!</span>(
             <span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">01</span>)
@@ -3154,54 +3220,59 @@
                 .<span class="ident">second</span>(),
             <span class="number">29</span>,
         );
+        <span class="prelude-val">Ok</span>(())
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
-    <span class="kw">fn</span> <span class="ident">millisecond</span>() {
+    <span class="kw">fn</span> <span class="ident">millisecond</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">01</span>).<span class="ident">midnight</span>().<span class="ident">assume_utc</span>().<span class="ident">millisecond</span>(), <span class="number">0</span>);
         <span class="macro">assert_eq</span><span class="macro">!</span>(
             <span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">01</span>)
-                .<span class="ident">with_time</span>(<span class="macro">time</span><span class="macro">!</span>(<span class="number">23</span>:<span class="number">59</span>:<span class="number">59.999</span>))
+                .<span class="ident">with_time</span>(<span class="macro">time</span><span class="macro">!</span>(<span class="number">23</span>:<span class="number">59</span>:<span class="number">59</span>:<span class="number">999_000_000</span>))
                 .<span class="ident">assume_utc</span>()
                 .<span class="ident">millisecond</span>(),
             <span class="number">999</span>,
         );
+        <span class="prelude-val">Ok</span>(())
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
-    <span class="kw">fn</span> <span class="ident">microsecond</span>() {
+    <span class="kw">fn</span> <span class="ident">microsecond</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">01</span>).<span class="ident">midnight</span>().<span class="ident">assume_utc</span>().<span class="ident">microsecond</span>(), <span class="number">0</span>);
         <span class="macro">assert_eq</span><span class="macro">!</span>(
             <span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">01</span>)
-                .<span class="ident">with_time</span>(<span class="macro">time</span><span class="macro">!</span>(<span class="number">23</span>:<span class="number">59</span>:<span class="number">59.999_999</span>))
+                .<span class="ident">with_time</span>(<span class="macro">time</span><span class="macro">!</span>(<span class="number">23</span>:<span class="number">59</span>:<span class="number">59</span>:<span class="number">999_999_000</span>))
                 .<span class="ident">assume_utc</span>()
                 .<span class="ident">microsecond</span>(),
             <span class="number">999_999</span>,
         );
+        <span class="prelude-val">Ok</span>(())
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
-    <span class="kw">fn</span> <span class="ident">nanosecond</span>() {
+    <span class="kw">fn</span> <span class="ident">nanosecond</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">01</span>).<span class="ident">midnight</span>().<span class="ident">assume_utc</span>().<span class="ident">nanosecond</span>(), <span class="number">0</span>);
         <span class="macro">assert_eq</span><span class="macro">!</span>(
             <span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">01</span>)
-                .<span class="ident">with_time</span>(<span class="macro">time</span><span class="macro">!</span>(<span class="number">23</span>:<span class="number">59</span>:<span class="number">59.999_999_999</span>))
+                .<span class="ident">with_time</span>(<span class="macro">time</span><span class="macro">!</span>(<span class="number">23</span>:<span class="number">59</span>:<span class="number">59</span>:<span class="number">999_999_999</span>))
                 .<span class="ident">assume_utc</span>()
                 .<span class="ident">nanosecond</span>(),
             <span class="number">999_999_999</span>,
         );
+        <span class="prelude-val">Ok</span>(())
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
-    <span class="kw">fn</span> <span class="ident">format</span>() {
+    <span class="kw">fn</span> <span class="ident">format</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="macro">assert_eq</span><span class="macro">!</span>(
             <span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">02</span>).<span class="ident">midnight</span>().<span class="ident">assume_utc</span>().<span class="ident">format</span>(<span class="string">&quot;%F %r %z&quot;</span>),
             <span class="string">&quot;2019-01-02 12:00:00 am +0000&quot;</span>,
         );
+        <span class="prelude-val">Ok</span>(())
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
-    <span class="kw">fn</span> <span class="ident">parse</span>() {
+    <span class="kw">fn</span> <span class="ident">parse</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="macro">assert_eq</span><span class="macro">!</span>(
             <span class="ident">OffsetDateTime</span>::<span class="ident">parse</span>(<span class="string">&quot;2019-01-02 00:00:00 +0000&quot;</span>, <span class="string">&quot;%F %T %z&quot;</span>),
             <span class="prelude-val">Ok</span>(<span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">02</span>).<span class="ident">midnight</span>().<span class="ident">assume_utc</span>()),
@@ -3212,7 +3283,7 @@
         );
         <span class="macro">assert_eq</span><span class="macro">!</span>(
             <span class="ident">OffsetDateTime</span>::<span class="ident">parse</span>(<span class="string">&quot;2019-W01-3 12:00:00 pm +0000&quot;</span>, <span class="string">&quot;%G-W%V-%u %r %z&quot;</span>),
-            <span class="prelude-val">Ok</span>(<span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="ident">W01</span><span class="op">-</span><span class="number">3</span>).<span class="ident">with_time</span>(<span class="macro">time</span><span class="macro">!</span>(<span class="number">12</span>:<span class="number">00</span>)).<span class="ident">assume_utc</span>())
+            <span class="prelude-val">Ok</span>(<span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">002</span>).<span class="ident">with_time</span>(<span class="macro">time</span><span class="macro">!</span>(<span class="number">12</span>:<span class="number">00</span>)).<span class="ident">assume_utc</span>())
         );
         <span class="macro">assert_eq</span><span class="macro">!</span>(
             <span class="ident">OffsetDateTime</span>::<span class="ident">parse</span>(<span class="string">&quot;2019-01-02 03:04:05 +0600&quot;</span>, <span class="string">&quot;%F %T %z&quot;</span>),
@@ -3220,10 +3291,11 @@
                 .<span class="ident">with_time</span>(<span class="macro">time</span><span class="macro">!</span>(<span class="number">3</span>:<span class="number">04</span>:<span class="number">05</span>))
                 .<span class="ident">assume_offset</span>(<span class="macro">offset</span><span class="macro">!</span>(<span class="op">+</span><span class="number">6</span>)))
         );
+        <span class="prelude-val">Ok</span>(())
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
-    <span class="kw">fn</span> <span class="ident">partial_eq</span>() {
+    <span class="kw">fn</span> <span class="ident">partial_eq</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="macro">assert_eq</span><span class="macro">!</span>(
             <span class="macro">date</span><span class="macro">!</span>(<span class="number">2000</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">01</span>)
                 .<span class="ident">midnight</span>()
@@ -3231,20 +3303,22 @@
                 .<span class="ident">to_offset</span>(<span class="macro">offset</span><span class="macro">!</span>(<span class="op">-</span><span class="number">1</span>)),
             <span class="macro">date</span><span class="macro">!</span>(<span class="number">2000</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">01</span>).<span class="ident">midnight</span>().<span class="ident">assume_utc</span>(),
         );
+        <span class="prelude-val">Ok</span>(())
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
-    <span class="kw">fn</span> <span class="ident">partial_ord</span>() {
+    <span class="kw">fn</span> <span class="ident">partial_ord</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">t1</span> <span class="op">=</span> <span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">01</span>).<span class="ident">midnight</span>().<span class="ident">assume_utc</span>();
         <span class="kw">let</span> <span class="ident">t2</span> <span class="op">=</span> <span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">01</span>)
             .<span class="ident">midnight</span>()
             .<span class="ident">assume_utc</span>()
             .<span class="ident">to_offset</span>(<span class="macro">offset</span><span class="macro">!</span>(<span class="op">-</span><span class="number">1</span>));
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">t1</span>.<span class="ident">partial_cmp</span>(<span class="kw-2">&amp;</span><span class="ident">t2</span>), <span class="prelude-val">Some</span>(<span class="ident">Ordering</span>::<span class="ident">Equal</span>));
+        <span class="prelude-val">Ok</span>(())
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
-    <span class="kw">fn</span> <span class="ident">ord</span>() {
+    <span class="kw">fn</span> <span class="ident">ord</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">t1</span> <span class="op">=</span> <span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">01</span>).<span class="ident">midnight</span>().<span class="ident">assume_utc</span>();
         <span class="kw">let</span> <span class="ident">t2</span> <span class="op">=</span> <span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">01</span>)
             .<span class="ident">midnight</span>()
@@ -3254,14 +3328,15 @@
 
         <span class="kw">let</span> <span class="ident">t1</span> <span class="op">=</span> <span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">01</span>).<span class="ident">midnight</span>().<span class="ident">assume_utc</span>();
         <span class="kw">let</span> <span class="ident">t2</span> <span class="op">=</span> <span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">01</span>)
-            .<span class="ident">with_time</span>(<span class="macro">time</span><span class="macro">!</span>(<span class="number">0</span>:<span class="number">00</span>:<span class="number">00.000_000_001</span>))
+            .<span class="ident">with_time</span>(<span class="macro">time</span><span class="macro">!</span>(<span class="number">0</span>:<span class="number">00</span>:<span class="number">00</span>:<span class="number">000_000_001</span>))
             .<span class="ident">assume_utc</span>();
         <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">t2</span> <span class="op">&gt;</span> <span class="ident">t1</span>);
+        <span class="prelude-val">Ok</span>(())
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">std</span>)]</span>
-    <span class="kw">fn</span> <span class="ident">hash</span>() {
+    <span class="kw">fn</span> <span class="ident">hash</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">collections</span>::<span class="ident">hash_map</span>::<span class="ident">DefaultHasher</span>, <span class="ident">hash</span>::<span class="ident">Hash</span>};
 
         <span class="macro">assert_eq</span><span class="macro">!</span>(
@@ -3295,10 +3370,11 @@
                 <span class="ident">hasher</span>.<span class="ident">finish</span>()
             }
         );
+        <span class="prelude-val">Ok</span>(())
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
-    <span class="kw">fn</span> <span class="ident">add_duration</span>() {
+    <span class="kw">fn</span> <span class="ident">add_duration</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="macro">assert_eq</span><span class="macro">!</span>(
             <span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">01</span>).<span class="ident">midnight</span>().<span class="ident">assume_utc</span>() <span class="op">+</span> <span class="number">5</span>.<span class="ident">days</span>(),
             <span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">06</span>).<span class="ident">midnight</span>().<span class="ident">assume_utc</span>(),
@@ -3319,10 +3395,11 @@
             <span class="macro">date</span><span class="macro">!</span>(<span class="number">1999</span><span class="op">-</span><span class="number">12</span><span class="op">-</span><span class="number">31</span>).<span class="ident">with_time</span>(<span class="macro">time</span><span class="macro">!</span>(<span class="number">23</span>:<span class="number">00</span>)).<span class="ident">assume_utc</span>() <span class="op">+</span> <span class="number">1</span>.<span class="ident">hours</span>(),
             <span class="macro">date</span><span class="macro">!</span>(<span class="number">2000</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">01</span>).<span class="ident">midnight</span>().<span class="ident">assume_utc</span>(),
         );
+        <span class="prelude-val">Ok</span>(())
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
-    <span class="kw">fn</span> <span class="ident">add_std_duration</span>() {
+    <span class="kw">fn</span> <span class="ident">add_std_duration</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="macro">assert_eq</span><span class="macro">!</span>(
             <span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">01</span>).<span class="ident">midnight</span>().<span class="ident">assume_utc</span>() <span class="op">+</span> <span class="number">5</span>.<span class="ident">std_days</span>(),
             <span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">06</span>).<span class="ident">midnight</span>().<span class="ident">assume_utc</span>(),
@@ -3335,10 +3412,11 @@
             <span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">12</span><span class="op">-</span><span class="number">31</span>).<span class="ident">with_time</span>(<span class="macro">time</span><span class="macro">!</span>(<span class="number">23</span>:<span class="number">59</span>:<span class="number">59</span>)).<span class="ident">assume_utc</span>() <span class="op">+</span> <span class="number">2</span>.<span class="ident">std_seconds</span>(),
             <span class="macro">date</span><span class="macro">!</span>(<span class="number">2020</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">01</span>).<span class="ident">with_time</span>(<span class="macro">time</span><span class="macro">!</span>(<span class="number">0</span>:<span class="number">00</span>:<span class="number">01</span>)).<span class="ident">assume_utc</span>(),
         );
+        <span class="prelude-val">Ok</span>(())
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
-    <span class="kw">fn</span> <span class="ident">add_assign_duration</span>() {
+    <span class="kw">fn</span> <span class="ident">add_assign_duration</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">ny19</span> <span class="op">=</span> <span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">01</span>).<span class="ident">midnight</span>().<span class="ident">assume_utc</span>();
         <span class="ident">ny19</span> <span class="op">+</span><span class="op">=</span> <span class="number">5</span>.<span class="ident">days</span>();
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">ny19</span>, <span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">06</span>).<span class="ident">midnight</span>().<span class="ident">assume_utc</span>());
@@ -3360,10 +3438,11 @@
             <span class="ident">ny20t</span>,
             <span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">12</span><span class="op">-</span><span class="number">31</span>).<span class="ident">with_time</span>(<span class="macro">time</span><span class="macro">!</span>(<span class="number">23</span>:<span class="number">59</span>:<span class="number">59</span>)).<span class="ident">assume_utc</span>()
         );
+        <span class="prelude-val">Ok</span>(())
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
-    <span class="kw">fn</span> <span class="ident">add_assign_std_duration</span>() {
+    <span class="kw">fn</span> <span class="ident">add_assign_std_duration</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">ny19</span> <span class="op">=</span> <span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">01</span>).<span class="ident">midnight</span>().<span class="ident">assume_utc</span>();
         <span class="ident">ny19</span> <span class="op">+</span><span class="op">=</span> <span class="number">5</span>.<span class="ident">std_days</span>();
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">ny19</span>, <span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">06</span>).<span class="ident">midnight</span>().<span class="ident">assume_utc</span>());
@@ -3378,10 +3457,11 @@
             <span class="ident">nye20t</span>,
             <span class="macro">date</span><span class="macro">!</span>(<span class="number">2020</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">01</span>).<span class="ident">with_time</span>(<span class="macro">time</span><span class="macro">!</span>(<span class="number">0</span>:<span class="number">00</span>:<span class="number">01</span>)).<span class="ident">assume_utc</span>()
         );
+        <span class="prelude-val">Ok</span>(())
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
-    <span class="kw">fn</span> <span class="ident">sub_duration</span>() {
+    <span class="kw">fn</span> <span class="ident">sub_duration</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="macro">assert_eq</span><span class="macro">!</span>(
             <span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">06</span>).<span class="ident">midnight</span>().<span class="ident">assume_utc</span>() <span class="op">-</span> <span class="number">5</span>.<span class="ident">days</span>(),
             <span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">01</span>).<span class="ident">midnight</span>().<span class="ident">assume_utc</span>(),
@@ -3402,10 +3482,11 @@
             <span class="macro">date</span><span class="macro">!</span>(<span class="number">1999</span><span class="op">-</span><span class="number">12</span><span class="op">-</span><span class="number">31</span>).<span class="ident">with_time</span>(<span class="macro">time</span><span class="macro">!</span>(<span class="number">23</span>:<span class="number">00</span>)).<span class="ident">assume_utc</span>() <span class="op">-</span> (<span class="op">-</span><span class="number">1</span>).<span class="ident">hours</span>(),
             <span class="macro">date</span><span class="macro">!</span>(<span class="number">2000</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">01</span>).<span class="ident">midnight</span>().<span class="ident">assume_utc</span>(),
         );
+        <span class="prelude-val">Ok</span>(())
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
-    <span class="kw">fn</span> <span class="ident">sub_std_duration</span>() {
+    <span class="kw">fn</span> <span class="ident">sub_std_duration</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="macro">assert_eq</span><span class="macro">!</span>(
             <span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">06</span>).<span class="ident">midnight</span>().<span class="ident">assume_utc</span>() <span class="op">-</span> <span class="number">5</span>.<span class="ident">std_days</span>(),
             <span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">01</span>).<span class="ident">midnight</span>().<span class="ident">assume_utc</span>(),
@@ -3418,10 +3499,11 @@
             <span class="macro">date</span><span class="macro">!</span>(<span class="number">2020</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">01</span>).<span class="ident">with_time</span>(<span class="macro">time</span><span class="macro">!</span>(<span class="number">0</span>:<span class="number">00</span>:<span class="number">01</span>)).<span class="ident">assume_utc</span>() <span class="op">-</span> <span class="number">2</span>.<span class="ident">std_seconds</span>(),
             <span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">12</span><span class="op">-</span><span class="number">31</span>).<span class="ident">with_time</span>(<span class="macro">time</span><span class="macro">!</span>(<span class="number">23</span>:<span class="number">59</span>:<span class="number">59</span>)).<span class="ident">assume_utc</span>(),
         );
+        <span class="prelude-val">Ok</span>(())
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
-    <span class="kw">fn</span> <span class="ident">sub_assign_duration</span>() {
+    <span class="kw">fn</span> <span class="ident">sub_assign_duration</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">ny19</span> <span class="op">=</span> <span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">06</span>).<span class="ident">midnight</span>().<span class="ident">assume_utc</span>();
         <span class="ident">ny19</span> <span class="op">-</span><span class="op">=</span> <span class="number">5</span>.<span class="ident">days</span>();
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">ny19</span>, <span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">01</span>).<span class="ident">midnight</span>().<span class="ident">assume_utc</span>());
@@ -3443,10 +3525,11 @@
             <span class="ident">nye20t</span>,
             <span class="macro">date</span><span class="macro">!</span>(<span class="number">2020</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">01</span>).<span class="ident">with_time</span>(<span class="macro">time</span><span class="macro">!</span>(<span class="number">0</span>:<span class="number">00</span>:<span class="number">01</span>)).<span class="ident">assume_utc</span>()
         );
+        <span class="prelude-val">Ok</span>(())
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
-    <span class="kw">fn</span> <span class="ident">sub_assign_std_duration</span>() {
+    <span class="kw">fn</span> <span class="ident">sub_assign_std_duration</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">ny19</span> <span class="op">=</span> <span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">06</span>).<span class="ident">midnight</span>().<span class="ident">assume_utc</span>();
         <span class="ident">ny19</span> <span class="op">-</span><span class="op">=</span> <span class="number">5</span>.<span class="ident">std_days</span>();
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">ny19</span>, <span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">01</span>).<span class="ident">midnight</span>().<span class="ident">assume_utc</span>());
@@ -3461,11 +3544,12 @@
             <span class="ident">ny20t</span>,
             <span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">12</span><span class="op">-</span><span class="number">31</span>).<span class="ident">with_time</span>(<span class="macro">time</span><span class="macro">!</span>(<span class="number">23</span>:<span class="number">59</span>:<span class="number">59</span>)).<span class="ident">assume_utc</span>()
         );
+        <span class="prelude-val">Ok</span>(())
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">std</span>)]</span>
-    <span class="kw">fn</span> <span class="ident">std_add_duration</span>() {
+    <span class="kw">fn</span> <span class="ident">std_add_duration</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="macro">assert_eq</span><span class="macro">!</span>(
             <span class="ident">SystemTime</span>::<span class="ident">from</span>(<span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">01</span>).<span class="ident">midnight</span>().<span class="ident">assume_utc</span>()) <span class="op">+</span> <span class="number">5</span>.<span class="ident">days</span>(),
             <span class="ident">SystemTime</span>::<span class="ident">from</span>(<span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">06</span>).<span class="ident">midnight</span>().<span class="ident">assume_utc</span>()),
@@ -3484,11 +3568,12 @@
                 <span class="op">+</span> (<span class="op">-</span><span class="number">2</span>).<span class="ident">seconds</span>(),
             <span class="ident">SystemTime</span>::<span class="ident">from</span>(<span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">12</span><span class="op">-</span><span class="number">31</span>).<span class="ident">with_time</span>(<span class="macro">time</span><span class="macro">!</span>(<span class="number">23</span>:<span class="number">59</span>:<span class="number">59</span>)).<span class="ident">assume_utc</span>()),
         );
+        <span class="prelude-val">Ok</span>(())
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">std</span>)]</span>
-    <span class="kw">fn</span> <span class="ident">std_add_assign_duration</span>() {
+    <span class="kw">fn</span> <span class="ident">std_add_assign_duration</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">ny19</span> <span class="op">=</span> <span class="ident">SystemTime</span>::<span class="ident">from</span>(<span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">01</span>).<span class="ident">midnight</span>().<span class="ident">assume_utc</span>());
         <span class="ident">ny19</span> <span class="op">+</span><span class="op">=</span> <span class="number">5</span>.<span class="ident">days</span>();
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">ny19</span>, <span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">06</span>).<span class="ident">midnight</span>().<span class="ident">assume_utc</span>());
@@ -3511,11 +3596,12 @@
             <span class="ident">ny20t</span>,
             <span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">12</span><span class="op">-</span><span class="number">31</span>).<span class="ident">with_time</span>(<span class="macro">time</span><span class="macro">!</span>(<span class="number">23</span>:<span class="number">59</span>:<span class="number">59</span>)).<span class="ident">assume_utc</span>()
         );
+        <span class="prelude-val">Ok</span>(())
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">std</span>)]</span>
-    <span class="kw">fn</span> <span class="ident">std_sub_duration</span>() {
+    <span class="kw">fn</span> <span class="ident">std_sub_duration</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="macro">assert_eq</span><span class="macro">!</span>(
             <span class="ident">SystemTime</span>::<span class="ident">from</span>(<span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">06</span>).<span class="ident">midnight</span>().<span class="ident">assume_utc</span>()) <span class="op">-</span> <span class="number">5</span>.<span class="ident">days</span>(),
             <span class="ident">SystemTime</span>::<span class="ident">from</span>(<span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">01</span>).<span class="ident">midnight</span>().<span class="ident">assume_utc</span>()),
@@ -3534,11 +3620,12 @@
                 <span class="op">-</span> (<span class="op">-</span><span class="number">2</span>).<span class="ident">seconds</span>(),
             <span class="ident">SystemTime</span>::<span class="ident">from</span>(<span class="macro">date</span><span class="macro">!</span>(<span class="number">2020</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">01</span>).<span class="ident">with_time</span>(<span class="macro">time</span><span class="macro">!</span>(<span class="number">0</span>:<span class="number">00</span>:<span class="number">01</span>)).<span class="ident">assume_utc</span>()),
         );
+        <span class="prelude-val">Ok</span>(())
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">std</span>)]</span>
-    <span class="kw">fn</span> <span class="ident">std_sub_assign_duration</span>() {
+    <span class="kw">fn</span> <span class="ident">std_sub_assign_duration</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">ny19</span> <span class="op">=</span> <span class="ident">SystemTime</span>::<span class="ident">from</span>(<span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">06</span>).<span class="ident">midnight</span>().<span class="ident">assume_utc</span>());
         <span class="ident">ny19</span> <span class="op">-</span><span class="op">=</span> <span class="number">5</span>.<span class="ident">days</span>();
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">ny19</span>, <span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">01</span>).<span class="ident">midnight</span>().<span class="ident">assume_utc</span>());
@@ -3561,10 +3648,11 @@
             <span class="ident">nye20t</span>,
             <span class="macro">date</span><span class="macro">!</span>(<span class="number">2020</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">01</span>).<span class="ident">with_time</span>(<span class="macro">time</span><span class="macro">!</span>(<span class="number">0</span>:<span class="number">00</span>:<span class="number">01</span>)).<span class="ident">assume_utc</span>()
         );
+        <span class="prelude-val">Ok</span>(())
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
-    <span class="kw">fn</span> <span class="ident">sub_self</span>() {
+    <span class="kw">fn</span> <span class="ident">sub_self</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="macro">assert_eq</span><span class="macro">!</span>(
             <span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">02</span>).<span class="ident">midnight</span>().<span class="ident">assume_utc</span>() <span class="op">-</span> <span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">01</span>).<span class="ident">midnight</span>().<span class="ident">assume_utc</span>(),
             <span class="number">1</span>.<span class="ident">days</span>(),
@@ -3581,11 +3669,12 @@
             <span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">12</span><span class="op">-</span><span class="number">31</span>).<span class="ident">midnight</span>().<span class="ident">assume_utc</span>() <span class="op">-</span> <span class="macro">date</span><span class="macro">!</span>(<span class="number">2020</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">01</span>).<span class="ident">midnight</span>().<span class="ident">assume_utc</span>(),
             (<span class="op">-</span><span class="number">1</span>).<span class="ident">days</span>(),
         );
+        <span class="prelude-val">Ok</span>(())
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">std</span>)]</span>
-    <span class="kw">fn</span> <span class="ident">std_sub</span>() {
+    <span class="kw">fn</span> <span class="ident">std_sub</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="macro">assert_eq</span><span class="macro">!</span>(
             <span class="ident">SystemTime</span>::<span class="ident">from</span>(<span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">02</span>).<span class="ident">midnight</span>().<span class="ident">assume_utc</span>())
                 <span class="op">-</span> <span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">01</span>).<span class="ident">midnight</span>().<span class="ident">assume_utc</span>(),
@@ -3606,11 +3695,12 @@
                 <span class="op">-</span> <span class="macro">date</span><span class="macro">!</span>(<span class="number">2020</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">01</span>).<span class="ident">midnight</span>().<span class="ident">assume_utc</span>(),
             (<span class="op">-</span><span class="number">1</span>).<span class="ident">days</span>()
         );
+        <span class="prelude-val">Ok</span>(())
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">std</span>)]</span>
-    <span class="kw">fn</span> <span class="ident">sub_std</span>() {
+    <span class="kw">fn</span> <span class="ident">sub_std</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="macro">assert_eq</span><span class="macro">!</span>(
             <span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">02</span>).<span class="ident">midnight</span>().<span class="ident">assume_utc</span>()
                 <span class="op">-</span> <span class="ident">SystemTime</span>::<span class="ident">from</span>(<span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">01</span>).<span class="ident">midnight</span>().<span class="ident">assume_utc</span>()),
@@ -3631,6 +3721,7 @@
                 <span class="op">-</span> <span class="ident">SystemTime</span>::<span class="ident">from</span>(<span class="macro">date</span><span class="macro">!</span>(<span class="number">2020</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">01</span>).<span class="ident">midnight</span>().<span class="ident">assume_utc</span>()),
             (<span class="op">-</span><span class="number">1</span>).<span class="ident">days</span>()
         );
+        <span class="prelude-val">Ok</span>(())
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
@@ -3653,7 +3744,7 @@
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">std</span>)]</span>
-    <span class="kw">fn</span> <span class="ident">ord_std</span>() {
+    <span class="kw">fn</span> <span class="ident">ord_std</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="macro">assert_eq</span><span class="macro">!</span>(
             <span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">01</span>).<span class="ident">midnight</span>().<span class="ident">assume_utc</span>(),
             <span class="ident">SystemTime</span>::<span class="ident">from</span>(<span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">01</span>).<span class="ident">midnight</span>().<span class="ident">assume_utc</span>())
@@ -3684,7 +3775,11 @@
         );
         <span class="macro">assert</span><span class="macro">!</span>(
             <span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">01</span>).<span class="ident">midnight</span>().<span class="ident">assume_utc</span>()
-                <span class="op">&lt;</span> <span class="ident">SystemTime</span>::<span class="ident">from</span>(<span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">01</span>).<span class="ident">with_time</span>(<span class="macro">time</span><span class="macro">!</span>(<span class="number">0</span>:<span class="number">00</span>:<span class="number">00.001</span>)).<span class="ident">assume_utc</span>())
+                <span class="op">&lt;</span> <span class="ident">SystemTime</span>::<span class="ident">from</span>(
+                    <span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">01</span>)
+                        .<span class="ident">with_time</span>(<span class="macro">time</span><span class="macro">!</span>(<span class="number">0</span>:<span class="number">00</span>:<span class="number">00</span>:<span class="number">001_000_000</span>))
+                        .<span class="ident">assume_utc</span>()
+                )
         );
         <span class="macro">assert</span><span class="macro">!</span>(
             <span class="macro">date</span><span class="macro">!</span>(<span class="number">2020</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">01</span>).<span class="ident">midnight</span>().<span class="ident">assume_utc</span>()
@@ -3712,15 +3807,16 @@
         );
         <span class="macro">assert</span><span class="macro">!</span>(
             <span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">01</span>)
-                .<span class="ident">with_time</span>(<span class="macro">time</span><span class="macro">!</span>(<span class="number">0</span>:<span class="number">00</span>:<span class="number">00.000_000_001</span>))
+                .<span class="ident">with_time</span>(<span class="macro">time</span><span class="macro">!</span>(<span class="number">0</span>:<span class="number">00</span>:<span class="number">00</span>:<span class="number">000_000_001</span>))
                 .<span class="ident">assume_utc</span>()
                 <span class="op">&gt;</span> <span class="ident">SystemTime</span>::<span class="ident">from</span>(<span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">01</span>).<span class="ident">midnight</span>().<span class="ident">assume_utc</span>())
         );
+        <span class="prelude-val">Ok</span>(())
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">std</span>)]</span>
-    <span class="kw">fn</span> <span class="ident">std_ord</span>() {
+    <span class="kw">fn</span> <span class="ident">std_ord</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="macro">assert_eq</span><span class="macro">!</span>(
             <span class="ident">SystemTime</span>::<span class="ident">from</span>(<span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">01</span>).<span class="ident">midnight</span>().<span class="ident">assume_utc</span>()),
             <span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">01</span>).<span class="ident">midnight</span>().<span class="ident">assume_utc</span>()
@@ -3752,7 +3848,7 @@
         <span class="macro">assert</span><span class="macro">!</span>(
             <span class="ident">SystemTime</span>::<span class="ident">from</span>(<span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">01</span>).<span class="ident">midnight</span>().<span class="ident">assume_utc</span>())
                 <span class="op">&lt;</span> <span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">01</span>)
-                    .<span class="ident">with_time</span>(<span class="macro">time</span><span class="macro">!</span>(<span class="number">0</span>:<span class="number">00</span>:<span class="number">00.000_000_001</span>))
+                    .<span class="ident">with_time</span>(<span class="macro">time</span><span class="macro">!</span>(<span class="number">0</span>:<span class="number">00</span>:<span class="number">00</span>:<span class="number">000_000_001</span>))
                     .<span class="ident">assume_utc</span>()
         );
         <span class="macro">assert</span><span class="macro">!</span>(
@@ -3780,9 +3876,13 @@
                 <span class="op">&gt;</span> <span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">01</span>).<span class="ident">midnight</span>().<span class="ident">assume_utc</span>()
         );
         <span class="macro">assert</span><span class="macro">!</span>(
-            <span class="ident">SystemTime</span>::<span class="ident">from</span>(<span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">01</span>).<span class="ident">with_time</span>(<span class="macro">time</span><span class="macro">!</span>(<span class="number">0</span>:<span class="number">00</span>:<span class="number">00.001</span>)).<span class="ident">assume_utc</span>())
-                <span class="op">&gt;</span> <span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">01</span>).<span class="ident">midnight</span>().<span class="ident">assume_utc</span>()
+            <span class="ident">SystemTime</span>::<span class="ident">from</span>(
+                <span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">01</span>)
+                    .<span class="ident">with_time</span>(<span class="macro">time</span><span class="macro">!</span>(<span class="number">0</span>:<span class="number">00</span>:<span class="number">00</span>:<span class="number">001_000_000</span>))
+                    .<span class="ident">assume_utc</span>()
+            ) <span class="op">&gt;</span> <span class="macro">date</span><span class="macro">!</span>(<span class="number">2019</span><span class="op">-</span><span class="number">01</span><span class="op">-</span><span class="number">01</span>).<span class="ident">midnight</span>().<span class="ident">assume_utc</span>()
         );
+        <span class="prelude-val">Ok</span>(())
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
