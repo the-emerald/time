@@ -1856,6 +1856,27 @@
 <span id="1856">1856</span>
 <span id="1857">1857</span>
 <span id="1858">1858</span>
+<span id="1859">1859</span>
+<span id="1860">1860</span>
+<span id="1861">1861</span>
+<span id="1862">1862</span>
+<span id="1863">1863</span>
+<span id="1864">1864</span>
+<span id="1865">1865</span>
+<span id="1866">1866</span>
+<span id="1867">1867</span>
+<span id="1868">1868</span>
+<span id="1869">1869</span>
+<span id="1870">1870</span>
+<span id="1871">1871</span>
+<span id="1872">1872</span>
+<span id="1873">1873</span>
+<span id="1874">1874</span>
+<span id="1875">1875</span>
+<span id="1876">1876</span>
+<span id="1877">1877</span>
+<span id="1878">1878</span>
+<span id="1879">1879</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">internal_prelude</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="ident">core</span>::{
@@ -2096,8 +2117,29 @@
     <span class="doccomment">/// assert_eq!(0.seconds().abs(), 0.seconds());</span>
     <span class="doccomment">/// assert_eq!((-1).seconds().abs(), 1.seconds());</span>
     <span class="doccomment">/// ```</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// This function is `const fn` when using rustc &gt;= 1.39.0.</span>
     <span class="attribute">#[<span class="ident">inline</span>(<span class="ident">always</span>)]</span>
-    <span class="attribute">#[<span class="ident">rustversion</span>::<span class="ident">attr</span>(<span class="ident">since</span>(<span class="number">1.39</span>), <span class="kw">const</span>)]</span>
+    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">const_num_abs</span>)]</span>
+    <span class="kw">pub</span> <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">abs</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+        <span class="self">Self</span> {
+            <span class="ident">seconds</span>: <span class="self">self</span>.<span class="ident">seconds</span>.<span class="ident">abs</span>(),
+            <span class="ident">nanoseconds</span>: <span class="self">self</span>.<span class="ident">nanoseconds</span>.<span class="ident">abs</span>(),
+        }
+    }
+
+    <span class="doccomment">/// Get the absolute value of the duration.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// ```rust</span>
+    <span class="doccomment">/// # use time::prelude::*;</span>
+    <span class="doccomment">/// assert_eq!(1.seconds().abs(), 1.seconds());</span>
+    <span class="doccomment">/// assert_eq!(0.seconds().abs(), 0.seconds());</span>
+    <span class="doccomment">/// assert_eq!((-1).seconds().abs(), 1.seconds());</span>
+    <span class="doccomment">/// ```</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// This function is `const fn` when using rustc &gt;= 1.39.0.</span>
+    <span class="attribute">#[<span class="ident">inline</span>(<span class="ident">always</span>)]</span>
+    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">const_num_abs</span>))]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">abs</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span> {
             <span class="ident">seconds</span>: <span class="self">self</span>.<span class="ident">seconds</span>.<span class="ident">abs</span>(),
