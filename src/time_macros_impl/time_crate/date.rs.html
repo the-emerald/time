@@ -144,8 +144,10 @@
 <span id="144">144</span>
 <span id="145">145</span>
 <span id="146">146</span>
+<span id="147">147</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">Weekday</span>::{<span class="self">self</span>, <span class="ident">Friday</span>, <span class="ident">Monday</span>, <span class="ident">Saturday</span>, <span class="ident">Sunday</span>, <span class="ident">Thursday</span>, <span class="ident">Tuesday</span>, <span class="ident">Wednesday</span>};
+<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">unused_imports</span>)]</span>
 <span class="kw">use</span> <span class="ident">standback</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
 
 <span class="kw">fn</span> <span class="ident">is_leap_year</span>(<span class="ident">year</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
