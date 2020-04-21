@@ -608,10 +608,15 @@
 <span id="608">608</span>
 <span id="609">609</span>
 <span id="610">610</span>
+<span id="611">611</span>
+<span id="612">612</span>
+<span id="613">613</span>
+<span id="614">614</span>
+<span id="615">615</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="doccomment">//! Simple time handling.</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! ![rustc 1.34.0](https://img.shields.io/badge/rustc-1.34.0-blue)</span>
+<span class="doccomment">//! ![rustc 1.32.0](https://img.shields.io/badge/rustc-1.32.0-blue)</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! # Feature flags in Cargo</span>
 <span class="doccomment">//!</span>
@@ -1082,7 +1087,10 @@
 <span class="doccomment">/// The prelude may grow in minor releases. Any removals will only occur in</span>
 <span class="doccomment">/// major releases.</span>
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">prelude</span> {
-    <span class="comment">// Rename traits to `_` to avoid any potential name conflicts.</span>
+    <span class="comment">// Rename traits to `_` if possible to avoid any potential name conflicts.</span>
+    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">use_trait_as_underscore</span>))]</span>
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">NumericalDuration</span>, <span class="ident">NumericalStdDuration</span>};
+    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">use_trait_as_underscore</span>)]</span>
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">NumericalDuration</span> <span class="kw">as</span> <span class="kw">_</span>, <span class="ident">NumericalStdDuration</span> <span class="kw">as</span> <span class="kw">_</span>};
     <span class="comment">// We need to re-export from the macros crate again (and not just do</span>
     <span class="comment">// `crate::foo`) because of the way name resolution works in Rust. It&#39;s not</span>
@@ -1119,7 +1127,10 @@
         <span class="ident">vec</span>,
         <span class="ident">vec</span>::<span class="ident">Vec</span>,
     };
-    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">use</span> <span class="ident">standback</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">use</span> <span class="ident">standback</span>::{
+        <span class="ident">convert</span>::{<span class="ident">TryFrom</span>, <span class="ident">TryInto</span>},
+        <span class="ident">prelude</span>::<span class="kw-2">*</span>,
+    };
 }
 
 <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">missing_docs_in_private_items</span>)]</span>
@@ -1193,7 +1204,6 @@
 )]</span>
 <span class="attribute">#[<span class="ident">inline</span>]</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">precise_time_ns</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u64</span> {
-    <span class="kw">use</span> <span class="ident">core</span>::<span class="ident">convert</span>::<span class="ident">TryInto</span>;
     <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">time</span>::<span class="ident">SystemTime</span>;
 
     (<span class="ident">SystemTime</span>::<span class="ident">now</span>().<span class="ident">duration_since</span>(<span class="ident">SystemTime</span>::<span class="ident">UNIX_EPOCH</span>))

@@ -636,10 +636,6 @@
 <span id="636">636</span>
 <span id="637">637</span>
 <span id="638">638</span>
-<span id="639">639</span>
-<span id="640">640</span>
-<span id="641">641</span>
-<span id="642">642</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">crate</span>::{
     <span class="ident">format</span>::{<span class="ident">parse</span>, <span class="ident">ParsedItems</span>},
@@ -978,7 +974,6 @@
 <span class="kw">fn</span> <span class="ident">try_local_offset_at</span>(<span class="ident">datetime</span>: <span class="ident">OffsetDateTime</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">UtcOffset</span><span class="op">&gt;</span> {
     <span class="ident">cfg_if</span>::<span class="macro">cfg_if</span><span class="macro">!</span> {
         <span class="kw">if</span> <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">target_family</span> <span class="op">=</span> <span class="string">&quot;unix&quot;</span>)]</span> {
-            <span class="kw">use</span> <span class="ident">core</span>::<span class="ident">convert</span>::<span class="ident">TryInto</span>;
             <span class="kw">use</span> <span class="ident">standback</span>::<span class="ident">mem</span>::<span class="ident">MaybeUninit</span>;
 
             <span class="doccomment">/// Convert the given Unix timestamp to a `libc::tm`. Returns `None`</span>
@@ -1030,7 +1025,6 @@
             <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;solaris&quot;</span>, <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;illumos&quot;</span>))]</span>
             {
                 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">Date</span>;
-                <span class="kw">use</span> <span class="ident">core</span>::<span class="ident">convert</span>::<span class="ident">TryFrom</span>;
 
                 <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">tm</span> <span class="op">=</span> <span class="ident">tm</span>;
                 <span class="kw">if</span> <span class="ident">tm</span>.<span class="ident">tm_sec</span> <span class="op">=</span><span class="op">=</span> <span class="number">60</span> {
@@ -1056,9 +1050,7 @@
                     .<span class="ident">map</span>(<span class="ident">UtcOffset</span>::<span class="ident">seconds</span>)
             }
         } <span class="kw">else</span> <span class="kw">if</span> <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">target_family</span> <span class="op">=</span> <span class="string">&quot;windows&quot;</span>)]</span> {
-            <span class="kw">use</span> <span class="ident">core</span>::<span class="ident">convert</span>::<span class="ident">TryInto</span>;
             <span class="kw">use</span> <span class="ident">standback</span>::<span class="ident">mem</span>::<span class="ident">MaybeUninit</span>;
-            <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">offset</span>;
             <span class="kw">use</span> <span class="ident">winapi</span>::{
                 <span class="ident">shared</span>::<span class="ident">minwindef</span>::<span class="ident">FILETIME</span>,
                 <span class="ident">um</span>::{

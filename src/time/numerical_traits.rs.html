@@ -923,6 +923,9 @@
 <span id="923">923</span>
 <span id="924">924</span>
 <span id="925">925</span>
+<span id="926">926</span>
+<span id="927">927</span>
+<span id="928">928</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="attribute">#![<span class="ident">allow</span>(<span class="ident">trivial_numeric_casts</span>, <span class="ident">clippy</span>::<span class="ident">cast_possible_truncation</span>)]</span>
 
@@ -1146,6 +1149,9 @@
     <span class="ident">core</span>::<span class="ident">num</span>::<span class="ident">NonZeroU8</span>,
     <span class="ident">core</span>::<span class="ident">num</span>::<span class="ident">NonZeroU16</span>,
     <span class="ident">core</span>::<span class="ident">num</span>::<span class="ident">NonZeroU32</span>,
+];
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">nonzero_signed</span>)]</span>
+<span class="macro">impl_numerical_duration_nonzero</span><span class="macro">!</span>[
     <span class="ident">core</span>::<span class="ident">num</span>::<span class="ident">NonZeroI8</span>,
     <span class="ident">core</span>::<span class="ident">num</span>::<span class="ident">NonZeroI16</span>,
     <span class="ident">core</span>::<span class="ident">num</span>::<span class="ident">NonZeroI32</span>,

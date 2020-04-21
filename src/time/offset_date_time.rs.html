@@ -1950,6 +1950,13 @@
 <span id="1950">1950</span>
 <span id="1951">1951</span>
 <span id="1952">1952</span>
+<span id="1953">1953</span>
+<span id="1954">1954</span>
+<span id="1955">1955</span>
+<span id="1956">1956</span>
+<span id="1957">1957</span>
+<span id="1958">1958</span>
+<span id="1959">1959</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">crate</span>::{
     <span class="ident">format</span>::<span class="ident">parse</span>::{<span class="ident">parse</span>, <span class="ident">ParsedItems</span>},
@@ -1957,7 +1964,7 @@
     <span class="ident">Format</span>,
 };
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">std</span>)]</span>
-<span class="kw">use</span> <span class="ident">core</span>::<span class="ident">convert</span>::{<span class="ident">From</span>, <span class="ident">TryFrom</span>};
+<span class="kw">use</span> <span class="ident">core</span>::<span class="ident">convert</span>::<span class="ident">From</span>;
 <span class="kw">use</span> <span class="ident">core</span>::{
     <span class="ident">cmp</span>::<span class="ident">Ordering</span>,
     <span class="ident">fmt</span>::{<span class="self">self</span>, <span class="ident">Display</span>},
@@ -1975,20 +1982,27 @@
 <span class="comment">// [`PrimitiveDateTime`] coupled with a [`UtcOffset`]. This offset is added to</span>
 <span class="comment">// the date, time, or datetime as necessary for presentation or returning from a</span>
 <span class="comment">// function.</span>
-<span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">serde</span>, <span class="ident">derive</span>(<span class="ident">serde</span>::<span class="ident">Serialize</span>, <span class="ident">serde</span>::<span class="ident">Deserialize</span>))]</span>
-<span class="attribute">#[<span class="ident">cfg_attr</span>(
-    <span class="ident">serde</span>,
-    <span class="ident">serde</span>(
-        <span class="ident">try_from</span> <span class="op">=</span> <span class="string">&quot;crate::serde::PrimitiveDateTime&quot;</span>,
-        <span class="ident">into</span> <span class="op">=</span> <span class="string">&quot;crate::serde::PrimitiveDateTime&quot;</span>
-    )
-)]</span>
+<span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">serde</span>, <span class="ident">derive</span>(<span class="ident">serde</span>::<span class="ident">Serialize</span>))]</span>
+<span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">serde</span>, <span class="ident">serde</span>(<span class="ident">into</span> <span class="op">=</span> <span class="string">&quot;crate::serde::PrimitiveDateTime&quot;</span>))]</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>, <span class="ident">Eq</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">OffsetDateTime</span> {
     <span class="doccomment">/// The `PrimitiveDateTime`, which is _always_ UTC.</span>
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">utc_datetime</span>: <span class="ident">PrimitiveDateTime</span>,
     <span class="doccomment">/// The `UtcOffset`, which will be added to the `PrimitiveDateTime` as necessary.</span>
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">offset</span>: <span class="ident">UtcOffset</span>,
+}
+
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">serde</span>)]</span>
+<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">serde</span>::<span class="ident">Deserialize</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">OffsetDateTime</span> {
+    <span class="attribute">#[<span class="ident">inline</span>(<span class="ident">always</span>)]</span>
+    <span class="kw">fn</span> <span class="ident">deserialize</span><span class="op">&lt;</span><span class="ident">D</span><span class="op">&gt;</span>(<span class="ident">deserializer</span>: <span class="ident">D</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">D</span>::<span class="ident">Error</span><span class="op">&gt;</span>
+    <span class="kw">where</span>
+        <span class="ident">D</span>: <span class="ident">serde</span>::<span class="ident">Deserializer</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>,
+    {
+        <span class="kw">crate</span>::<span class="ident">serde</span>::<span class="ident">PrimitiveDateTime</span>::<span class="ident">deserialize</span>(<span class="ident">deserializer</span>)<span class="question-mark">?</span>
+            .<span class="ident">try_into</span>()
+            .<span class="ident">map_err</span>(<span class="ident">serde</span>::<span class="ident">de</span>::<span class="ident">Error</span>::<span class="ident">custom</span>)
+    }
 }
 
 <span class="kw">impl</span> <span class="ident">OffsetDateTime</span> {

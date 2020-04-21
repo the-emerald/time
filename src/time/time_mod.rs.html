@@ -1310,8 +1310,6 @@
 <span id="1310">1310</span>
 <span id="1311">1311</span>
 <span id="1312">1312</span>
-<span id="1313">1313</span>
-<span id="1314">1314</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">crate</span>::{
     <span class="ident">format</span>::{<span class="ident">parse</span>, <span class="ident">parse</span>::<span class="ident">AmPm</span>, <span class="ident">ParsedItems</span>},
@@ -1821,13 +1819,11 @@
 
     <span class="doccomment">/// Create a `Time` from the number of nanoseconds since midnight.</span>
     <span class="attribute">#[<span class="ident">inline</span>(<span class="ident">always</span>)]</span>
-    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">from_nanoseconds_since_midnight</span>(<span class="kw-2">mut</span> <span class="ident">nanosecond</span>: <span class="ident">u64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">from_nanoseconds_since_midnight</span>(<span class="ident">nanosecond</span>: <span class="ident">u64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="attribute">#![<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">cast_possible_truncation</span>)]</span>
 
-        <span class="ident">nanosecond</span> <span class="op">%</span><span class="op">=</span> <span class="number">86_400</span> <span class="op">*</span> <span class="number">1_000_000_000</span>;
-
         <span class="self">Self</span> {
-            <span class="ident">hour</span>: (<span class="ident">nanosecond</span> <span class="op">/</span> <span class="number">1_000_000_000</span> <span class="op">/</span> <span class="number">60</span> <span class="op">/</span> <span class="number">60</span>) <span class="kw">as</span> <span class="ident">u8</span>,
+            <span class="ident">hour</span>: (<span class="ident">nanosecond</span> <span class="op">/</span> <span class="number">1_000_000_000</span> <span class="op">/</span> <span class="number">60</span> <span class="op">/</span> <span class="number">60</span> <span class="op">%</span> <span class="number">24</span>) <span class="kw">as</span> <span class="ident">u8</span>,
             <span class="ident">minute</span>: (<span class="ident">nanosecond</span> <span class="op">/</span> <span class="number">1_000_000_000</span> <span class="op">/</span> <span class="number">60</span> <span class="op">%</span> <span class="number">60</span>) <span class="kw">as</span> <span class="ident">u8</span>,
             <span class="ident">second</span>: (<span class="ident">nanosecond</span> <span class="op">/</span> <span class="number">1_000_000_000</span> <span class="op">%</span> <span class="number">60</span>) <span class="kw">as</span> <span class="ident">u8</span>,
             <span class="ident">nanosecond</span>: (<span class="ident">nanosecond</span> <span class="op">%</span> <span class="number">1_000_000_000</span>) <span class="kw">as</span> <span class="ident">u32</span>,

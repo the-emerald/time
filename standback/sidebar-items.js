@@ -1,1 +1,1 @@
-initSidebarItems({"mod":[["array",""],["convert",""],["iter",""],["marker",""],["mem",""],["pin",""],["prelude",""],["ptr",""],["task",""]]});
+initSidebarItems({"mod":[["array",""],["convert",""],["iter",""],["marker",""],["mem",""],["num",""],["pin",""],["prelude",""],["ptr",""],["task",""]]});
