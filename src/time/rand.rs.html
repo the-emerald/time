@@ -89,6 +89,8 @@
 <span id="89">89</span>
 <span id="90">90</span>
 <span id="91">91</span>
+<span id="92">92</span>
+<span id="93">93</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="doccomment">//! Implementation of `Distribution` for various structs.</span>
 
@@ -117,7 +119,9 @@
 <span class="kw">impl</span> <span class="ident">Distribution</span><span class="op">&lt;</span><span class="ident">Date</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Standard</span> {
     <span class="attribute">#[<span class="ident">inline</span>]</span>
     <span class="kw">fn</span> <span class="ident">sample</span><span class="op">&lt;</span><span class="ident">R</span>: <span class="ident">Rng</span> <span class="op">+</span> <span class="question-mark">?</span><span class="ident">Sized</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">rng</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">R</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Date</span> {
+        <span class="doccomment">/// The minimum date allowed to be represented.</span>
         <span class="kw">const</span> <span class="ident">MIN_DATE</span>: <span class="ident">Date</span> <span class="op">=</span> <span class="ident">internals</span>::<span class="ident">Date</span>::<span class="ident">from_ymd_unchecked</span>(<span class="ident">MIN_YEAR</span>, <span class="number">1</span>, <span class="number">1</span>);
+        <span class="doccomment">/// The maximum date allowed to be represented.</span>
         <span class="kw">const</span> <span class="ident">MAX_DATE</span>: <span class="ident">Date</span> <span class="op">=</span> <span class="ident">internals</span>::<span class="ident">Date</span>::<span class="ident">from_ymd_unchecked</span>(<span class="ident">MAX_YEAR</span>, <span class="number">12</span>, <span class="number">31</span>);
 
         <span class="ident">Date</span>::<span class="ident">from_julian_day</span>(<span class="ident">rng</span>.<span class="ident">gen_range</span>(<span class="ident">MIN_DATE</span>.<span class="ident">julian_day</span>(), <span class="ident">MAX_DATE</span>.<span class="ident">julian_day</span>() <span class="op">+</span> <span class="number">1</span>))
