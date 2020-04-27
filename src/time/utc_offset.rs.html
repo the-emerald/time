@@ -634,8 +634,6 @@
 <span id="634">634</span>
 <span id="635">635</span>
 <span id="636">636</span>
-<span id="637">637</span>
-<span id="638">638</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">crate</span>::{
     <span class="ident">format</span>::{<span class="ident">parse</span>, <span class="ident">ParsedItems</span>},
@@ -811,7 +809,6 @@
     <span class="doccomment">/// assert_eq!(UtcOffset::hours(-12).as_minutes(), -720);</span>
     <span class="doccomment">/// ```</span>
     <span class="attribute">#[<span class="ident">inline</span>(<span class="ident">always</span>)]</span>
-    <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">cast_possible_truncation</span>)]</span>
     <span class="kw">pub</span> <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">as_minutes</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i16</span> {
         (<span class="self">self</span>.<span class="ident">as_seconds</span>() <span class="op">/</span> <span class="number">60</span>) <span class="kw">as</span> <span class="ident">i16</span>
     }
@@ -826,7 +823,6 @@
     <span class="doccomment">/// assert_eq!(UtcOffset::hours(-12).as_hours(), -12);</span>
     <span class="doccomment">/// ```</span>
     <span class="attribute">#[<span class="ident">inline</span>(<span class="ident">always</span>)]</span>
-    <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">cast_possible_truncation</span>)]</span>
     <span class="kw">pub</span> <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">as_hours</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i8</span> {
         (<span class="self">self</span>.<span class="ident">as_seconds</span>() <span class="op">/</span> <span class="number">3_600</span>) <span class="kw">as</span> <span class="ident">i8</span>
     }
@@ -878,7 +874,7 @@
     <span class="attribute">#[<span class="ident">inline</span>(<span class="ident">always</span>)]</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">std</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">current_local_offset</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="kw">let</span> <span class="ident">now</span> <span class="op">=</span> <span class="ident">OffsetDateTime</span>::<span class="ident">now</span>();
+        <span class="kw">let</span> <span class="ident">now</span> <span class="op">=</span> <span class="ident">OffsetDateTime</span>::<span class="ident">now_utc</span>();
         <span class="ident">try_local_offset_at</span>(<span class="ident">now</span>).<span class="ident">unwrap_or</span>(<span class="self">Self</span>::<span class="ident">UTC</span>)
     }
 
@@ -893,7 +889,7 @@
     <span class="attribute">#[<span class="ident">inline</span>(<span class="ident">always</span>)]</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">std</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">try_current_local_offset</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">IndeterminateOffsetError</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">now</span> <span class="op">=</span> <span class="ident">OffsetDateTime</span>::<span class="ident">now</span>();
+        <span class="kw">let</span> <span class="ident">now</span> <span class="op">=</span> <span class="ident">OffsetDateTime</span>::<span class="ident">now_utc</span>();
         <span class="ident">try_local_offset_at</span>(<span class="ident">now</span>).<span class="ident">ok_or_else</span>(<span class="ident">IndeterminateOffsetError</span>::<span class="ident">new</span>)
     }
 }

@@ -1481,9 +1481,6 @@
 <span id="1481">1481</span>
 <span id="1482">1482</span>
 <span id="1483">1483</span>
-<span id="1484">1484</span>
-<span id="1485">1485</span>
-<span id="1486">1486</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">crate</span>::{
     <span class="ident">format</span>::<span class="ident">parse</span>::{<span class="ident">parse</span>, <span class="ident">ParsedItems</span>},
@@ -1924,7 +1921,7 @@
     <span class="doccomment">/// ```rust</span>
     <span class="doccomment">/// # use time::{date, offset};</span>
     <span class="doccomment">/// assert_eq!(</span>
-    <span class="doccomment">///     date!(2019-01-01).midnight().using_offset(offset!(UTC)).timestamp(),</span>
+    <span class="doccomment">///     date!(2019-01-01).midnight().assume_offset(offset!(UTC)).timestamp(),</span>
     <span class="doccomment">///     1_546_300_800,</span>
     <span class="doccomment">/// );</span>
     <span class="doccomment">/// assert_eq!(</span>
@@ -2039,7 +2036,6 @@
 
     <span class="attribute">#[<span class="ident">inline</span>]</span>
     <span class="kw">fn</span> <span class="ident">add</span>(<span class="self">self</span>, <span class="ident">duration</span>: <span class="ident">Duration</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">Output</span> {
-        <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">cast_possible_truncation</span>)]</span>
         <span class="kw">let</span> <span class="ident">nanos</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">time</span>.<span class="ident">nanoseconds_since_midnight</span>() <span class="kw">as</span> <span class="ident">i64</span>
             <span class="op">+</span> (<span class="ident">duration</span>.<span class="ident">whole_nanoseconds</span>() <span class="op">%</span> <span class="number">86_400_000_000_000</span>) <span class="kw">as</span> <span class="ident">i64</span>;
 
@@ -2060,7 +2056,6 @@
 
     <span class="attribute">#[<span class="ident">inline</span>(<span class="ident">always</span>)]</span>
     <span class="kw">fn</span> <span class="ident">add</span>(<span class="self">self</span>, <span class="ident">duration</span>: <span class="ident">StdDuration</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">Output</span> {
-        <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">cast_possible_truncation</span>)]</span>
         <span class="kw">let</span> <span class="ident">nanos</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">time</span>.<span class="ident">nanoseconds_since_midnight</span>()
             <span class="op">+</span> (<span class="ident">duration</span>.<span class="ident">as_nanos</span>() <span class="op">%</span> <span class="number">86_400_000_000_000</span>) <span class="kw">as</span> <span class="ident">u64</span>;
 
@@ -2102,7 +2097,6 @@
 
     <span class="attribute">#[<span class="ident">inline</span>(<span class="ident">always</span>)]</span>
     <span class="kw">fn</span> <span class="ident">sub</span>(<span class="self">self</span>, <span class="ident">duration</span>: <span class="ident">StdDuration</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">Output</span> {
-        <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">cast_possible_truncation</span>)]</span>
         <span class="kw">let</span> <span class="ident">nanos</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">time</span>.<span class="ident">nanoseconds_since_midnight</span>() <span class="kw">as</span> <span class="ident">i64</span>
             <span class="op">-</span> (<span class="ident">duration</span>.<span class="ident">as_nanos</span>() <span class="op">%</span> <span class="number">86_400_000_000_000</span>) <span class="kw">as</span> <span class="ident">i64</span>;
 
@@ -2232,7 +2226,7 @@
 
 <span class="doccomment">/// Deprecated since v0.2.7, as it assumes an offset of UTC.</span>
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">std</span>)]</span>
-<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">fallible_impl_from</span>, <span class="ident">deprecated</span>)]</span>
+<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">deprecated</span>)]</span>
 <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">PrimitiveDateTime</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">SystemTime</span> {
     <span class="attribute">#[<span class="ident">inline</span>]</span>
     <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">datetime</span>: <span class="ident">PrimitiveDateTime</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {

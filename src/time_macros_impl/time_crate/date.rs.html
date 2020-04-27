@@ -140,11 +140,6 @@
 <span id="140">140</span>
 <span id="141">141</span>
 <span id="142">142</span>
-<span id="143">143</span>
-<span id="144">144</span>
-<span id="145">145</span>
-<span id="146">146</span>
-<span id="147">147</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">Weekday</span>::{<span class="self">self</span>, <span class="ident">Friday</span>, <span class="ident">Monday</span>, <span class="ident">Saturday</span>, <span class="ident">Sunday</span>, <span class="ident">Thursday</span>, <span class="ident">Tuesday</span>, <span class="ident">Wednesday</span>};
 <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">unused_imports</span>)]</span>
@@ -164,7 +159,6 @@
     [<span class="number">31</span>, <span class="number">29</span>, <span class="number">31</span>, <span class="number">30</span>, <span class="number">31</span>, <span class="number">30</span>, <span class="number">31</span>, <span class="number">31</span>, <span class="number">30</span>, <span class="number">31</span>, <span class="number">30</span>, <span class="number">31</span>],
 ];
 
-<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">cast_possible_truncation</span>)]</span>
 <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">days_in_year_month</span>(<span class="ident">year</span>: <span class="ident">i32</span>, <span class="ident">month</span>: <span class="ident">u8</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u8</span> {
     <span class="ident">DAYS_IN_MONTH_COMMON_LEAP</span>[<span class="ident">is_leap_year</span>(<span class="ident">year</span>) <span class="kw">as</span> <span class="ident">usize</span>][<span class="ident">month</span> <span class="kw">as</span> <span class="ident">usize</span> <span class="op">-</span> <span class="number">1</span>] <span class="kw">as</span> <span class="ident">u8</span>
 }
@@ -198,37 +192,33 @@
         <span class="kw">let</span> <span class="ident">days</span> <span class="op">=</span> <span class="ident">CUMULATIVE_DAYS_IN_MONTH_COMMON_LEAP</span>[<span class="ident">is_leap_year</span>(<span class="self">self</span>.<span class="ident">year</span>) <span class="kw">as</span> <span class="ident">usize</span>];
         <span class="kw">let</span> <span class="ident">ordinal</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">ordinal</span>;
 
-        <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">cast_possible_truncation</span>)]</span>
-        {
-            <span class="kw">if</span> <span class="ident">ordinal</span> <span class="op">&gt;</span> <span class="ident">days</span>[<span class="number">10</span>] {
-                (<span class="number">12</span>, (<span class="ident">ordinal</span> <span class="op">-</span> <span class="ident">days</span>[<span class="number">10</span>]) <span class="kw">as</span> <span class="ident">u8</span>)
-            } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">ordinal</span> <span class="op">&gt;</span> <span class="ident">days</span>[<span class="number">9</span>] {
-                (<span class="number">11</span>, (<span class="ident">ordinal</span> <span class="op">-</span> <span class="ident">days</span>[<span class="number">9</span>]) <span class="kw">as</span> <span class="ident">u8</span>)
-            } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">ordinal</span> <span class="op">&gt;</span> <span class="ident">days</span>[<span class="number">8</span>] {
-                (<span class="number">10</span>, (<span class="ident">ordinal</span> <span class="op">-</span> <span class="ident">days</span>[<span class="number">8</span>]) <span class="kw">as</span> <span class="ident">u8</span>)
-            } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">ordinal</span> <span class="op">&gt;</span> <span class="ident">days</span>[<span class="number">7</span>] {
-                (<span class="number">9</span>, (<span class="ident">ordinal</span> <span class="op">-</span> <span class="ident">days</span>[<span class="number">7</span>]) <span class="kw">as</span> <span class="ident">u8</span>)
-            } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">ordinal</span> <span class="op">&gt;</span> <span class="ident">days</span>[<span class="number">6</span>] {
-                (<span class="number">8</span>, (<span class="ident">ordinal</span> <span class="op">-</span> <span class="ident">days</span>[<span class="number">6</span>]) <span class="kw">as</span> <span class="ident">u8</span>)
-            } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">ordinal</span> <span class="op">&gt;</span> <span class="ident">days</span>[<span class="number">5</span>] {
-                (<span class="number">7</span>, (<span class="ident">ordinal</span> <span class="op">-</span> <span class="ident">days</span>[<span class="number">5</span>]) <span class="kw">as</span> <span class="ident">u8</span>)
-            } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">ordinal</span> <span class="op">&gt;</span> <span class="ident">days</span>[<span class="number">4</span>] {
-                (<span class="number">6</span>, (<span class="ident">ordinal</span> <span class="op">-</span> <span class="ident">days</span>[<span class="number">4</span>]) <span class="kw">as</span> <span class="ident">u8</span>)
-            } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">ordinal</span> <span class="op">&gt;</span> <span class="ident">days</span>[<span class="number">3</span>] {
-                (<span class="number">5</span>, (<span class="ident">ordinal</span> <span class="op">-</span> <span class="ident">days</span>[<span class="number">3</span>]) <span class="kw">as</span> <span class="ident">u8</span>)
-            } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">ordinal</span> <span class="op">&gt;</span> <span class="ident">days</span>[<span class="number">2</span>] {
-                (<span class="number">4</span>, (<span class="ident">ordinal</span> <span class="op">-</span> <span class="ident">days</span>[<span class="number">2</span>]) <span class="kw">as</span> <span class="ident">u8</span>)
-            } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">ordinal</span> <span class="op">&gt;</span> <span class="ident">days</span>[<span class="number">1</span>] {
-                (<span class="number">3</span>, (<span class="ident">ordinal</span> <span class="op">-</span> <span class="ident">days</span>[<span class="number">1</span>]) <span class="kw">as</span> <span class="ident">u8</span>)
-            } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">ordinal</span> <span class="op">&gt;</span> <span class="ident">days</span>[<span class="number">0</span>] {
-                (<span class="number">2</span>, (<span class="ident">ordinal</span> <span class="op">-</span> <span class="ident">days</span>[<span class="number">0</span>]) <span class="kw">as</span> <span class="ident">u8</span>)
-            } <span class="kw">else</span> {
-                (<span class="number">1</span>, <span class="ident">ordinal</span> <span class="kw">as</span> <span class="ident">u8</span>)
-            }
+        <span class="kw">if</span> <span class="ident">ordinal</span> <span class="op">&gt;</span> <span class="ident">days</span>[<span class="number">10</span>] {
+            (<span class="number">12</span>, (<span class="ident">ordinal</span> <span class="op">-</span> <span class="ident">days</span>[<span class="number">10</span>]) <span class="kw">as</span> <span class="ident">u8</span>)
+        } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">ordinal</span> <span class="op">&gt;</span> <span class="ident">days</span>[<span class="number">9</span>] {
+            (<span class="number">11</span>, (<span class="ident">ordinal</span> <span class="op">-</span> <span class="ident">days</span>[<span class="number">9</span>]) <span class="kw">as</span> <span class="ident">u8</span>)
+        } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">ordinal</span> <span class="op">&gt;</span> <span class="ident">days</span>[<span class="number">8</span>] {
+            (<span class="number">10</span>, (<span class="ident">ordinal</span> <span class="op">-</span> <span class="ident">days</span>[<span class="number">8</span>]) <span class="kw">as</span> <span class="ident">u8</span>)
+        } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">ordinal</span> <span class="op">&gt;</span> <span class="ident">days</span>[<span class="number">7</span>] {
+            (<span class="number">9</span>, (<span class="ident">ordinal</span> <span class="op">-</span> <span class="ident">days</span>[<span class="number">7</span>]) <span class="kw">as</span> <span class="ident">u8</span>)
+        } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">ordinal</span> <span class="op">&gt;</span> <span class="ident">days</span>[<span class="number">6</span>] {
+            (<span class="number">8</span>, (<span class="ident">ordinal</span> <span class="op">-</span> <span class="ident">days</span>[<span class="number">6</span>]) <span class="kw">as</span> <span class="ident">u8</span>)
+        } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">ordinal</span> <span class="op">&gt;</span> <span class="ident">days</span>[<span class="number">5</span>] {
+            (<span class="number">7</span>, (<span class="ident">ordinal</span> <span class="op">-</span> <span class="ident">days</span>[<span class="number">5</span>]) <span class="kw">as</span> <span class="ident">u8</span>)
+        } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">ordinal</span> <span class="op">&gt;</span> <span class="ident">days</span>[<span class="number">4</span>] {
+            (<span class="number">6</span>, (<span class="ident">ordinal</span> <span class="op">-</span> <span class="ident">days</span>[<span class="number">4</span>]) <span class="kw">as</span> <span class="ident">u8</span>)
+        } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">ordinal</span> <span class="op">&gt;</span> <span class="ident">days</span>[<span class="number">3</span>] {
+            (<span class="number">5</span>, (<span class="ident">ordinal</span> <span class="op">-</span> <span class="ident">days</span>[<span class="number">3</span>]) <span class="kw">as</span> <span class="ident">u8</span>)
+        } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">ordinal</span> <span class="op">&gt;</span> <span class="ident">days</span>[<span class="number">2</span>] {
+            (<span class="number">4</span>, (<span class="ident">ordinal</span> <span class="op">-</span> <span class="ident">days</span>[<span class="number">2</span>]) <span class="kw">as</span> <span class="ident">u8</span>)
+        } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">ordinal</span> <span class="op">&gt;</span> <span class="ident">days</span>[<span class="number">1</span>] {
+            (<span class="number">3</span>, (<span class="ident">ordinal</span> <span class="op">-</span> <span class="ident">days</span>[<span class="number">1</span>]) <span class="kw">as</span> <span class="ident">u8</span>)
+        } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">ordinal</span> <span class="op">&gt;</span> <span class="ident">days</span>[<span class="number">0</span>] {
+            (<span class="number">2</span>, (<span class="ident">ordinal</span> <span class="op">-</span> <span class="ident">days</span>[<span class="number">0</span>]) <span class="kw">as</span> <span class="ident">u8</span>)
+        } <span class="kw">else</span> {
+            (<span class="number">1</span>, <span class="ident">ordinal</span> <span class="kw">as</span> <span class="ident">u8</span>)
         }
     }
 
-    <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">unstable_name_collisions</span>)]</span>
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">weekday</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Weekday</span> {
         <span class="kw">let</span> (<span class="ident">month</span>, <span class="ident">day</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">month_day</span>();
 

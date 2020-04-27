@@ -613,6 +613,15 @@
 <span id="613">613</span>
 <span id="614">614</span>
 <span id="615">615</span>
+<span id="616">616</span>
+<span id="617">617</span>
+<span id="618">618</span>
+<span id="619">619</span>
+<span id="620">620</span>
+<span id="621">621</span>
+<span id="622">622</span>
+<span id="623">623</span>
+<span id="624">624</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="doccomment">//! Simple time handling.</span>
 <span class="doccomment">//!</span>
@@ -759,46 +768,55 @@
 <span class="attribute">#![<span class="ident">cfg_attr</span>(<span class="ident">docs</span>, <span class="ident">feature</span>(<span class="ident">doc_cfg</span>))]</span>
 <span class="attribute">#![<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">std</span>), <span class="ident">no_std</span>)]</span>
 <span class="attribute">#![<span class="ident">deny</span>(
-    <span class="ident">unsafe_code</span>, <span class="comment">// Used when interacting with system APIs</span>
     <span class="ident">anonymous_parameters</span>,
-    <span class="ident">rust_2018_idioms</span>,
-    <span class="ident">trivial_casts</span>,
-    <span class="ident">trivial_numeric_casts</span>,
-    <span class="ident">unreachable_pub</span>, <span class="comment">// some known bugs that are overridden</span>
+    <span class="ident">clippy</span>::<span class="ident">all</span>,
     <span class="ident">const_err</span>,
     <span class="ident">illegal_floating_point_literal_pattern</span>,
     <span class="ident">late_bound_lifetime_arguments</span>,
     <span class="ident">path_statements</span>,
     <span class="ident">patterns_in_fns_without_body</span>,
-    <span class="ident">clippy</span>::<span class="ident">all</span>
+    <span class="ident">rust_2018_idioms</span>,
+    <span class="ident">trivial_casts</span>,
+    <span class="ident">trivial_numeric_casts</span>,
+    <span class="ident">unreachable_pub</span>,
+    <span class="ident">unsafe_code</span>,
+    <span class="ident">unused_extern_crates</span>
 )]</span>
 <span class="attribute">#![<span class="ident">warn</span>(
-    <span class="ident">unused_extern_crates</span>,
+    <span class="ident">clippy</span>::<span class="ident">dbg_macro</span>,
+    <span class="ident">clippy</span>::<span class="ident">decimal_literal_representation</span>,
+    <span class="ident">clippy</span>::<span class="ident">get_unwrap</span>,
+    <span class="ident">clippy</span>::<span class="ident">missing_docs_in_private_items</span>,
+    <span class="ident">clippy</span>::<span class="ident">nursery</span>,
+    <span class="ident">clippy</span>::<span class="ident">option_unwrap_used</span>,
+    <span class="ident">clippy</span>::<span class="ident">pedantic</span>,
+    <span class="ident">clippy</span>::<span class="ident">print_stdout</span>,
+    <span class="ident">clippy</span>::<span class="ident">result_unwrap_used</span>,
+    <span class="ident">clippy</span>::<span class="ident">todo</span>,
+    <span class="ident">clippy</span>::<span class="ident">unimplemented</span>,
+    <span class="ident">clippy</span>::<span class="ident">use_debug</span>,
     <span class="ident">missing_copy_implementations</span>,
     <span class="ident">missing_debug_implementations</span>,
     <span class="ident">single_use_lifetimes</span>,
     <span class="ident">unused_qualifications</span>,
-    <span class="ident">variant_size_differences</span>,
-    <span class="ident">clippy</span>::<span class="ident">pedantic</span>,
-    <span class="ident">clippy</span>::<span class="ident">nursery</span>,
-    <span class="ident">clippy</span>::<span class="ident">missing_docs_in_private_items</span>,
-    <span class="ident">clippy</span>::<span class="ident">dbg_macro</span>,
-    <span class="ident">clippy</span>::<span class="ident">decimal_literal_representation</span>,
-    <span class="ident">clippy</span>::<span class="ident">get_unwrap</span>,
-    <span class="ident">clippy</span>::<span class="ident">option_unwrap_used</span>,
-    <span class="ident">clippy</span>::<span class="ident">print_stdout</span>,
-    <span class="ident">clippy</span>::<span class="ident">result_unwrap_used</span>
+    <span class="ident">variant_size_differences</span>
 )]</span>
 <span class="attribute">#![<span class="ident">allow</span>(
-    <span class="ident">unstable_name_collisions</span>,
-    <span class="ident">clippy</span>::<span class="ident">suspicious_arithmetic_impl</span>,
-    <span class="ident">clippy</span>::<span class="ident">inline_always</span>,
-    <span class="ident">clippy</span>::<span class="ident">cast_possible_wrap</span>,
     <span class="ident">clippy</span>::<span class="ident">cast_lossless</span>,
+    <span class="ident">clippy</span>::<span class="ident">cast_possible_truncation</span>,
+    <span class="ident">clippy</span>::<span class="ident">cast_possible_wrap</span>,
+    <span class="ident">clippy</span>::<span class="ident">cast_precision_loss</span>,
+    <span class="ident">clippy</span>::<span class="ident">cast_sign_loss</span>,
+    <span class="ident">clippy</span>::<span class="ident">enum_glob_use</span>,
+    <span class="ident">clippy</span>::<span class="ident">inline_always</span>,
+    <span class="ident">clippy</span>::<span class="ident">missing_errors_doc</span>,
     <span class="ident">clippy</span>::<span class="ident">module_name_repetitions</span>,
     <span class="ident">clippy</span>::<span class="ident">must_use_candidate</span>,
-    <span class="ident">clippy</span>::<span class="ident">missing_errors_doc</span>,
-    <span class="ident">clippy</span>::<span class="ident">use_self</span>, <span class="comment">// Not supported in some situations in older compilers.</span>
+    <span class="ident">clippy</span>::<span class="ident">suspicious_arithmetic_impl</span>,
+    <span class="ident">clippy</span>::<span class="ident">use_self</span>,
+    <span class="ident">clippy</span>::<span class="ident">wildcard_imports</span>,
+    <span class="ident">clippy</span>::<span class="ident">zero_prefixed_literal</span>,
+    <span class="ident">unstable_name_collisions</span>
 )]</span>
 <span class="attribute">#![<span class="ident">cfg_attr</span>(<span class="ident">test</span>, <span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">cognitive_complexity</span>, <span class="ident">clippy</span>::<span class="ident">too_many_lines</span>))]</span>
 <span class="attribute">#![<span class="ident">doc</span>(<span class="ident">html_favicon_url</span> <span class="op">=</span> <span class="string">&quot;https://avatars0.githubusercontent.com/u/55999857&quot;</span>)]</span>

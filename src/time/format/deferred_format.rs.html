@@ -94,7 +94,6 @@
 <span id="94">94</span>
 <span id="95">95</span>
 <span id="96">96</span>
-<span id="97">97</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="doccomment">//! The `DeferredFormat` struct, acting as an intermediary between a request to</span>
 <span class="doccomment">//! format and the final output.</span>
@@ -106,7 +105,6 @@
 <span class="kw">use</span> <span class="ident">core</span>::<span class="ident">fmt</span>::{<span class="self">self</span>, <span class="ident">Display</span>, <span class="ident">Formatter</span>};
 
 <span class="doccomment">/// A struct containing all the necessary information to display the inner type.</span>
-<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">single_use_lifetimes</span>)]</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">Hash</span>)]</span>
 <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct</span> <span class="ident">DeferredFormat</span> {
     <span class="doccomment">/// The `Date` to use for formatting.</span>

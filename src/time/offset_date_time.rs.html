@@ -1957,6 +1957,35 @@
 <span id="1957">1957</span>
 <span id="1958">1958</span>
 <span id="1959">1959</span>
+<span id="1960">1960</span>
+<span id="1961">1961</span>
+<span id="1962">1962</span>
+<span id="1963">1963</span>
+<span id="1964">1964</span>
+<span id="1965">1965</span>
+<span id="1966">1966</span>
+<span id="1967">1967</span>
+<span id="1968">1968</span>
+<span id="1969">1969</span>
+<span id="1970">1970</span>
+<span id="1971">1971</span>
+<span id="1972">1972</span>
+<span id="1973">1973</span>
+<span id="1974">1974</span>
+<span id="1975">1975</span>
+<span id="1976">1976</span>
+<span id="1977">1977</span>
+<span id="1978">1978</span>
+<span id="1979">1979</span>
+<span id="1980">1980</span>
+<span id="1981">1981</span>
+<span id="1982">1982</span>
+<span id="1983">1983</span>
+<span id="1984">1984</span>
+<span id="1985">1985</span>
+<span id="1986">1986</span>
+<span id="1987">1987</span>
+<span id="1988">1988</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">crate</span>::{
     <span class="ident">format</span>::<span class="ident">parse</span>::{<span class="ident">parse</span>, <span class="ident">ParsedItems</span>},
@@ -2014,9 +2043,28 @@
     <span class="doccomment">/// assert_eq!(OffsetDateTime::now().offset(), offset!(UTC));</span>
     <span class="doccomment">/// ```</span>
     <span class="attribute">#[<span class="ident">inline</span>(<span class="ident">always</span>)]</span>
+    <span class="attribute">#[<span class="ident">deprecated</span>(
+        <span class="ident">since</span> <span class="op">=</span> <span class="string">&quot;0.2.11&quot;</span>,
+        <span class="ident">note</span> <span class="op">=</span> <span class="string">&quot;This function returns a value with an offset of UTC, which is not apparent from \
+                its name alone. You should use `OffsetDateTime::now_utc()` instead.&quot;</span>
+    )]</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">std</span>)]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">docs</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;std&quot;</span>)))]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">now</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+        <span class="ident">SystemTime</span>::<span class="ident">now</span>().<span class="ident">into</span>()
+    }
+
+    <span class="doccomment">/// Create a new `OffsetDateTime` with the current date and time in UTC.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// ```rust</span>
+    <span class="doccomment">/// # use time::{OffsetDateTime, offset};</span>
+    <span class="doccomment">/// assert!(OffsetDateTime::now_utc().year() &gt;= 2019);</span>
+    <span class="doccomment">/// assert_eq!(OffsetDateTime::now_utc().offset(), offset!(UTC));</span>
+    <span class="doccomment">/// ```</span>
+    <span class="attribute">#[<span class="ident">inline</span>(<span class="ident">always</span>)]</span>
+    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">std</span>)]</span>
+    <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">docs</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;std&quot;</span>)))]</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">now_utc</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="ident">SystemTime</span>::<span class="ident">now</span>().<span class="ident">into</span>()
     }
 
@@ -2031,7 +2079,7 @@
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">std</span>)]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">docs</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;std&quot;</span>)))]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">now_local</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="kw">let</span> <span class="ident">t</span> <span class="op">=</span> <span class="self">Self</span>::<span class="ident">now</span>();
+        <span class="kw">let</span> <span class="ident">t</span> <span class="op">=</span> <span class="self">Self</span>::<span class="ident">now_utc</span>();
         <span class="ident">t</span>.<span class="ident">to_offset</span>(<span class="ident">UtcOffset</span>::<span class="ident">local_offset_at</span>(<span class="ident">t</span>))
     }
 
@@ -2047,7 +2095,7 @@
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">std</span>)]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">docs</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;std&quot;</span>)))]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">try_now_local</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">IndeterminateOffsetError</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">t</span> <span class="op">=</span> <span class="self">Self</span>::<span class="ident">now</span>();
+        <span class="kw">let</span> <span class="ident">t</span> <span class="op">=</span> <span class="self">Self</span>::<span class="ident">now_utc</span>();
         <span class="prelude-val">Ok</span>(<span class="ident">t</span>.<span class="ident">to_offset</span>(<span class="ident">UtcOffset</span>::<span class="ident">try_local_offset_at</span>(<span class="ident">t</span>)<span class="question-mark">?</span>))
     }
 
@@ -2059,7 +2107,7 @@
     <span class="doccomment">/// assert_eq!(</span>
     <span class="doccomment">///     date!(2000-01-01)</span>
     <span class="doccomment">///         .midnight()</span>
-    <span class="doccomment">///         .using_offset(offset!(UTC))</span>
+    <span class="doccomment">///         .assume_utc()</span>
     <span class="doccomment">///         .to_offset(offset!(-1))</span>
     <span class="doccomment">///         .year(),</span>
     <span class="doccomment">///     1999,</span>
@@ -2070,7 +2118,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// // Construct midnight on new year&#39;s in Sydney. This is equivalent to</span>
     <span class="doccomment">/// // 13:00 UTC.</span>
-    <span class="doccomment">/// let sydney = date!(1999-12-31).with_time(time!(13:00)).using_offset(offset!(+11));</span>
+    <span class="doccomment">/// let sydney = date!(2000-01-01).midnight().assume_offset(offset!(+11));</span>
     <span class="doccomment">/// let new_york = sydney.to_offset(offset!(-5));</span>
     <span class="doccomment">/// let los_angeles = sydney.to_offset(offset!(-8));</span>
     <span class="doccomment">/// assert_eq!(sydney.hour(), 0);</span>
@@ -2093,7 +2141,7 @@
     <span class="doccomment">///     OffsetDateTime::unix_epoch(),</span>
     <span class="doccomment">///     date!(1970-01-01)</span>
     <span class="doccomment">///         .midnight()</span>
-    <span class="doccomment">///         .using_offset(offset!(UTC)),</span>
+    <span class="doccomment">///         .assume_utc(),</span>
     <span class="doccomment">/// );</span>
     <span class="doccomment">/// ```</span>
     <span class="attribute">#[<span class="ident">inline</span>(<span class="ident">always</span>)]</span>
@@ -2118,7 +2166,7 @@
     <span class="doccomment">///     OffsetDateTime::from_unix_timestamp(1_546_300_800),</span>
     <span class="doccomment">///     date!(2019-01-01)</span>
     <span class="doccomment">///         .midnight()</span>
-    <span class="doccomment">///         .using_offset(offset!(UTC)),</span>
+    <span class="doccomment">///         .assume_utc(),</span>
     <span class="doccomment">/// );</span>
     <span class="doccomment">/// ```</span>
     <span class="attribute">#[<span class="ident">inline</span>(<span class="ident">always</span>)]</span>
@@ -2133,14 +2181,14 @@
     <span class="doccomment">/// assert_eq!(</span>
     <span class="doccomment">///     date!(2019-01-01)</span>
     <span class="doccomment">///         .midnight()</span>
-    <span class="doccomment">///         .using_offset(offset!(UTC))</span>
+    <span class="doccomment">///         .assume_utc()</span>
     <span class="doccomment">///         .offset(),</span>
     <span class="doccomment">///     offset!(UTC),</span>
     <span class="doccomment">/// );</span>
     <span class="doccomment">/// assert_eq!(</span>
     <span class="doccomment">///     date!(2019-01-01)</span>
     <span class="doccomment">///         .midnight()</span>
-    <span class="doccomment">///         .using_offset(offset!(+1))</span>
+    <span class="doccomment">///         .assume_offset(offset!(+1))</span>
     <span class="doccomment">///         .offset(),</span>
     <span class="doccomment">///     offset!(+1),</span>
     <span class="doccomment">/// );</span>
@@ -2156,13 +2204,14 @@
     <span class="doccomment">/// # use time::{PrimitiveDateTime, offset};</span>
     <span class="doccomment">/// assert_eq!(</span>
     <span class="doccomment">///     PrimitiveDateTime::unix_epoch()</span>
-    <span class="doccomment">///         .using_offset(offset!(UTC))</span>
+    <span class="doccomment">///         .assume_utc()</span>
     <span class="doccomment">///         .timestamp(),</span>
     <span class="doccomment">///     0,</span>
     <span class="doccomment">/// );</span>
     <span class="doccomment">/// assert_eq!(</span>
     <span class="doccomment">///     PrimitiveDateTime::unix_epoch()</span>
-    <span class="doccomment">///         .using_offset(offset!(-1))</span>
+    <span class="doccomment">///         .assume_utc()</span>
+    <span class="doccomment">///         .to_offset(offset!(-1))</span>
     <span class="doccomment">///         .timestamp(),</span>
     <span class="doccomment">///     0,</span>
     <span class="doccomment">/// );</span>
@@ -2179,14 +2228,15 @@
     <span class="doccomment">/// assert_eq!(</span>
     <span class="doccomment">///     date!(2019-01-01)</span>
     <span class="doccomment">///         .midnight()</span>
-    <span class="doccomment">///         .using_offset(offset!(UTC))</span>
+    <span class="doccomment">///         .assume_utc()</span>
     <span class="doccomment">///         .date(),</span>
     <span class="doccomment">///     date!(2019-01-01),</span>
     <span class="doccomment">/// );</span>
     <span class="doccomment">/// assert_eq!(</span>
     <span class="doccomment">///     date!(2019-01-01)</span>
     <span class="doccomment">///         .midnight()</span>
-    <span class="doccomment">///         .using_offset(offset!(-1))</span>
+    <span class="doccomment">///         .assume_utc()</span>
+    <span class="doccomment">///         .to_offset(offset!(-1))</span>
     <span class="doccomment">///         .date(),</span>
     <span class="doccomment">///     date!(2018-12-31),</span>
     <span class="doccomment">/// );</span>
@@ -2203,14 +2253,15 @@
     <span class="doccomment">/// assert_eq!(</span>
     <span class="doccomment">///     date!(2019-01-01)</span>
     <span class="doccomment">///         .midnight()</span>
-    <span class="doccomment">///         .using_offset(offset!(UTC))</span>
+    <span class="doccomment">///         .assume_utc()</span>
     <span class="doccomment">///         .time(),</span>
     <span class="doccomment">///     time!(0:00)</span>
     <span class="doccomment">/// );</span>
     <span class="doccomment">/// assert_eq!(</span>
     <span class="doccomment">///     date!(2019-01-01)</span>
     <span class="doccomment">///         .midnight()</span>
-    <span class="doccomment">///         .using_offset(offset!(-1))</span>
+    <span class="doccomment">///         .assume_utc()</span>
+    <span class="doccomment">///         .to_offset(offset!(-1))</span>
     <span class="doccomment">///         .time(),</span>
     <span class="doccomment">///     time!(23:00)</span>
     <span class="doccomment">/// );</span>
@@ -2227,14 +2278,14 @@
     <span class="doccomment">/// assert_eq!(</span>
     <span class="doccomment">///     date!(2019-01-01)</span>
     <span class="doccomment">///         .midnight()</span>
-    <span class="doccomment">///         .using_offset(offset!(UTC))</span>
+    <span class="doccomment">///         .assume_utc()</span>
     <span class="doccomment">///         .year(),</span>
     <span class="doccomment">///     2019,</span>
     <span class="doccomment">/// );</span>
     <span class="doccomment">/// assert_eq!(</span>
     <span class="doccomment">///     date!(2019-12-31)</span>
     <span class="doccomment">///         .with_time(time!(23:00))</span>
-    <span class="doccomment">///         .using_offset(offset!(UTC))</span>
+    <span class="doccomment">///         .assume_utc()</span>
     <span class="doccomment">///         .to_offset(offset!(+1))</span>
     <span class="doccomment">///         .year(),</span>
     <span class="doccomment">///     2020,</span>
@@ -2242,7 +2293,7 @@
     <span class="doccomment">/// assert_eq!(</span>
     <span class="doccomment">///     date!(2020-01-01)</span>
     <span class="doccomment">///         .midnight()</span>
-    <span class="doccomment">///         .using_offset(offset!(UTC))</span>
+    <span class="doccomment">///         .assume_utc()</span>
     <span class="doccomment">///         .year(),</span>
     <span class="doccomment">///     2020,</span>
     <span class="doccomment">/// );</span>
@@ -2263,14 +2314,15 @@
     <span class="doccomment">/// assert_eq!(</span>
     <span class="doccomment">///     date!(2019-01-01)</span>
     <span class="doccomment">///         .midnight()</span>
-    <span class="doccomment">///         .using_offset(offset!(UTC))</span>
+    <span class="doccomment">///         .assume_utc()</span>
     <span class="doccomment">///         .month(),</span>
     <span class="doccomment">///     1,</span>
     <span class="doccomment">/// );</span>
     <span class="doccomment">/// assert_eq!(</span>
     <span class="doccomment">///     date!(2019-12-31)</span>
     <span class="doccomment">///         .with_time(time!(23:00))</span>
-    <span class="doccomment">///         .using_offset(offset!(+1))</span>
+    <span class="doccomment">///         .assume_utc()</span>
+    <span class="doccomment">///         .to_offset(offset!(+1))</span>
     <span class="doccomment">///         .month(),</span>
     <span class="doccomment">///     1,</span>
     <span class="doccomment">/// );</span>
@@ -2290,14 +2342,15 @@
     <span class="doccomment">/// assert_eq!(</span>
     <span class="doccomment">///     date!(2019-01-01)</span>
     <span class="doccomment">///         .midnight()</span>
-    <span class="doccomment">///         .using_offset(offset!(UTC))</span>
+    <span class="doccomment">///         .assume_utc()</span>
     <span class="doccomment">///         .day(),</span>
     <span class="doccomment">///     1,</span>
     <span class="doccomment">/// );</span>
     <span class="doccomment">/// assert_eq!(</span>
     <span class="doccomment">///     date!(2019-12-31)</span>
     <span class="doccomment">///         .with_time(time!(23:00))</span>
-    <span class="doccomment">///         .using_offset(offset!(+1))</span>
+    <span class="doccomment">///         .assume_utc()</span>
+    <span class="doccomment">///         .to_offset(offset!(+1))</span>
     <span class="doccomment">///         .day(),</span>
     <span class="doccomment">///     1,</span>
     <span class="doccomment">/// );</span>
@@ -2317,14 +2370,15 @@
     <span class="doccomment">/// assert_eq!(</span>
     <span class="doccomment">///     date!(2019-01-01)</span>
     <span class="doccomment">///         .midnight()</span>
-    <span class="doccomment">///         .using_offset(offset!(UTC))</span>
+    <span class="doccomment">///         .assume_utc()</span>
     <span class="doccomment">///         .month_day(),</span>
     <span class="doccomment">///     (1, 1),</span>
     <span class="doccomment">/// );</span>
     <span class="doccomment">/// assert_eq!(</span>
     <span class="doccomment">///     date!(2019-12-31)</span>
     <span class="doccomment">///         .with_time(time!(23:00))</span>
-    <span class="doccomment">///         .using_offset(offset!(+1))</span>
+    <span class="doccomment">///         .assume_utc()</span>
+    <span class="doccomment">///         .to_offset(offset!(+1))</span>
     <span class="doccomment">///         .month_day(),</span>
     <span class="doccomment">///     (1, 1),</span>
     <span class="doccomment">/// );</span>
@@ -2343,14 +2397,15 @@
     <span class="doccomment">/// assert_eq!(</span>
     <span class="doccomment">///     date!(2019-01-01)</span>
     <span class="doccomment">///         .midnight()</span>
-    <span class="doccomment">///         .using_offset(offset!(UTC))</span>
+    <span class="doccomment">///         .assume_utc()</span>
     <span class="doccomment">///         .ordinal(),</span>
     <span class="doccomment">///     1,</span>
     <span class="doccomment">/// );</span>
     <span class="doccomment">/// assert_eq!(</span>
     <span class="doccomment">///     date!(2019-12-31)</span>
     <span class="doccomment">///         .with_time(time!(23:00))</span>
-    <span class="doccomment">///         .using_offset(offset!(+1))</span>
+    <span class="doccomment">///         .assume_utc()</span>
+    <span class="doccomment">///         .to_offset(offset!(+1))</span>
     <span class="doccomment">///         .ordinal(),</span>
     <span class="doccomment">///     1,</span>
     <span class="doccomment">/// );</span>
@@ -2367,35 +2422,35 @@
     <span class="doccomment">/// assert_eq!(</span>
     <span class="doccomment">///     date!(2019-01-01)</span>
     <span class="doccomment">///         .midnight()</span>
-    <span class="doccomment">///         .using_offset(offset!(UTC))</span>
+    <span class="doccomment">///         .assume_utc()</span>
     <span class="doccomment">///         .iso_year_week(),</span>
     <span class="doccomment">///     (2019, 1),</span>
     <span class="doccomment">/// );</span>
     <span class="doccomment">/// assert_eq!(</span>
     <span class="doccomment">///     date!(2019-10-04)</span>
     <span class="doccomment">///         .midnight()</span>
-    <span class="doccomment">///         .using_offset(offset!(UTC))</span>
+    <span class="doccomment">///         .assume_utc()</span>
     <span class="doccomment">///         .iso_year_week(),</span>
     <span class="doccomment">///     (2019, 40),</span>
     <span class="doccomment">/// );</span>
     <span class="doccomment">/// assert_eq!(</span>
     <span class="doccomment">///     date!(2020-01-01)</span>
     <span class="doccomment">///         .midnight()</span>
-    <span class="doccomment">///         .using_offset(offset!(UTC))</span>
+    <span class="doccomment">///         .assume_utc()</span>
     <span class="doccomment">///         .iso_year_week(),</span>
     <span class="doccomment">///     (2020, 1),</span>
     <span class="doccomment">/// );</span>
     <span class="doccomment">/// assert_eq!(</span>
     <span class="doccomment">///     date!(2020-12-31)</span>
     <span class="doccomment">///         .midnight()</span>
-    <span class="doccomment">///         .using_offset(offset!(UTC))</span>
+    <span class="doccomment">///         .assume_utc()</span>
     <span class="doccomment">///         .iso_year_week(),</span>
     <span class="doccomment">///     (2020, 53),</span>
     <span class="doccomment">/// );</span>
     <span class="doccomment">/// assert_eq!(</span>
     <span class="doccomment">///     date!(2021-01-01)</span>
     <span class="doccomment">///         .midnight()</span>
-    <span class="doccomment">///         .using_offset(offset!(UTC))</span>
+    <span class="doccomment">///         .assume_utc()</span>
     <span class="doccomment">///         .iso_year_week(),</span>
     <span class="doccomment">///     (2020, 53),</span>
     <span class="doccomment">/// );</span>
@@ -2414,28 +2469,28 @@
     <span class="doccomment">/// assert_eq!(</span>
     <span class="doccomment">///     date!(2019-01-01)</span>
     <span class="doccomment">///         .midnight()</span>
-    <span class="doccomment">///         .using_offset(offset!(UTC))</span>
+    <span class="doccomment">///         .assume_utc()</span>
     <span class="doccomment">///         .week(),</span>
     <span class="doccomment">///     1,</span>
     <span class="doccomment">/// );</span>
     <span class="doccomment">/// assert_eq!(</span>
     <span class="doccomment">///     date!(2020-01-01)</span>
     <span class="doccomment">///         .midnight()</span>
-    <span class="doccomment">///         .using_offset(offset!(UTC))</span>
+    <span class="doccomment">///         .assume_utc()</span>
     <span class="doccomment">///         .week(),</span>
     <span class="doccomment">///     1,</span>
     <span class="doccomment">/// );</span>
     <span class="doccomment">/// assert_eq!(</span>
     <span class="doccomment">///     date!(2020-12-31)</span>
     <span class="doccomment">///         .midnight()</span>
-    <span class="doccomment">///         .using_offset(offset!(UTC))</span>
+    <span class="doccomment">///         .assume_utc()</span>
     <span class="doccomment">///         .week(),</span>
     <span class="doccomment">///     53,</span>
     <span class="doccomment">/// );</span>
     <span class="doccomment">/// assert_eq!(</span>
     <span class="doccomment">///     date!(2021-01-01)</span>
     <span class="doccomment">///         .midnight()</span>
-    <span class="doccomment">///         .using_offset(offset!(UTC))</span>
+    <span class="doccomment">///         .assume_utc()</span>
     <span class="doccomment">///         .week(),</span>
     <span class="doccomment">///     53,</span>
     <span class="doccomment">/// );</span>
@@ -2455,21 +2510,21 @@
     <span class="doccomment">/// assert_eq!(</span>
     <span class="doccomment">///     date!(2019-01-01)</span>
     <span class="doccomment">///         .midnight()</span>
-    <span class="doccomment">///         .using_offset(offset!(UTC))</span>
+    <span class="doccomment">///         .assume_utc()</span>
     <span class="doccomment">///         .weekday(),</span>
     <span class="doccomment">///     Tuesday,</span>
     <span class="doccomment">/// );</span>
     <span class="doccomment">/// assert_eq!(</span>
     <span class="doccomment">///     date!(2019-02-01)</span>
     <span class="doccomment">///         .midnight()</span>
-    <span class="doccomment">///         .using_offset(offset!(UTC))</span>
+    <span class="doccomment">///         .assume_utc()</span>
     <span class="doccomment">///         .weekday(),</span>
     <span class="doccomment">///     Friday,</span>
     <span class="doccomment">/// );</span>
     <span class="doccomment">/// assert_eq!(</span>
     <span class="doccomment">///     date!(2019-03-01)</span>
     <span class="doccomment">///         .midnight()</span>
-    <span class="doccomment">///         .using_offset(offset!(UTC))</span>
+    <span class="doccomment">///         .assume_utc()</span>
     <span class="doccomment">///         .weekday(),</span>
     <span class="doccomment">///     Friday,</span>
     <span class="doccomment">/// );</span>
@@ -2488,14 +2543,15 @@
     <span class="doccomment">/// assert_eq!(</span>
     <span class="doccomment">///     date!(2019-01-01)</span>
     <span class="doccomment">///         .midnight()</span>
-    <span class="doccomment">///         .using_offset(offset!(UTC))</span>
+    <span class="doccomment">///         .assume_utc()</span>
     <span class="doccomment">///         .hour(),</span>
     <span class="doccomment">///     0,</span>
     <span class="doccomment">/// );</span>
     <span class="doccomment">/// assert_eq!(</span>
     <span class="doccomment">///     date!(2019-01-01)</span>
     <span class="doccomment">///         .with_time(time!(23:59:59))</span>
-    <span class="doccomment">///         .using_offset(offset!(-2))</span>
+    <span class="doccomment">///         .assume_utc()</span>
+    <span class="doccomment">///         .to_offset(offset!(-2))</span>
     <span class="doccomment">///         .hour(),</span>
     <span class="doccomment">///     21,</span>
     <span class="doccomment">/// );</span>
@@ -2514,14 +2570,15 @@
     <span class="doccomment">/// assert_eq!(</span>
     <span class="doccomment">///     date!(2019-01-01)</span>
     <span class="doccomment">///         .midnight()</span>
-    <span class="doccomment">///         .using_offset(offset!(UTC))</span>
+    <span class="doccomment">///         .assume_utc()</span>
     <span class="doccomment">///         .minute(),</span>
     <span class="doccomment">///     0,</span>
     <span class="doccomment">/// );</span>
     <span class="doccomment">/// assert_eq!(</span>
     <span class="doccomment">///     date!(2019-01-01)</span>
     <span class="doccomment">///         .with_time(time!(23:59:59))</span>
-    <span class="doccomment">///         .using_offset(offset!(+0:30))</span>
+    <span class="doccomment">///         .assume_utc()</span>
+    <span class="doccomment">///         .to_offset(offset!(+0:30))</span>
     <span class="doccomment">///         .minute(),</span>
     <span class="doccomment">///     29,</span>
     <span class="doccomment">/// );</span>
@@ -2540,14 +2597,15 @@
     <span class="doccomment">/// assert_eq!(</span>
     <span class="doccomment">///     date!(2019-01-01)</span>
     <span class="doccomment">///         .midnight()</span>
-    <span class="doccomment">///         .using_offset(offset!(UTC))</span>
+    <span class="doccomment">///         .assume_utc()</span>
     <span class="doccomment">///         .second(),</span>
     <span class="doccomment">///     0,</span>
     <span class="doccomment">/// );</span>
     <span class="doccomment">/// assert_eq!(</span>
     <span class="doccomment">///     date!(2019-01-01)</span>
     <span class="doccomment">///         .with_time(time!(23:59:59))</span>
-    <span class="doccomment">///         .using_offset(offset!(+0:00:30))</span>
+    <span class="doccomment">///         .assume_utc()</span>
+    <span class="doccomment">///         .to_offset(offset!(+0:00:30))</span>
     <span class="doccomment">///         .second(),</span>
     <span class="doccomment">///     29,</span>
     <span class="doccomment">/// );</span>
@@ -2566,14 +2624,14 @@
     <span class="doccomment">/// assert_eq!(</span>
     <span class="doccomment">///     date!(2019-01-01)</span>
     <span class="doccomment">///         .midnight()</span>
-    <span class="doccomment">///         .using_offset(offset!(UTC))</span>
+    <span class="doccomment">///         .assume_utc()</span>
     <span class="doccomment">///         .millisecond(),</span>
     <span class="doccomment">///     0,</span>
     <span class="doccomment">/// );</span>
     <span class="doccomment">/// assert_eq!(</span>
     <span class="doccomment">///     date!(2019-01-01)</span>
     <span class="doccomment">///         .with_time(time!(23:59:59.999))</span>
-    <span class="doccomment">///         .using_offset(offset!(UTC))</span>
+    <span class="doccomment">///         .assume_utc()</span>
     <span class="doccomment">///         .millisecond(),</span>
     <span class="doccomment">///     999,</span>
     <span class="doccomment">/// );</span>
@@ -2592,14 +2650,14 @@
     <span class="doccomment">/// assert_eq!(</span>
     <span class="doccomment">///     date!(2019-01-01)</span>
     <span class="doccomment">///         .midnight()</span>
-    <span class="doccomment">///         .using_offset(offset!(UTC))</span>
+    <span class="doccomment">///         .assume_utc()</span>
     <span class="doccomment">///         .microsecond(),</span>
     <span class="doccomment">///     0,</span>
     <span class="doccomment">/// );</span>
     <span class="doccomment">/// assert_eq!(</span>
     <span class="doccomment">///     date!(2019-01-01)</span>
     <span class="doccomment">///         .with_time(time!(23:59:59.999_999))</span>
-    <span class="doccomment">///         .using_offset(offset!(UTC))</span>
+    <span class="doccomment">///         .assume_utc()</span>
     <span class="doccomment">///         .microsecond(),</span>
     <span class="doccomment">///     999_999,</span>
     <span class="doccomment">/// );</span>
@@ -2618,14 +2676,14 @@
     <span class="doccomment">/// assert_eq!(</span>
     <span class="doccomment">///     date!(2019-01-01)</span>
     <span class="doccomment">///         .midnight()</span>
-    <span class="doccomment">///         .using_offset(offset!(UTC))</span>
+    <span class="doccomment">///         .assume_utc()</span>
     <span class="doccomment">///         .nanosecond(),</span>
     <span class="doccomment">///     0,</span>
     <span class="doccomment">/// );</span>
     <span class="doccomment">/// assert_eq!(</span>
     <span class="doccomment">///     date!(2019-01-01)</span>
     <span class="doccomment">///         .with_time(time!(23:59:59.999_999_999))</span>
-    <span class="doccomment">///         .using_offset(offset!(UTC))</span>
+    <span class="doccomment">///         .assume_utc()</span>
     <span class="doccomment">///         .nanosecond(),</span>
     <span class="doccomment">///     999_999_999,</span>
     <span class="doccomment">/// );</span>
@@ -2645,7 +2703,7 @@
     <span class="doccomment">/// assert_eq!(</span>
     <span class="doccomment">///     date!(2019-01-02)</span>
     <span class="doccomment">///         .midnight()</span>
-    <span class="doccomment">///         .using_offset(offset!(UTC))</span>
+    <span class="doccomment">///         .assume_utc()</span>
     <span class="doccomment">///         .format(&quot;%F %r %z&quot;),</span>
     <span class="doccomment">///     &quot;2019-01-02 12:00:00 am +0000&quot;,</span>
     <span class="doccomment">/// );</span>
@@ -2662,7 +2720,7 @@
     <span class="doccomment">/// assert_eq!(</span>
     <span class="doccomment">///     date!(2019-01-02)</span>
     <span class="doccomment">///         .midnight()</span>
-    <span class="doccomment">///         .using_offset(offset!(UTC))</span>
+    <span class="doccomment">///         .assume_utc()</span>
     <span class="doccomment">///         .lazy_format(&quot;%F %r %z&quot;)</span>
     <span class="doccomment">///         .to_string(),</span>
     <span class="doccomment">///     &quot;2019-01-02 12:00:00 am +0000&quot;,</span>
@@ -2683,15 +2741,15 @@
     <span class="doccomment">/// # use time::{date, OffsetDateTime, Weekday::Wednesday, time, offset};</span>
     <span class="doccomment">/// assert_eq!(</span>
     <span class="doccomment">///     OffsetDateTime::parse(&quot;2019-01-02 00:00:00 +0000&quot;, &quot;%F %T %z&quot;),</span>
-    <span class="doccomment">///     Ok(date!(2019-01-02).midnight().using_offset(offset!(UTC))),</span>
+    <span class="doccomment">///     Ok(date!(2019-01-02).midnight().assume_utc()),</span>
     <span class="doccomment">/// );</span>
     <span class="doccomment">/// assert_eq!(</span>
     <span class="doccomment">///     OffsetDateTime::parse(&quot;2019-002 23:59:59 +0000&quot;, &quot;%Y-%j %T %z&quot;),</span>
-    <span class="doccomment">///     Ok(date!(2019-002).with_time(time!(23:59:59)).using_offset(offset!(UTC))),</span>
+    <span class="doccomment">///     Ok(date!(2019-002).with_time(time!(23:59:59)).assume_utc()),</span>
     <span class="doccomment">/// );</span>
     <span class="doccomment">/// assert_eq!(</span>
     <span class="doccomment">///     OffsetDateTime::parse(&quot;2019-W01-3 12:00:00 pm +0000&quot;, &quot;%G-W%V-%u %r %z&quot;),</span>
-    <span class="doccomment">///     Ok(date!(2019-W01-3).with_time(time!(12:00)).using_offset(offset!(UTC))),</span>
+    <span class="doccomment">///     Ok(date!(2019-W01-3).with_time(time!(12:00)).assume_utc()),</span>
     <span class="doccomment">/// );</span>
     <span class="doccomment">/// ```</span>
     <span class="attribute">#[<span class="ident">inline</span>(<span class="ident">always</span>)]</span>
@@ -2966,15 +3024,15 @@
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">std</span>)]</span>
-    <span class="kw">fn</span> <span class="ident">now</span>() {
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">OffsetDateTime</span>::<span class="ident">now</span>().<span class="ident">year</span>() <span class="op">&gt;</span><span class="op">=</span> <span class="number">2019</span>);
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">OffsetDateTime</span>::<span class="ident">now</span>().<span class="ident">offset</span>(), <span class="macro">offset</span><span class="macro">!</span>(<span class="ident">UTC</span>));
+    <span class="kw">fn</span> <span class="ident">now_utc</span>() {
+        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">OffsetDateTime</span>::<span class="ident">now_utc</span>().<span class="ident">year</span>() <span class="op">&gt;</span><span class="op">=</span> <span class="number">2019</span>);
+        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">OffsetDateTime</span>::<span class="ident">now_utc</span>().<span class="ident">offset</span>(), <span class="macro">offset</span><span class="macro">!</span>(<span class="ident">UTC</span>));
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">std</span>)]</span>
     <span class="kw">fn</span> <span class="ident">now_local</span>() {
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">OffsetDateTime</span>::<span class="ident">now</span>().<span class="ident">year</span>() <span class="op">&gt;</span><span class="op">=</span> <span class="number">2019</span>);
+        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">OffsetDateTime</span>::<span class="ident">now_local</span>().<span class="ident">year</span>() <span class="op">&gt;</span><span class="op">=</span> <span class="number">2019</span>);
         <span class="macro">assert_eq</span><span class="macro">!</span>(
             <span class="ident">OffsetDateTime</span>::<span class="ident">now_local</span>().<span class="ident">offset</span>(),
             <span class="ident">UtcOffset</span>::<span class="ident">current_local_offset</span>()
