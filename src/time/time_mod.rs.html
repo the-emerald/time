@@ -1306,6 +1306,16 @@
 <span id="1306">1306</span>
 <span id="1307">1307</span>
 <span id="1308">1308</span>
+<span id="1309">1309</span>
+<span id="1310">1310</span>
+<span id="1311">1311</span>
+<span id="1312">1312</span>
+<span id="1313">1313</span>
+<span id="1314">1314</span>
+<span id="1315">1315</span>
+<span id="1316">1316</span>
+<span id="1317">1317</span>
+<span id="1318">1318</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">crate</span>::{
     <span class="ident">format</span>::{<span class="ident">parse</span>, <span class="ident">parse</span>::<span class="ident">AmPm</span>, <span class="ident">ParsedItems</span>},
@@ -1995,7 +2005,8 @@
     <span class="doccomment">/// ```</span>
     <span class="attribute">#[<span class="ident">inline</span>(<span class="ident">always</span>)]</span>
     <span class="kw">fn</span> <span class="ident">add</span>(<span class="self">self</span>, <span class="ident">duration</span>: <span class="ident">StdDuration</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">Output</span> {
-        <span class="self">self</span> <span class="op">+</span> <span class="ident">Duration</span>::<span class="ident">seconds</span>((<span class="ident">duration</span>.<span class="ident">as_secs</span>() <span class="op">%</span> <span class="number">86_400</span>) <span class="kw">as</span> <span class="ident">i64</span>)
+        <span class="self">self</span> <span class="op">+</span> <span class="ident">Duration</span>::<span class="ident">try_from</span>(<span class="ident">duration</span>)
+            .<span class="ident">expect</span>(<span class="string">&quot;overflow converting `core::time::Duration` to `time::Duration`&quot;</span>)
     }
 }
 
@@ -2079,7 +2090,8 @@
     <span class="doccomment">/// ```</span>
     <span class="attribute">#[<span class="ident">inline</span>(<span class="ident">always</span>)]</span>
     <span class="kw">fn</span> <span class="ident">sub</span>(<span class="self">self</span>, <span class="ident">duration</span>: <span class="ident">StdDuration</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">Output</span> {
-        <span class="self">self</span> <span class="op">-</span> <span class="ident">Duration</span>::<span class="ident">seconds</span>((<span class="ident">duration</span>.<span class="ident">as_secs</span>() <span class="op">%</span> <span class="number">86_400</span>) <span class="kw">as</span> <span class="ident">i64</span>)
+        <span class="self">self</span> <span class="op">-</span> <span class="ident">Duration</span>::<span class="ident">try_from</span>(<span class="ident">duration</span>)
+            .<span class="ident">expect</span>(<span class="string">&quot;overflow converting `core::time::Duration` to `time::Duration`&quot;</span>)
     }
 }
 
@@ -2543,6 +2555,10 @@
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">add_std_duration</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+        <span class="macro">assert_eq</span><span class="macro">!</span>(
+            <span class="macro">time</span><span class="macro">!</span>(<span class="number">0</span>:<span class="number">00</span>) <span class="op">+</span> <span class="number">1</span>.<span class="ident">std_milliseconds</span>(),
+            <span class="macro">time</span><span class="macro">!</span>(<span class="number">0</span>:<span class="number">00</span>:<span class="number">00</span>:<span class="number">001_000_000</span>)
+        );
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="macro">time</span><span class="macro">!</span>(<span class="number">0</span>:<span class="number">00</span>) <span class="op">+</span> <span class="number">1</span>.<span class="ident">std_seconds</span>(), <span class="macro">time</span><span class="macro">!</span>(<span class="number">0</span>:<span class="number">00</span>:<span class="number">01</span>));
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="macro">time</span><span class="macro">!</span>(<span class="number">0</span>:<span class="number">00</span>) <span class="op">+</span> <span class="number">1</span>.<span class="ident">std_minutes</span>(), <span class="macro">time</span><span class="macro">!</span>(<span class="number">0</span>:<span class="number">01</span>));
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="macro">time</span><span class="macro">!</span>(<span class="number">0</span>:<span class="number">00</span>) <span class="op">+</span> <span class="number">1</span>.<span class="ident">std_hours</span>(), <span class="macro">time</span><span class="macro">!</span>(<span class="number">1</span>:<span class="number">00</span>));
@@ -2573,6 +2589,10 @@
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="macro">time</span><span class="macro">!</span>(<span class="number">12</span>:<span class="number">00</span>) <span class="op">-</span> <span class="number">1</span>.<span class="ident">std_hours</span>(), <span class="macro">time</span><span class="macro">!</span>(<span class="number">11</span>:<span class="number">00</span>));
 
         <span class="comment">// Underflow</span>
+        <span class="macro">assert_eq</span><span class="macro">!</span>(
+            <span class="macro">time</span><span class="macro">!</span>(<span class="number">0</span>:<span class="number">00</span>) <span class="op">-</span> <span class="number">1</span>.<span class="ident">std_milliseconds</span>(),
+            <span class="macro">time</span><span class="macro">!</span>(<span class="number">23</span>:<span class="number">59</span>:<span class="number">59</span>:<span class="number">999_000_000</span>)
+        );
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="macro">time</span><span class="macro">!</span>(<span class="number">0</span>:<span class="number">00</span>) <span class="op">-</span> <span class="number">1</span>.<span class="ident">std_seconds</span>(), <span class="macro">time</span><span class="macro">!</span>(<span class="number">23</span>:<span class="number">59</span>:<span class="number">59</span>));
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="macro">time</span><span class="macro">!</span>(<span class="number">0</span>:<span class="number">00</span>) <span class="op">-</span> <span class="number">1</span>.<span class="ident">std_minutes</span>(), <span class="macro">time</span><span class="macro">!</span>(<span class="number">23</span>:<span class="number">59</span>));
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="macro">time</span><span class="macro">!</span>(<span class="number">0</span>:<span class="number">00</span>) <span class="op">-</span> <span class="number">1</span>.<span class="ident">std_hours</span>(), <span class="macro">time</span><span class="macro">!</span>(<span class="number">23</span>:<span class="number">00</span>));
