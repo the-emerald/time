@@ -8,7 +8,6 @@ sourcesIndex["quote"] = {"name":"","files":["ext.rs","format.rs","ident_fragment
 sourcesIndex["rand"] = {"name":"","dirs":[{"name":"distributions","files":["bernoulli.rs","float.rs","integer.rs","mod.rs","other.rs","uniform.rs","utils.rs"]},{"name":"rngs","dirs":[{"name":"adapter","files":["mod.rs","reseeding.rs"]}],"files":["mock.rs","mod.rs","std.rs"]},{"name":"seq","files":["mod.rs"]}],"files":["lib.rs","prelude.rs"]};
 sourcesIndex["rand_chacha"] = {"name":"","files":["chacha.rs","guts.rs","lib.rs"]};
 sourcesIndex["rand_core"] = {"name":"","files":["block.rs","error.rs","impls.rs","le.rs","lib.rs"]};
-sourcesIndex["rustversion"] = {"name":"","files":["attr.rs","bound.rs","date.rs","expr.rs","lib.rs","time.rs","version.rs"]};
 sourcesIndex["serde"] = {"name":"","dirs":[{"name":"de","files":["from_primitive.rs","ignored_any.rs","impls.rs","mod.rs","utf8.rs","value.rs"]},{"name":"private","files":["de.rs","macros.rs","mod.rs","ser.rs"]},{"name":"ser","files":["impls.rs","impossible.rs","mod.rs"]}],"files":["export.rs","integer128.rs","lib.rs","macros.rs"]};
 sourcesIndex["serde_derive"] = {"name":"","dirs":[{"name":"internals","files":["ast.rs","attr.rs","case.rs","check.rs","ctxt.rs","mod.rs","symbol.rs"]}],"files":["bound.rs","de.rs","dummy.rs","fragment.rs","lib.rs","pretend.rs","ser.rs","try.rs"]};
 sourcesIndex["standback"] = {"name":"","files":["lib.rs"]};

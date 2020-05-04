@@ -632,16 +632,12 @@
 <span id="632">632</span>
 <span id="633">633</span>
 <span id="634">634</span>
-<span id="635">635</span>
-<span id="636">636</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">crate</span>::{
     <span class="ident">format</span>::{<span class="ident">parse</span>, <span class="ident">ParsedItems</span>},
     <span class="ident">internal_prelude</span>::<span class="kw-2">*</span>,
 };
 <span class="kw">use</span> <span class="ident">core</span>::<span class="ident">fmt</span>::{<span class="self">self</span>, <span class="ident">Display</span>};
-<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">cargo_web</span>)]</span>
-<span class="kw">use</span> <span class="ident">stdweb</span>::<span class="ident">js</span>;
 
 <span class="doccomment">/// An offset from UTC.</span>
 <span class="doccomment">///</span>
@@ -1127,7 +1123,7 @@
 
             <span class="ident">diff_secs</span>.<span class="ident">try_into</span>().<span class="ident">ok</span>().<span class="ident">map</span>(<span class="ident">UtcOffset</span>::<span class="ident">seconds</span>)
         } <span class="kw">else</span> <span class="kw">if</span> <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">cargo_web</span>)]</span> {
-            <span class="kw">use</span> <span class="ident">stdweb</span>::<span class="ident">unstable</span>::<span class="ident">TryInto</span>;
+            <span class="kw">use</span> <span class="ident">stdweb</span>::<span class="ident">js</span>;
 
             <span class="kw">let</span> <span class="ident">timestamp_utc</span> <span class="op">=</span> <span class="ident">datetime</span>.<span class="ident">timestamp</span>();
             <span class="kw">let</span> <span class="ident">low_bits</span> <span class="op">=</span> (<span class="ident">timestamp_utc</span> <span class="op">&amp;</span> <span class="number">0xFF_FF_FF_FF</span>) <span class="kw">as</span> <span class="ident">i32</span>;
@@ -1139,7 +1135,7 @@
                         .<span class="ident">getTimezoneOffset</span>() <span class="op">*</span> <span class="op">-</span><span class="number">60</span>;
             };
 
-            <span class="ident">timezone_offset</span>.<span class="ident">try_into</span>().<span class="ident">ok</span>().<span class="ident">map</span>(<span class="ident">UtcOffset</span>::<span class="ident">seconds</span>)
+            <span class="ident">stdweb</span>::<span class="ident">unstable</span>::<span class="ident">TryInto</span>::<span class="ident">try_into</span>(<span class="ident">timezone_offset</span>).<span class="ident">ok</span>().<span class="ident">map</span>(<span class="ident">UtcOffset</span>::<span class="ident">seconds</span>)
         } <span class="kw">else</span> {
             <span class="prelude-val">None</span>
         }

@@ -8,7 +8,6 @@ ALIASES["quote"] = {};
 ALIASES["rand"] = {};
 ALIASES["rand_chacha"] = {};
 ALIASES["rand_core"] = {};
-ALIASES["rustversion"] = {};
 ALIASES["serde"] = {};
 ALIASES["serde_derive"] = {};
 ALIASES["standback"] = {};
