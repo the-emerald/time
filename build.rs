@@ -10,8 +10,8 @@ macro_rules! cfg_emit {
 }
 
 macro_rules! cfg_aliases {
-    ($($feature:literal => $alias:ident),* $(,)*) => {$(
-        #[cfg(feature = $feature)]
+    ($($alias:ident = { $($tokens:tt)* })*) => {$(
+        #[cfg($($tokens)*)]
         cfg_emit!($alias);
     )*};
 }
@@ -23,15 +23,22 @@ macro_rules! warning {
 }
 
 fn main() {
-    // Alias `feature = "foo"`, allowing shorter usage and the possibility for
-    // renaming.
     cfg_aliases! {
-        "std" => std,
-        "rand" => rand,
-        "serde" => serde,
-        "macros" => macros,
-        "local-offset" => local_offset,
-        "__doc" => docs,
+        // Simple aliases for feature gates
+        std = { feature = "std" }
+        rand = { feature = "rand" }
+        serde = { feature = "serde" }
+        macros = { feature = "macros" }
+        local_offset = { feature = "local-offset" }
+        docs = { feature = "__doc" }
+
+        // OS aliases
+        unix = { target_family = "unix" }
+        windows = { target_family = "windows" }
+
+        // Unix-specific API extensions
+        // Using this outside of a `#[cfg(unix)]` block is a logical error.
+        gmtoff_ext = { not(any(target_os = "solaris", target_os = "illumos")) }
     };
 
     // Are we compiling with `cargo web`?

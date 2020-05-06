@@ -383,7 +383,7 @@ impl Display for UtcOffset {
 #[cfg_attr(docs, doc(cfg(feature = "local-offset")))]
 #[allow(clippy::too_many_lines)]
 fn try_local_offset_at(datetime: OffsetDateTime) -> Option<UtcOffset> {
-    #[cfg(target_family = "unix")]
+    #[cfg(unix)]
     {
         use core::mem::MaybeUninit;
 
@@ -426,8 +426,7 @@ fn try_local_offset_at(datetime: OffsetDateTime) -> Option<UtcOffset> {
 
         let tm = timestamp_to_tm(datetime.timestamp())?;
 
-        // `tm_gmtoff` extension
-        #[cfg(not(any(target_os = "solaris", target_os = "illumos")))]
+        #[cfg(gmtoff_ext)]
         {
             tm.tm_gmtoff
                 .try_into()
@@ -437,8 +436,7 @@ fn try_local_offset_at(datetime: OffsetDateTime) -> Option<UtcOffset> {
                 .flatten()
         }
 
-        // No `tm_gmtoff` extension
-        #[cfg(any(target_os = "solaris", target_os = "illumos"))]
+        #[cfg(not(gmtoff_ext))]
         {
             use crate::Date;
 
@@ -469,7 +467,7 @@ fn try_local_offset_at(datetime: OffsetDateTime) -> Option<UtcOffset> {
         }
     }
 
-    #[cfg(target_family = "windows")]
+    #[cfg(windows)]
     {
         use core::mem::MaybeUninit;
         use winapi::{
@@ -577,7 +575,7 @@ fn try_local_offset_at(datetime: OffsetDateTime) -> Option<UtcOffset> {
             .flatten()
     }
 
-    #[cfg(not(any(target_family = "unix", target_family = "windows", cargo_web)))]
+    #[cfg(not(any(unix, windows, cargo_web)))]
     {
         None
     }
