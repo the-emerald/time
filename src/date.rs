@@ -87,7 +87,7 @@ pub(crate) const MIN_DATE: Date = Date::from_yo_unchecked(MIN_YEAR, 1);
 /// The maximum valid date.
 pub(crate) const MAX_DATE: Date = Date::from_yo_unchecked(
     MAX_YEAR,
-    365 + ((MAX_YEAR % 4 == 0) & ((MAX_YEAR % 100 != 0) | (MAX_YEAR % 400 == 0))) as u16,
+    365 + ((MAX_YEAR % 4 == 0) && ((MAX_YEAR % 100 != 0) || (MAX_YEAR % 400 == 0))) as u16,
 );
 
 /// Calendar date.

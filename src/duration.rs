@@ -137,8 +137,8 @@ impl Duration {
     /// assert!(!1.nanoseconds().is_zero());
     /// ```
     #[inline(always)]
-    pub const fn is_zero(self) -> bool {
-        (self.seconds == 0) & (self.nanoseconds == 0)
+    pub fn is_zero(self) -> bool {
+        (self.seconds == 0) && (self.nanoseconds == 0)
     }
 
     /// Check if a duration is negative.
@@ -150,8 +150,8 @@ impl Duration {
     /// assert!(!1.seconds().is_negative());
     /// ```
     #[inline(always)]
-    pub const fn is_negative(self) -> bool {
-        (self.seconds < 0) | (self.nanoseconds < 0)
+    pub fn is_negative(self) -> bool {
+        (self.seconds < 0) || (self.nanoseconds < 0)
     }
 
     /// Check if a duration is positive.
@@ -163,8 +163,8 @@ impl Duration {
     /// assert!(!(-1).seconds().is_positive());
     /// ```
     #[inline(always)]
-    pub const fn is_positive(self) -> bool {
-        (self.seconds > 0) | (self.nanoseconds > 0)
+    pub fn is_positive(self) -> bool {
+        (self.seconds > 0) || (self.nanoseconds > 0)
     }
 
     /// Get the absolute value of the duration.
