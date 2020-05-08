@@ -518,7 +518,6 @@ impl Duration {
     /// assert_eq!(Duration::nanoseconds(1), 1.microseconds() / 1_000);
     /// assert_eq!(Duration::nanoseconds(-1), (-1).microseconds() / 1_000);
     /// ```
-    // TODO Should this accept an `i128`, given the new saturating behavior?
     #[inline(always)]
     pub const fn nanoseconds(nanoseconds: i64) -> Self {
         Self {
@@ -528,6 +527,8 @@ impl Duration {
     }
 
     /// Create a new `Duration` with the given number of nanoseconds.
+    // TODO Convert `nanoseconds()` to accept an i128 in a future major release
+    // after const if/match lands on stable
     #[inline]
     pub(crate) fn nanoseconds_i128(nanoseconds: i128) -> Self {
         if nanoseconds > Duration::max_value.whole_nanoseconds() {
@@ -569,106 +570,6 @@ impl Duration {
     #[inline(always)]
     pub const fn subsec_nanoseconds(self) -> i32 {
         self.nanoseconds
-    }
-
-    /// Computes `self + rhs`, returning `None` if an overflow occurred.
-    ///
-    /// ```rust
-    /// # use time::{Duration, prelude::*};
-    /// assert_eq!(5.seconds().checked_add(5.seconds()), Some(10.seconds()));
-    /// assert_eq!(Duration::max_value.checked_add(1.nanoseconds()), None);
-    /// assert_eq!((-5).seconds().checked_add(5.seconds()), Some(0.seconds()));
-    /// ```
-    // TODO Should this be removed due to the new saturating behavior?
-    #[inline]
-    pub fn checked_add(self, rhs: Self) -> Option<Self> {
-        let mut seconds = self.seconds.checked_add(rhs.seconds)?;
-        let mut nanoseconds = self.nanoseconds + rhs.nanoseconds;
-
-        if nanoseconds >= 1_000_000_000 || seconds < 0 && nanoseconds > 0 {
-            nanoseconds -= 1_000_000_000;
-            seconds = seconds.checked_add(1)?;
-        } else if nanoseconds <= -1_000_000_000 || seconds > 0 && nanoseconds < 0 {
-            nanoseconds += 1_000_000_000;
-            seconds = seconds.checked_sub(1)?;
-        }
-
-        // Ensure that the signs match _unless_ one of them is zero.
-        debug_assert_ne!(seconds.signum() * nanoseconds.signum() as i64, -1);
-        debug_assert!((-999_999_999..1_000_000_000).contains(&nanoseconds));
-
-        Some(Self {
-            seconds,
-            nanoseconds,
-        })
-    }
-
-    /// Computes `self - rhs`, returning `None` if an overflow occurred.
-    ///
-    /// ```rust
-    /// # use time::{Duration, prelude::*};
-    /// assert_eq!(5.seconds().checked_sub(5.seconds()), Some(Duration::zero));
-    /// assert_eq!(Duration::min_value.checked_sub(1.nanoseconds()), None);
-    /// assert_eq!(5.seconds().checked_sub(10.seconds()), Some((-5).seconds()));
-    /// ```
-    // TODO Should this be removed due to the new saturating behavior?
-    #[inline(always)]
-    pub fn checked_sub(self, rhs: Self) -> Option<Self> {
-        self.checked_add(-rhs)
-    }
-
-    /// Computes `self * rhs`, returning `None` if an overflow occurred.
-    ///
-    /// ```rust
-    /// # use time::{Duration, prelude::*};
-    /// assert_eq!(5.seconds().checked_mul(2), Some(10.seconds()));
-    /// assert_eq!(5.seconds().checked_mul(-2), Some((-10).seconds()));
-    /// assert_eq!(5.seconds().checked_mul(0), Some(0.seconds()));
-    /// assert_eq!(Duration::max_value.checked_mul(2), None);
-    /// assert_eq!(Duration::min_value.checked_mul(2), None);
-    /// ```
-    // TODO Should this be removed due to the new saturating behavior?
-    #[inline(always)]
-    pub fn checked_mul(self, rhs: i32) -> Option<Self> {
-        // Multiply nanoseconds as i64, because it cannot overflow that way.
-        let total_nanos = self.nanoseconds as i64 * rhs as i64;
-        let extra_secs = total_nanos / 1_000_000_000;
-        let nanoseconds = (total_nanos % 1_000_000_000) as i32;
-        let seconds = self
-            .seconds
-            .checked_mul(rhs as i64)?
-            .checked_add(extra_secs)?;
-
-        Some(Self {
-            seconds,
-            nanoseconds,
-        })
-    }
-
-    /// Computes `self / rhs`, returning `None` if `rhs == 0`.
-    ///
-    /// ```rust
-    /// # use time::prelude::*;
-    /// assert_eq!(10.seconds().checked_div(2), Some(5.seconds()));
-    /// assert_eq!(10.seconds().checked_div(-2), Some((-5).seconds()));
-    /// assert_eq!(1.seconds().checked_div(0), None);
-    /// ```
-    // TODO Should this be removed due to the new saturating behavior?
-    #[inline(always)]
-    pub fn checked_div(self, rhs: i32) -> Option<Self> {
-        if rhs == 0 {
-            return None;
-        }
-
-        let seconds = self.seconds / (rhs as i64);
-        let carry = self.seconds - seconds * (rhs as i64);
-        let extra_nanos = carry * 1_000_000_000 / (rhs as i64);
-        let nanoseconds = self.nanoseconds / rhs + (extra_nanos as i32);
-
-        Some(Self {
-            seconds,
-            nanoseconds,
-        })
     }
 
     /// Runs a closure, returning the duration of time it took to run. The
@@ -1285,36 +1186,6 @@ mod test {
     fn subsec_nanoseconds() {
         assert_eq!(1.000_000_4.seconds().subsec_nanoseconds(), 400);
         assert_eq!((-1.000_000_4).seconds().subsec_nanoseconds(), -400);
-    }
-
-    #[test]
-    fn checked_add() {
-        assert_eq!(5.seconds().checked_add(5.seconds()), Some(10.seconds()));
-        assert_eq!(Duration::max_value.checked_add(1.nanoseconds()), None);
-        assert_eq!((-5).seconds().checked_add(5.seconds()), Some(0.seconds()));
-    }
-
-    #[test]
-    fn checked_sub() {
-        assert_eq!(5.seconds().checked_sub(5.seconds()), Some(0.seconds()));
-        assert_eq!(Duration::min_value.checked_sub(1.nanoseconds()), None);
-        assert_eq!(5.seconds().checked_sub(10.seconds()), Some((-5).seconds()));
-    }
-
-    #[test]
-    fn checked_mul() {
-        assert_eq!(5.seconds().checked_mul(2), Some(10.seconds()));
-        assert_eq!(5.seconds().checked_mul(-2), Some((-10).seconds()));
-        assert_eq!(5.seconds().checked_mul(0), Some(Duration::zero));
-        assert_eq!(Duration::max_value.checked_mul(2), None);
-        assert_eq!(Duration::min_value.checked_mul(2), None);
-    }
-
-    #[test]
-    fn checked_div() {
-        assert_eq!(10.seconds().checked_div(2), Some(5.seconds()));
-        assert_eq!(10.seconds().checked_div(-2), Some((-5).seconds()));
-        assert_eq!(1.seconds().checked_div(0), None);
     }
 
     #[test]

@@ -34,7 +34,6 @@ impl OffsetDateTime {
     /// Create a new `OffsetDateTime` from the provided `PrimitiveDateTime` and
     /// `UtcOffset`. The `PrimitiveDateTime` is assumed to be in the provided
     /// offset.
-    // TODO Should this be made public?
     #[inline(always)]
     pub(crate) fn new_assuming_offset(utc_datetime: PrimitiveDateTime, offset: UtcOffset) -> Self {
         Self {
@@ -45,7 +44,6 @@ impl OffsetDateTime {
 
     /// Create a new `OffsetDateTime` from the provided `PrimitiveDateTime` and
     /// `UtcOffset`. The `PrimitiveDateTime` is assumed to be in UTC.
-    // TODO Should this be made public?
     #[inline(always)]
     pub(crate) const fn new_assuming_utc(utc_datetime: PrimitiveDateTime) -> Self {
         Self {
