@@ -132,11 +132,11 @@ jobs:
           args: check --no-default-features --features serde,rand,macros
 
       # everything
-      - name: Run `cargo check --features serde,rand,macros,local-offset`
+      - name: Run `cargo check --all-features`
         uses: actions-rs/cargo@v1
         with:
           command: check
-          args: --features serde,rand,macros,local-offset
+          args: --all-features
 
   test:
     name: Test suite
@@ -193,12 +193,19 @@ jobs:
           command: test
           args: --no-default-features
 
-      # everything
-      - name: Run `cargo test --features serde,rand,macros,local-offset`
+      # `#![no_std]` support with serde, rand, macros
+      - name: Run `cargo test --no-default-features --features serde,rand,macros`
         uses: actions-rs/cargo@v1
         with:
           command: test
-          args: --features serde,rand,macros,local-offset
+          args: --no-default-features --features serde,rand,macros
+
+      # everything
+      - name: Run `cargo test --all-features`
+        uses: actions-rs/cargo@v1
+        with:
+          command: test
+          args: --all-features
 
   fmt:
     name: Formatting
@@ -269,11 +276,11 @@ jobs:
           toolchain: stable
           override: true
 
-      - name: Run `cargo clippy --features serde,rand,macros,local-offset`
+      - name: Run `cargo clippy --all-features`
         uses: actions-rs/clippy-check@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          args: --features serde,rand,macros,local-offset
+          args: --all-features
 
   documentation:
     name: Documentation
@@ -327,6 +334,9 @@ jobs:
         with:
           command: doc
           args: --all-features
+        env:
+          RUSTFLAGS: --cfg docs
+          RUSTDOCFLAGS: --cfg docs
 
       - name: Publish documentation
         uses: JamesIves/github-pages-deploy-action@releases/v3

@@ -30,7 +30,6 @@ fn main() {
         serde = { feature = "serde" }
         macros = { feature = "macros" }
         local_offset = { feature = "local-offset" }
-        docs = { feature = "__doc" }
 
         // OS aliases
         unix = { target_family = "unix" }
@@ -54,12 +53,11 @@ fn main() {
         );
     }
 
-    // Warn if the `__doc` feature is used on stable or beta.
     if !rustc::Channel::read().map_or(false, |channel| channel.supports_features()) {
-        #[cfg(feature = "__doc")]
+        // Warn if used on stable or beta.
+        #[cfg(docs)]
         warning!(
-            "The `__doc` feature requires a nightly compiler, and is intended for internal usage \
-             only."
+            "`--cfg docs` requires a nightly compiler, and is intended for internal usage only."
         );
     }
 
