@@ -26,14 +26,19 @@
 <span id="26">26</span>
 <span id="27">27</span>
 <span id="28">28</span>
+<span id="29">29</span>
+<span id="30">30</span>
+<span id="31">31</span>
 </pre><div class="example-wrap"><pre class="rust ">
-<span class="doccomment">//! Types with guaranteed stable serde representations.</span>
-<span class="doccomment">//!</span>
-<span class="doccomment">//! This allows for the ability to change the internal structure of a type while</span>
-<span class="doccomment">//! maintaining backwards compatibility.</span>
-<span class="doccomment">//!</span>
-<span class="doccomment">//! Strings are avoided where possible to allow for optimal representations in</span>
-<span class="doccomment">//! various binary forms.</span>
+<span class="doccomment">//! Differential formats for serde.</span>
+
+<span class="comment">// Types with guaranteed stable serde representations.</span>
+<span class="comment">//</span>
+<span class="comment">// This allows for the ability to change the internal structure of a type while</span>
+<span class="comment">// maintaining backwards compatibility.</span>
+<span class="comment">//</span>
+<span class="comment">// Strings are avoided where possible to allow for optimal representations in</span>
+<span class="comment">// various binary forms.</span>
 
 <span class="attribute">#![<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">missing_docs_in_private_items</span>)]</span>
 
@@ -44,6 +49,7 @@
 <span class="kw">mod</span> <span class="ident">primitive_date_time</span>;
 <span class="kw">mod</span> <span class="ident">sign</span>;
 <span class="kw">mod</span> <span class="ident">time</span>;
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">timestamp</span>;
 <span class="kw">mod</span> <span class="ident">utc_offset</span>;
 <span class="kw">mod</span> <span class="ident">weekday</span>;
 
