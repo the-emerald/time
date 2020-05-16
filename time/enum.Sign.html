@@ -2,18 +2,18 @@
     Positive,
     Negative,
     Zero,
-}</pre></div><div class='stability'><div class='stab deprecated'>Deprecated since 0.2.7: <p>The only use for this (obtaining the sign of a <code>Duration</code>) can be replaced with <code>Duration::is_{positive|negative|zero}</code></p>
+}</pre></div><div class='stability'><div class='stab deprecated'><span class='emoji'>👎</span> Deprecated since 0.2.7: <p>The only use for this (obtaining the sign of a <code>Duration</code>) can be replaced with <code>Duration::is_{positive|negative|zero}</code></p>
 </div></div><div class='docblock'><p>Contains the sign of a value: positive, negative, or zero.</p>
 <p>For ease of use, <code>Sign</code> implements <a href="https://doc.rust-lang.org/nightly/core/ops/arith/trait.Mul.html" title="`Mul`"><code>Mul</code></a> and <a href="https://doc.rust-lang.org/nightly/core/ops/arith/trait.Div.html" title="`Div`"><code>Div</code></a> on all signed numeric
 types. <code>Sign</code>s can also be multiplied and divided by another <code>Sign</code>, which
 follows the same rules as real numbers.</p>
 </div><h2 id='variants' class='variants small-section-header'>
                    Variants<a href='#variants' class='anchor'></a></h2>
-<div id="variant.Positive" class="variant small-section-header"><a href="#variant.Positive" class="anchor field"></a><code id='Positive.v'>Positive</code></div><div class='stability'><div class='stab deprecated'>Deprecated since 0.2.7: <p>The only use for this (obtaining the sign of a <code>Duration</code>) can be replaced with <code>Duration::is_{positive|negative|zero}</code></p>
+<div id="variant.Positive" class="variant small-section-header"><a href="#variant.Positive" class="anchor field"></a><code id='Positive.v'>Positive</code></div><div class='stability'><div class='stab deprecated'><span class='emoji'>👎</span> Deprecated since 0.2.7: <p>The only use for this (obtaining the sign of a <code>Duration</code>) can be replaced with <code>Duration::is_{positive|negative|zero}</code></p>
 </div></div><div class='docblock'><p>A positive value.</p>
-</div><div id="variant.Negative" class="variant small-section-header"><a href="#variant.Negative" class="anchor field"></a><code id='Negative.v'>Negative</code></div><div class='stability'><div class='stab deprecated'>Deprecated since 0.2.7: <p>The only use for this (obtaining the sign of a <code>Duration</code>) can be replaced with <code>Duration::is_{positive|negative|zero}</code></p>
+</div><div id="variant.Negative" class="variant small-section-header"><a href="#variant.Negative" class="anchor field"></a><code id='Negative.v'>Negative</code></div><div class='stability'><div class='stab deprecated'><span class='emoji'>👎</span> Deprecated since 0.2.7: <p>The only use for this (obtaining the sign of a <code>Duration</code>) can be replaced with <code>Duration::is_{positive|negative|zero}</code></p>
 </div></div><div class='docblock'><p>A negative value.</p>
-</div><div id="variant.Zero" class="variant small-section-header"><a href="#variant.Zero" class="anchor field"></a><code id='Zero.v'>Zero</code></div><div class='stability'><div class='stab deprecated'>Deprecated since 0.2.7: <p>The only use for this (obtaining the sign of a <code>Duration</code>) can be replaced with <code>Duration::is_{positive|negative|zero}</code></p>
+</div><div id="variant.Zero" class="variant small-section-header"><a href="#variant.Zero" class="anchor field"></a><code id='Zero.v'>Zero</code></div><div class='stability'><div class='stab deprecated'><span class='emoji'>👎</span> Deprecated since 0.2.7: <p>The only use for this (obtaining the sign of a <code>Duration</code>) can be replaced with <code>Duration::is_{positive|negative|zero}</code></p>
 </div></div><div class='docblock'><p>A value that is exactly zero.</p>
 </div><h2 id='implementations' class='small-section-header'>Implementations<a href='#implementations' class='anchor'></a></h2><h3 id='impl' class='impl'><code class='in-band'>impl <a class="enum" href="../time/enum.Sign.html" title="enum time::Sign">Sign</a></code><a href='#impl' class='anchor'></a><a class='srclink' href='../src/time/sign.rs.html#163-219' title='goto source code'>[src]</a></h3><div class='impl-items'><h4 id='method.negate' class="method"><code id='negate.v'>pub fn <a href='#method.negate' class='fnname'>negate</a>(self) -&gt; Self</code><a class='srclink' href='../src/time/sign.rs.html#173-179' title='goto source code'>[src]</a></h4><div class='docblock'><p>Return the opposite of the current sign.</p>
 
