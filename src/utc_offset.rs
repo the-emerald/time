@@ -432,8 +432,7 @@ fn try_local_offset_at(datetime: OffsetDateTime) -> Option<UtcOffset> {
                 .try_into()
                 .ok()
                 .map(UtcOffset::seconds)
-                .map(Result::ok)
-                .flatten()
+                .and_then(Result::ok)
         }
 
         #[cfg(not(gmtoff_ext))]
@@ -462,8 +461,7 @@ fn try_local_offset_at(datetime: OffsetDateTime) -> Option<UtcOffset> {
                 .try_into()
                 .ok()
                 .map(UtcOffset::seconds)
-                .map(Result::ok)
-                .flatten()
+                .and_then(Result::ok)
         }
     }
 
@@ -550,8 +548,7 @@ fn try_local_offset_at(datetime: OffsetDateTime) -> Option<UtcOffset> {
             .try_into()
             .ok()
             .map(UtcOffset::seconds)
-            .map(Result::ok)
-            .flatten()
+            .and_then(Result::ok)
     }
 
     #[cfg(cargo_web)]
@@ -571,8 +568,7 @@ fn try_local_offset_at(datetime: OffsetDateTime) -> Option<UtcOffset> {
         stdweb::unstable::TryInto::try_into(timezone_offset)
             .ok()
             .map(UtcOffset::seconds)
-            .map(Result::ok)
-            .flatten()
+            .and_then(Result::ok)
     }
 
     #[cfg(not(any(unix, windows, cargo_web)))]

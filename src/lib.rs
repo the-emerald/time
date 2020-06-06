@@ -161,6 +161,7 @@
     clippy::missing_errors_doc,
     clippy::module_name_repetitions,
     clippy::must_use_candidate,
+    clippy::redundant_pub_crate,
     clippy::suspicious_arithmetic_impl,
     clippy::use_self,
     clippy::wildcard_imports,
