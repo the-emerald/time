@@ -280,10 +280,11 @@ mod rand;
 mod time_mod;
 /// The `UtcOffset` struct and its associated `impl`s.
 mod utc_offset;
+pub mod util;
 /// Days of the week.
 mod weekday;
 
-pub use date::{days_in_year, is_leap_year, weeks_in_year, Date};
+pub use date::Date;
 pub use duration::Duration;
 pub use error::{
     ComponentRangeError, ConversionRangeError, Error, FormatError, IndeterminateOffsetError,
