@@ -79,12 +79,14 @@ mod kw {
 }
 
 mod date;
+mod datetime;
 mod ext;
 mod offset;
 mod time;
 mod time_crate;
 
 use date::Date;
+use datetime::DateTime;
 use offset::Offset;
 use proc_macro_hack::proc_macro_hack;
 use quote::ToTokens;
@@ -107,4 +109,5 @@ impl_macros! {
     time: Time,
     offset: Offset,
     date: Date,
+    datetime: DateTime,
 }

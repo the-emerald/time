@@ -311,6 +311,31 @@ pub use primitive_date_time::PrimitiveDateTime;
 /// ```
 #[cfg(macros)]
 pub use time_macros::date;
+/// Construct a [`PrimitiveDateTime`] with a statically known value.
+///
+/// The resulting expression can be used in `const` or `static` declarations.
+///
+/// Any combination of formats for the `date!` and `time!` macros can be used,
+/// provided that they are in that order.
+///
+/// ```rust
+/// # use time::{PrimitiveDateTime, datetime, date, time};
+/// assert_eq!(
+///     datetime!(2020-W01-3 0:00),
+///     PrimitiveDateTime::new(date!(2020-W01-3), time!(0:00))
+/// );
+/// assert_eq!(
+///     datetime!(2020-001 1:02:03 pm),
+///     PrimitiveDateTime::new(date!(2020-001), time!(1:02:03 pm))
+/// );
+/// assert_eq!(
+///     datetime!(2020-01-01 1:02:03.004 am),
+///     PrimitiveDateTime::new(date!(2020-01-01), time!(1:02:03.004 am))
+/// );
+/// # Ok::<_, time::Error>(())
+/// ```
+#[cfg(macros)]
+pub use time_macros::datetime;
 /// Construct a [`UtcOffset`] with a statically known value.
 ///
 /// The resulting expression can be used in `const` or `static` declarations.
@@ -381,7 +406,7 @@ pub type Result<T> = core::result::Result<T, Error>;
 /// major releases.
 pub mod prelude {
     #[cfg(macros)]
-    pub use crate::{date, offset, time};
+    pub use crate::{date, datetime, offset, time};
     pub use crate::{NumericalDuration as _, NumericalStdDuration as _};
 }
 
