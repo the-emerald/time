@@ -1,9 +1,12 @@
-use crate::{internal_prelude::*, Duration};
+use crate::Duration;
 use core::{
     cmp::{Ord, Ordering, PartialEq, PartialOrd},
+    convert::TryFrom,
     ops::{Add, AddAssign, Sub, SubAssign},
     time::Duration as StdDuration,
 };
+#[allow(unused_imports)]
+use standback::prelude::*;
 use std::time::Instant as StdInstant;
 
 /// A measurement of a monotonically non-decreasing clock. Opaque and useful
@@ -299,6 +302,7 @@ impl PartialOrd<Instant> for StdInstant {
 #[cfg(test)]
 mod test {
     use super::*;
+    use crate::{NumericalDuration, NumericalStdDuration};
     use std::thread;
 
     #[test]

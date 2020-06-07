@@ -1,6 +1,6 @@
 //! The `Format` struct and its implementations.
 
-use crate::internal_prelude::*;
+use alloc::borrow::Cow;
 
 /// Various well-known formats, along with the possibility for a custom format
 /// (provided either at compile-time or runtime).

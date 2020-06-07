@@ -191,7 +191,7 @@ macro_rules! ensure_value_in_range {
                 minimum: i64::from($start),
                 maximum: i64::from($end),
                 value: i64::from($value),
-                given: Vec::new(),
+                given: alloc::vec::Vec::new(),
             });
         }
     };
@@ -203,7 +203,7 @@ macro_rules! ensure_value_in_range {
                 minimum: i64::from($start),
                 maximum: i64::from($end),
                 value: i64::from($value),
-                given: vec![$((stringify!($conditional), i64::from($conditional))),+],
+                given: alloc::vec![$((stringify!($conditional), i64::from($conditional))),+],
             });
         }
     };
@@ -283,6 +283,8 @@ pub mod util;
 /// Days of the week.
 mod weekday;
 
+use crate::format::ParseResult;
+use alloc::borrow::Cow;
 pub use date::Date;
 pub use duration::Duration;
 pub use error::Error;
@@ -290,7 +292,6 @@ pub(crate) use format::DeferredFormat;
 pub use format::{validate_format_string, Format};
 #[cfg(std)]
 pub use instant::Instant;
-use internal_prelude::*;
 pub use numerical_traits::{NumericalDuration, NumericalStdDuration, NumericalStdDurationShort};
 pub use offset_date_time::OffsetDateTime;
 pub use primitive_date_time::PrimitiveDateTime;
@@ -384,29 +385,15 @@ pub mod prelude {
     pub use crate::{NumericalDuration as _, NumericalStdDuration as _};
 }
 
-/// Items generally useful in any file in the time crate.
-mod internal_prelude {
-    #![allow(unused_imports)]
-
-    #[cfg(std)]
-    pub(crate) use crate::Instant;
-    pub(crate) use crate::{
-        error,
-        format::ParseResult,
-        Date, DeferredFormat, Duration, Format, NumericalDuration, NumericalStdDuration,
-        OffsetDateTime, PrimitiveDateTime, Time, UtcOffset,
-        Weekday::{self, Friday, Monday, Saturday, Sunday, Thursday, Tuesday, Wednesday},
-    };
+/// An identical implementation of the unstable `alloc::prelude::v1` module.
+mod alloc_prelude {
+    #[allow(unused_imports)]
     pub(crate) use alloc::{
-        borrow::{Cow, ToOwned},
+        borrow::ToOwned,
         boxed::Box,
-        format,
         string::{String, ToString},
-        vec,
         vec::Vec,
     };
-    pub(crate) use core::convert::{TryFrom, TryInto};
-    pub(crate) use standback::prelude::*;
 }
 
 #[allow(clippy::missing_docs_in_private_items)]

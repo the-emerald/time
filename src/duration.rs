@@ -1,9 +1,14 @@
-use crate::internal_prelude::*;
+use crate::error;
+#[cfg(std)]
+use crate::Instant;
 use core::{
     cmp::Ordering,
+    convert::{TryFrom, TryInto},
     ops::{Add, AddAssign, Div, DivAssign, Mul, MulAssign, Neg, Sub, SubAssign},
     time::Duration as StdDuration,
 };
+#[allow(unused_imports)]
+use standback::prelude::*;
 
 /// A span of time with nanosecond precision.
 ///
@@ -952,6 +957,7 @@ impl Ord for Duration {
 #[cfg(test)]
 mod test {
     use super::*;
+    use crate::{NumericalDuration, NumericalStdDuration};
 
     #[test]
     fn unit_values() {

@@ -1,5 +1,5 @@
-use crate::internal_prelude::*;
 use core::fmt::{self, Display};
+use Weekday::*;
 
 /// Days of the week.
 ///
@@ -219,6 +219,7 @@ mod test {
 
     #[test]
     fn display() {
+        use crate::alloc_prelude::*;
         assert_eq!(Monday.to_string(), "Monday");
         assert_eq!(Tuesday.to_string(), "Tuesday");
         assert_eq!(Wednesday.to_string(), "Wednesday");

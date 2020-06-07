@@ -1,9 +1,14 @@
+#[cfg(local_offset)]
+use crate::error;
 use crate::{
+    alloc_prelude::*,
     format::parse::{parse, ParsedItems},
-    internal_prelude::*,
+    Date, DeferredFormat, Duration, Format, ParseResult, PrimitiveDateTime, Time, UtcOffset,
+    Weekday,
 };
+use alloc::borrow::Cow;
 #[cfg(std)]
-use core::convert::From;
+use core::convert::{From, TryFrom};
 use core::{
     cmp::Ordering,
     fmt::{self, Display},
@@ -1018,6 +1023,7 @@ impl From<OffsetDateTime> for SystemTime {
 #[rustfmt::skip::macros(date)]
 mod test {
     use super::*;
+    use crate::{NumericalDuration, NumericalStdDuration};
 
     #[test]
     #[cfg(std)]

@@ -4,9 +4,9 @@
 
 use super::{
     parse::{try_consume_exact_digits, try_consume_first_match},
-    Padding, ParsedItems,
+    Padding, ParseResult, ParsedItems,
 };
-use crate::internal_prelude::*;
+use crate::{error, UtcOffset};
 use core::fmt::{self, Formatter};
 
 /// UTC offset

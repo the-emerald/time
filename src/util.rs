@@ -1,6 +1,6 @@
 //! TODO docs
 
-use crate::internal_prelude::*;
+use crate::{Date, Weekday};
 
 /// Returns if the provided year is a leap year in the proleptic Gregorian
 /// calendar.
@@ -48,7 +48,7 @@ pub fn days_in_year(year: i32) -> u16 {
 pub fn weeks_in_year(year: i32) -> u8 {
     let weekday = Date::from_yo_unchecked(year, 1).weekday();
 
-    if (weekday == Thursday) || (weekday == Wednesday && is_leap_year(year)) {
+    if (weekday == Weekday::Thursday) || (weekday == Weekday::Wednesday && is_leap_year(year)) {
         53
     } else {
         52

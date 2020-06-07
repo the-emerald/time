@@ -1,7 +1,12 @@
+#[cfg(local_offset)]
+use crate::OffsetDateTime;
 use crate::{
+    alloc_prelude::*,
+    error,
     format::{parse, ParsedItems},
-    internal_prelude::*,
+    DeferredFormat, Duration, Format, ParseResult,
 };
+use alloc::borrow::Cow;
 use core::fmt::{self, Display};
 
 /// `Result` alias, assuming a `ComponentRangeError` if none is specified.
@@ -387,7 +392,7 @@ impl Display for UtcOffset {
 fn try_local_offset_at(datetime: OffsetDateTime) -> Option<UtcOffset> {
     #[cfg(unix)]
     {
-        use core::mem::MaybeUninit;
+        use core::{convert::TryInto, mem::MaybeUninit};
 
         /// Convert the given Unix timestamp to a `libc::tm`. Returns `None`
         /// on any error.
@@ -469,7 +474,7 @@ fn try_local_offset_at(datetime: OffsetDateTime) -> Option<UtcOffset> {
 
     #[cfg(windows)]
     {
-        use core::mem::MaybeUninit;
+        use core::{convert::TryInto, mem::MaybeUninit};
         use winapi::{
             shared::minwindef::FILETIME,
             um::{
@@ -582,6 +587,7 @@ fn try_local_offset_at(datetime: OffsetDateTime) -> Option<UtcOffset> {
 #[cfg(test)]
 mod test {
     use super::*;
+    use crate::NumericalDuration;
 
     #[test]
     fn hours() {

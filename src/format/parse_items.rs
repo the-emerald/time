@@ -1,9 +1,10 @@
 //! Parse formats used in the `format` and `parse` methods.
 
 use crate::{
+    alloc_prelude::*,
     format::{FormatItem, Padding, Specifier},
-    internal_prelude::*,
 };
+use alloc::{borrow::Cow, format, vec};
 
 /// Parse the formatting string. Panics if not valid.
 #[inline(always)]

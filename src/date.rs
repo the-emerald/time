@@ -1,14 +1,19 @@
 use crate::{
+    alloc_prelude::*,
+    error,
     format::parse::{parse, ParsedItems},
-    internal_prelude::*,
     util::{days_in_year, days_in_year_month, is_leap_year, weeks_in_year},
+    DeferredFormat, Duration, Format, ParseResult, PrimitiveDateTime, Time, Weekday,
 };
+use alloc::borrow::Cow;
 use core::{
     cmp::{Ord, Ordering, PartialOrd},
     fmt::{self, Display},
     ops::{Add, AddAssign, Sub, SubAssign},
     time::Duration as StdDuration,
 };
+#[allow(unused_imports)]
+use standback::prelude::*;
 
 // Some methods could be `const fn` due to the internal structure of `Date`, but
 // are explicitly not (and have linting disabled) as it could lead to
@@ -436,13 +441,13 @@ impl Date {
             + adjusted_year / 400)
             .rem_euclid(7)
         {
-            0 => Saturday,
-            1 => Sunday,
-            2 => Monday,
-            3 => Tuesday,
-            4 => Wednesday,
-            5 => Thursday,
-            6 => Friday,
+            0 => Weekday::Saturday,
+            1 => Weekday::Sunday,
+            2 => Weekday::Monday,
+            3 => Weekday::Tuesday,
+            4 => Weekday::Wednesday,
+            5 => Weekday::Thursday,
+            6 => Weekday::Friday,
             // FIXME The compiler isn't able to optimize this away. See
             // rust-lang/rust#66993.
             _ => unreachable!("A value mod 7 is always in the range 0..7"),
@@ -767,13 +772,13 @@ impl Date {
         #[inline(always)]
         fn adjustment(year: i32) -> i16 {
             match Date::from_yo_unchecked(year, 1).weekday() {
-                Monday => 7,
-                Tuesday => 1,
-                Wednesday => 2,
-                Thursday => 3,
-                Friday => 4,
-                Saturday => 5,
-                Sunday => 6,
+                Weekday::Monday => 7,
+                Weekday::Tuesday => 1,
+                Weekday::Wednesday => 2,
+                Weekday::Thursday => 3,
+                Weekday::Friday => 4,
+                Weekday::Saturday => 5,
+                Weekday::Sunday => 6,
             }
         }
 
@@ -912,6 +917,7 @@ impl Ord for Date {
 #[rustfmt::skip::macros(date)]
 mod test {
     use super::*;
+    use crate::{NumericalDuration, NumericalStdDuration};
 
     #[test]
     fn weeks_in_year_exhaustive() {
