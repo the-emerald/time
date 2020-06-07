@@ -102,7 +102,7 @@ fn format_specifier(
     time: Option<Time>,
     offset: Option<UtcOffset>,
     specifier: Specifier,
-) -> Result<(), FormatError> {
+) -> Result<(), error::Format> {
     /// Push the provided specifier to the list of items.
     macro_rules! specifier {
         ($type:ident :: $specifier_fn:ident ( $specifier:ident $(, $param:expr)? )) => {
@@ -110,7 +110,7 @@ fn format_specifier(
                 f,
                 match $type {
                     Some(v) => v,
-                    None => return Err(FormatError::InsufficientTypeInformation),
+                    None => return Err(error::Format::InsufficientTypeInformation),
                 },
                 $($param)?
             )?

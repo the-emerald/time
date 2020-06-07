@@ -587,37 +587,37 @@ impl Duration {
 }
 
 impl TryFrom<StdDuration> for Duration {
-    type Error = ConversionRangeError;
+    type Error = error::ConversionRange;
 
     #[inline(always)]
-    fn try_from(original: StdDuration) -> Result<Self, ConversionRangeError> {
+    fn try_from(original: StdDuration) -> Result<Self, error::ConversionRange> {
         Ok(Self::new(
             original
                 .as_secs()
                 .try_into()
-                .map_err(|_| ConversionRangeError)?,
+                .map_err(|_| error::ConversionRange)?,
             original
                 .subsec_nanos()
                 .try_into()
-                .map_err(|_| ConversionRangeError)?,
+                .map_err(|_| error::ConversionRange)?,
         ))
     }
 }
 
 impl TryFrom<Duration> for StdDuration {
-    type Error = ConversionRangeError;
+    type Error = error::ConversionRange;
 
     #[inline(always)]
-    fn try_from(duration: Duration) -> Result<Self, ConversionRangeError> {
+    fn try_from(duration: Duration) -> Result<Self, error::ConversionRange> {
         Ok(Self::new(
             duration
                 .seconds
                 .try_into()
-                .map_err(|_| ConversionRangeError)?,
+                .map_err(|_| error::ConversionRange)?,
             duration
                 .nanoseconds
                 .try_into()
-                .map_err(|_| ConversionRangeError)?,
+                .map_err(|_| error::ConversionRange)?,
         ))
     }
 }

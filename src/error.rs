@@ -1,5 +1,9 @@
+//! Various error types returned by methods in the time crate.
+
 use crate::internal_prelude::*;
 use core::fmt;
+
+pub use crate::format::ParseError as Parse;
 
 /// A unified error type for anything returned by a method in the time crate.
 ///
@@ -12,9 +16,9 @@ use core::fmt;
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub enum Error {
     ConversionRange,
-    ComponentRange(Box<ComponentRangeError>),
-    Parse(ParseError),
-    Format(FormatError),
+    ComponentRange(Box<ComponentRange>),
+    Parse(Parse),
+    Format(Format),
     IndeterminateOffset,
     #[cfg(not(supports_non_exhaustive))]
     #[doc(hidden)]
@@ -53,9 +57,9 @@ impl std::error::Error for Error {
 /// An error type indicating that a conversion failed because the target type
 /// could not store the initial value.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, PartialOrd, Ord)]
-pub struct ConversionRangeError;
+pub struct ConversionRange;
 
-impl fmt::Display for ConversionRangeError {
+impl fmt::Display for ConversionRange {
     #[inline(always)]
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         f.write_str("Source value is out of range for the target type")
@@ -63,11 +67,11 @@ impl fmt::Display for ConversionRangeError {
 }
 
 #[cfg(std)]
-impl std::error::Error for ConversionRangeError {}
+impl std::error::Error for ConversionRange {}
 
-impl From<ConversionRangeError> for Error {
+impl From<ConversionRange> for Error {
     #[inline(always)]
-    fn from(_: ConversionRangeError) -> Self {
+    fn from(_: ConversionRange) -> Self {
         Error::ConversionRange
     }
 }
@@ -77,7 +81,7 @@ impl From<ConversionRangeError> for Error {
 // i64 is the narrowest type fitting all use cases. This eliminates the need
 // for a type parameter.
 #[derive(Debug, Clone, PartialEq, Eq, Hash)]
-pub struct ComponentRangeError {
+pub struct ComponentRange {
     /// Name of the component.
     pub component_name: &'static str,
     /// Minimum allowed value, inclusive.
@@ -90,7 +94,7 @@ pub struct ComponentRangeError {
     pub(crate) given: Vec<(&'static str, i64)>,
 }
 
-impl fmt::Display for ComponentRangeError {
+impl fmt::Display for ComponentRange {
     #[inline(always)]
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         write!(
@@ -111,28 +115,28 @@ impl fmt::Display for ComponentRangeError {
     }
 }
 
-impl From<ComponentRangeError> for Error {
+impl From<ComponentRange> for Error {
     #[inline(always)]
-    fn from(original: ComponentRangeError) -> Self {
+    fn from(original: ComponentRange) -> Self {
         Error::ComponentRange(Box::new(original))
     }
 }
 
 #[cfg(std)]
-impl std::error::Error for ComponentRangeError {}
+impl std::error::Error for ComponentRange {}
 
-impl From<ParseError> for Error {
+impl From<Parse> for Error {
     #[inline(always)]
-    fn from(original: ParseError) -> Self {
+    fn from(original: Parse) -> Self {
         Error::Parse(original)
     }
 }
 
 /// The system's UTC offset could not be determined at the given datetime.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, PartialOrd, Ord)]
-pub struct IndeterminateOffsetError;
+pub struct IndeterminateOffset;
 
-impl fmt::Display for IndeterminateOffsetError {
+impl fmt::Display for IndeterminateOffset {
     #[inline(always)]
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         f.write_str("The system's UTC offset could not be determined")
@@ -140,11 +144,11 @@ impl fmt::Display for IndeterminateOffsetError {
 }
 
 #[cfg(std)]
-impl std::error::Error for IndeterminateOffsetError {}
+impl std::error::Error for IndeterminateOffset {}
 
-impl From<IndeterminateOffsetError> for Error {
+impl From<IndeterminateOffset> for Error {
     #[inline(always)]
-    fn from(_: IndeterminateOffsetError) -> Self {
+    fn from(_: IndeterminateOffset) -> Self {
         Error::IndeterminateOffset
     }
 }
@@ -152,7 +156,7 @@ impl From<IndeterminateOffsetError> for Error {
 /// An error occurred while formatting.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, PartialOrd, Ord)]
 #[cfg_attr(supports_non_exhaustive, non_exhaustive)]
-pub enum FormatError {
+pub enum Format {
     /// The format provided requires more information than the type provides.
     InsufficientTypeInformation,
     /// An error occurred while formatting into the provided stream.
@@ -162,43 +166,42 @@ pub enum FormatError {
     __NonExhaustive,
 }
 
-impl fmt::Display for FormatError {
+impl fmt::Display for Format {
     #[inline(always)]
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        use FormatError::*;
         match self {
-            InsufficientTypeInformation => {
+            Format::InsufficientTypeInformation => {
                 f.write_str("The format provided requires more information than the type provides.")
             }
-            StdFmtError => fmt::Error.fmt(f),
+            Format::StdFmtError => fmt::Error.fmt(f),
             #[cfg(not(supports_non_exhaustive))]
-            __NonExhaustive => unreachable!(),
+            Format::__NonExhaustive => unreachable!(),
         }
     }
 }
 
 #[cfg(std)]
-impl std::error::Error for FormatError {
+impl std::error::Error for Format {
     #[inline(always)]
     fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
         match self {
-            FormatError::StdFmtError => Some(&fmt::Error),
+            Format::StdFmtError => Some(&fmt::Error),
             _ => None,
         }
     }
 }
 
 // This is strictly necessary to be able to use `?` with various formatters.
-impl From<fmt::Error> for FormatError {
+impl From<fmt::Error> for Format {
     #[inline(always)]
     fn from(_: fmt::Error) -> Self {
-        FormatError::StdFmtError
+        Format::StdFmtError
     }
 }
 
-impl From<FormatError> for Error {
+impl From<Format> for Error {
     #[inline(always)]
-    fn from(error: FormatError) -> Self {
+    fn from(error: Format) -> Self {
         Error::Format(error)
     }
 }

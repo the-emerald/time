@@ -58,15 +58,15 @@ pub enum ParseError {
     /// There was not enough information provided to create the requested type.
     InsufficientInformation,
     /// A component was out of range.
-    ComponentOutOfRange(Box<ComponentRangeError>),
+    ComponentOutOfRange(Box<error::ComponentRange>),
     #[cfg(not(supports_non_exhaustive))]
     #[doc(hidden)]
     __NonExhaustive,
 }
 
-impl From<ComponentRangeError> for ParseError {
+impl From<error::ComponentRange> for ParseError {
     #[inline(always)]
-    fn from(error: ComponentRangeError) -> Self {
+    fn from(error: error::ComponentRange) -> Self {
         ParseError::ComponentOutOfRange(Box::new(error))
     }
 }

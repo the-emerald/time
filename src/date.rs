@@ -97,7 +97,7 @@ impl Date {
     /// assert!(Date::from_ymd(2019, 2, 29).is_err()); // 2019 isn't a leap year.
     /// ```
     #[inline]
-    pub fn from_ymd(year: i32, month: u8, day: u8) -> Result<Self, ComponentRangeError> {
+    pub fn from_ymd(year: i32, month: u8, day: u8) -> Result<Self, error::ComponentRange> {
         ensure_value_in_range!(year in MIN_YEAR => MAX_YEAR);
         ensure_value_in_range!(month in 1 => 12);
         ensure_value_in_range!(day in 1 => days_in_year_month(year, month), given year, month);
@@ -129,7 +129,7 @@ impl Date {
     /// assert!(Date::from_yo(2019, 366).is_err()); // 2019 isn't a leap year.
     /// ```
     #[inline(always)]
-    pub fn from_yo(year: i32, ordinal: u16) -> Result<Self, ComponentRangeError> {
+    pub fn from_yo(year: i32, ordinal: u16) -> Result<Self, error::ComponentRange> {
         ensure_value_in_range!(year in MIN_YEAR => MAX_YEAR);
         ensure_value_in_range!(ordinal in 1 => days_in_year(year), given year);
         Ok(Date::from_yo_unchecked(year, ordinal))
@@ -171,7 +171,7 @@ impl Date {
         year: i32,
         week: u8,
         weekday: Weekday,
-    ) -> Result<Self, ComponentRangeError> {
+    ) -> Result<Self, error::ComponentRange> {
         ensure_value_in_range!(year in MIN_YEAR => MAX_YEAR);
         ensure_value_in_range!(week in 1 => weeks_in_year(year), given year);
 
@@ -627,7 +627,7 @@ impl Date {
         hour: u8,
         minute: u8,
         second: u8,
-    ) -> Result<PrimitiveDateTime, ComponentRangeError> {
+    ) -> Result<PrimitiveDateTime, error::ComponentRange> {
         Ok(PrimitiveDateTime::new(
             self,
             Time::from_hms(hour, minute, second)?,
@@ -648,7 +648,7 @@ impl Date {
         minute: u8,
         second: u8,
         millisecond: u16,
-    ) -> Result<PrimitiveDateTime, ComponentRangeError> {
+    ) -> Result<PrimitiveDateTime, error::ComponentRange> {
         Ok(PrimitiveDateTime::new(
             self,
             Time::from_hms_milli(hour, minute, second, millisecond)?,
@@ -674,7 +674,7 @@ impl Date {
         minute: u8,
         second: u8,
         microsecond: u32,
-    ) -> Result<PrimitiveDateTime, ComponentRangeError> {
+    ) -> Result<PrimitiveDateTime, error::ComponentRange> {
         Ok(PrimitiveDateTime::new(
             self,
             Time::from_hms_micro(hour, minute, second, microsecond)?,
@@ -695,7 +695,7 @@ impl Date {
         minute: u8,
         second: u8,
         nanosecond: u32,
-    ) -> Result<PrimitiveDateTime, ComponentRangeError> {
+    ) -> Result<PrimitiveDateTime, error::ComponentRange> {
         Ok(PrimitiveDateTime::new(
             self,
             Time::from_hms_nano(hour, minute, second, nanosecond)?,
@@ -799,7 +799,7 @@ impl Date {
                     + 1) as u16,
             )
             .map_err(Into::into),
-            _ => Err(ParseError::InsufficientInformation),
+            _ => Err(error::Parse::InsufficientInformation),
         }
     }
 }

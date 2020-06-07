@@ -5,7 +5,7 @@ use crate::{
 use core::fmt::{self, Display};
 
 /// `Result` alias, assuming a `ComponentRangeError` if none is specified.
-type Result<T, E = ComponentRangeError> = core::result::Result<T, E>;
+type Result<T, E = error::ComponentRange> = core::result::Result<T, E>;
 
 /// An offset from UTC.
 ///
@@ -269,8 +269,10 @@ impl UtcOffset {
     #[inline(always)]
     #[cfg(local_offset)]
     #[cfg_attr(docs, doc(cfg(feature = "local-offset")))]
-    pub fn try_local_offset_at(datetime: OffsetDateTime) -> Result<Self, IndeterminateOffsetError> {
-        try_local_offset_at(datetime).ok_or(IndeterminateOffsetError)
+    pub fn try_local_offset_at(
+        datetime: OffsetDateTime,
+    ) -> Result<Self, error::IndeterminateOffset> {
+        try_local_offset_at(datetime).ok_or(error::IndeterminateOffset)
     }
 
     /// Obtain the system's current UTC offset. If the offset cannot be
@@ -300,9 +302,9 @@ impl UtcOffset {
     #[inline(always)]
     #[cfg(local_offset)]
     #[cfg_attr(docs, doc(cfg(feature = "local-offset")))]
-    pub fn try_current_local_offset() -> Result<Self, IndeterminateOffsetError> {
+    pub fn try_current_local_offset() -> Result<Self, error::IndeterminateOffset> {
         let now = OffsetDateTime::now_utc();
-        try_local_offset_at(now).ok_or(IndeterminateOffsetError)
+        try_local_offset_at(now).ok_or(error::IndeterminateOffset)
     }
 }
 
@@ -351,7 +353,7 @@ impl UtcOffset {
     /// Given the items already parsed, attempt to create a `UtcOffset`.
     #[inline(always)]
     pub(crate) fn try_from_parsed_items(items: ParsedItems) -> ParseResult<Self> {
-        items.offset.ok_or(ParseError::InsufficientInformation)
+        items.offset.ok_or(error::Parse::InsufficientInformation)
     }
 }
 

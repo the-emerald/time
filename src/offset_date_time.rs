@@ -94,7 +94,7 @@ impl OffsetDateTime {
     #[inline]
     #[cfg(local_offset)]
     #[cfg_attr(docs, doc(cfg(feature = "local-offset")))]
-    pub fn try_now_local() -> Result<Self, IndeterminateOffsetError> {
+    pub fn try_now_local() -> Result<Self, error::IndeterminateOffset> {
         let t = Self::now_utc();
         Ok(t.to_offset(UtcOffset::try_local_offset_at(t)?))
     }

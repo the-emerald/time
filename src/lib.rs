@@ -186,7 +186,7 @@ extern crate alloc;
 macro_rules! ensure_value_in_range {
     ($value:ident in $start:expr => $end:expr) => {
         if !($start..=$end).contains(&$value) {
-            return Err(ComponentRangeError {
+            return Err(crate::error::ComponentRange {
                 component_name: stringify!($value),
                 minimum: i64::from($start),
                 maximum: i64::from($end),
@@ -198,7 +198,7 @@ macro_rules! ensure_value_in_range {
 
     ($value:ident in $start:expr => $end:expr, given $($conditional:ident),+ $(,)?) => {
         if !($start..=$end).contains(&$value) {
-            return Err(ComponentRangeError {
+            return Err(crate::error::ComponentRange {
                 component_name: stringify!($value),
                 minimum: i64::from($start),
                 maximum: i64::from($end),
@@ -262,8 +262,7 @@ macro_rules! date {
 mod date;
 /// The `Duration` struct and its associated `impl`s.
 mod duration;
-/// Various error types returned by methods in the time crate.
-mod error;
+pub mod error;
 mod format;
 /// The `Instant` struct and its associated `impl`s.
 #[cfg(std)]
@@ -286,11 +285,9 @@ mod weekday;
 
 pub use date::Date;
 pub use duration::Duration;
-pub use error::{
-    ComponentRangeError, ConversionRangeError, Error, FormatError, IndeterminateOffsetError,
-};
+pub use error::Error;
 pub(crate) use format::DeferredFormat;
-pub use format::{validate_format_string, Format, ParseError};
+pub use format::{validate_format_string, Format};
 #[cfg(std)]
 pub use instant::Instant;
 use internal_prelude::*;
@@ -394,9 +391,9 @@ mod internal_prelude {
     #[cfg(std)]
     pub(crate) use crate::Instant;
     pub(crate) use crate::{
-        format::{ParseError, ParseResult},
-        ComponentRangeError, ConversionRangeError, Date, DeferredFormat, Duration, Format,
-        FormatError, IndeterminateOffsetError, NumericalDuration, NumericalStdDuration,
+        error,
+        format::ParseResult,
+        Date, DeferredFormat, Duration, Format, NumericalDuration, NumericalStdDuration,
         OffsetDateTime, PrimitiveDateTime, Time, UtcOffset,
         Weekday::{self, Friday, Monday, Saturday, Sunday, Thursday, Tuesday, Wednesday},
     };
