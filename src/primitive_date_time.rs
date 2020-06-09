@@ -579,7 +579,7 @@ impl Ord for PrimitiveDateTime {
 #[rustfmt::skip::macros(date)]
 mod test {
     use super::*;
-    use crate::{NumericalDuration, NumericalStdDuration};
+    use crate::ext::{NumericalDuration, NumericalStdDuration};
 
     #[test]
     fn new() -> crate::Result<()> {

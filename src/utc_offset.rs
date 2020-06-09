@@ -587,7 +587,7 @@ fn try_local_offset_at(datetime: OffsetDateTime) -> Option<UtcOffset> {
 #[cfg(test)]
 mod test {
     use super::*;
-    use crate::NumericalDuration;
+    use crate::ext::NumericalDuration;
 
     #[test]
     fn hours() {

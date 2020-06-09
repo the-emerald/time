@@ -302,7 +302,7 @@ impl PartialOrd<Instant> for StdInstant {
 #[cfg(test)]
 mod test {
     use super::*;
-    use crate::{NumericalDuration, NumericalStdDuration};
+    use crate::ext::{NumericalDuration, NumericalStdDuration};
     use std::thread;
 
     #[test]

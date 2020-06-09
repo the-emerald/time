@@ -263,12 +263,12 @@ mod date;
 /// The `Duration` struct and its associated `impl`s.
 mod duration;
 pub mod error;
+/// A collection of traits extending built-in numerical types.
+pub mod ext;
 mod format;
 /// The `Instant` struct and its associated `impl`s.
 #[cfg(std)]
 mod instant;
-/// A collection of traits extending built-in numerical types.
-mod numerical_traits;
 /// The `OffsetDateTime` struct and its associated `impl`s.
 mod offset_date_time;
 /// The `PrimitiveDateTime` struct and its associated `impl`s.
@@ -292,7 +292,6 @@ pub(crate) use format::DeferredFormat;
 pub use format::{validate_format_string, Format};
 #[cfg(std)]
 pub use instant::Instant;
-pub use numerical_traits::{NumericalDuration, NumericalStdDuration, NumericalStdDurationShort};
 pub use offset_date_time::OffsetDateTime;
 pub use primitive_date_time::PrimitiveDateTime;
 /// Construct a [`Date`] with a statically known value.
@@ -405,9 +404,9 @@ pub type Result<T> = core::result::Result<T, Error>;
 /// The prelude may grow in minor releases. Any removals will only occur in
 /// major releases.
 pub mod prelude {
+    pub use crate::ext::{NumericalDuration as _, NumericalStdDuration as _};
     #[cfg(macros)]
     pub use crate::{date, datetime, offset, time};
-    pub use crate::{NumericalDuration as _, NumericalStdDuration as _};
 }
 
 /// An identical implementation of the unstable `alloc::prelude::v1` module.
