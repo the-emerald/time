@@ -4,6 +4,8 @@ use core::{
     ops::{Add, AddAssign, Div, DivAssign, Mul, MulAssign, Neg, Sub, SubAssign},
     time::Duration as StdDuration,
 };
+use core::convert::TryFrom;
+use core::convert::TryInto;
 
 /// A span of time with nanosecond precision.
 ///
