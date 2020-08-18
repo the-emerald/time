@@ -331,7 +331,8 @@ impl Display for UtcOffset {
 fn try_local_offset_at(datetime: OffsetDateTime) -> Option<UtcOffset> {
     cfg_if::cfg_if! {
         if #[cfg(target_family = "unix")] {
-            use standback::mem::MaybeUninit;
+            use core::convert::TryInto;
+            use core::mem::MaybeUninit;
 
             /// Convert the given Unix timestamp to a `libc::tm`. Returns `None`
             /// on any error.
@@ -407,7 +408,13 @@ fn try_local_offset_at(datetime: OffsetDateTime) -> Option<UtcOffset> {
                     .map(UtcOffset::seconds)
             }
         } else if #[cfg(target_family = "windows")] {
+<<<<<<< HEAD
             use standback::mem::MaybeUninit;
+=======
+            use core::convert::TryInto;
+            use core::mem::MaybeUninit;
+            use crate::offset;
+>>>>>>> 7594c2315834209ccb62e7770c91b4818ea640f0
             use winapi::{
                 shared::minwindef::FILETIME,
                 um::{

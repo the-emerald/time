@@ -4,3 +4,6 @@ Cargo.lock
 
 # auto-generated
 src/format/language.rs
+
+# IntelliJ
+.idea/

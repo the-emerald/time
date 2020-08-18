@@ -9,6 +9,7 @@ use core::{
     ops::{Add, AddAssign, Sub, SubAssign},
     time::Duration as StdDuration,
 };
+use core::convert::TryFrom;
 
 /// The number of nanoseconds in one day.
 pub(crate) const NANOS_PER_DAY: u64 = 24 * 60 * 60 * 1_000_000_000;
